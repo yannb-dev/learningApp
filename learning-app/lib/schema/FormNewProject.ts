@@ -8,4 +8,9 @@ export const ProjectSchema = z.object({
   category: z.enum(["school", "tech"]),
 });
 
+export const ProjectWithIdSchema = ProjectSchema.extend({
+  id: z.string(),
+});
+
+export type ProjectDataWithId = z.infer<typeof ProjectWithIdSchema>;
 export type ProjectData = z.infer<typeof ProjectSchema>;

@@ -7,20 +7,29 @@ import { redirect } from "next/navigation";
 // import components
 import BtnNavProject from "../components/BtnNavProject";
 
-export default async function AppPage() {
+type SearchParams = Promise<{ [key: string]: string }>;
+
+export default async function AppPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
   const session = await getServerSession(authOptions);
 
   if (!session) redirect("/login");
 
-  const project = await prisma.project.findMany({
-    where: { userId: session.user.id },
+  const { project } = await searchParams;
+
+  const search = typeof project === "string" ? project : "";
+
+  const projectOpen = await prisma.project.findMany({
+    where: { id: search },
   });
 
-  console.log(project);
+  console.log("Projet open after select", projectOpen);
 
   return (
     <div>
-      <h1>Page d'accueil</h1>
       <BtnNavProject />
     </div>
   );

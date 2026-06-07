@@ -1,14 +1,28 @@
 import Image from "next/image";
 
-import { IoLogOut } from "react-icons/io5";
+import prisma from "@/lib/prisma";
 
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
+
+// import components
 import BtnLogOut from "./components/BtnLogOut";
+import SelectProject from "./components/SelectProject";
 
-export default function AppLayout({
+export default async function AppLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) redirect("/login");
+
+  const project = await prisma.project.findMany({
+    where: { userId: session.user.id },
+  });
+
   return (
     <div>
       <div className="h-30 flex pt-8 pl-12 pr-12 pb-8 justify-between items-center">
@@ -23,6 +37,7 @@ export default function AppLayout({
           />
           <h1 className="font-mono font-bold text-2xl ml-4">Learning APP</h1>
         </div>
+        <SelectProject projectList={project} />
         <BtnLogOut />
       </div>
 

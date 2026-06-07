@@ -44,21 +44,37 @@ export default function ProjectForm() {
   };
 
   return (
-    <form className="flex flex-col pt-20" onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("name")} placeholder="Nom du projet" />
-      {errors.name && <p>{errors.name.message}</p>} {/* ← message inline */}
-      <input {...register("description")} placeholder="Décris ton projet" />
-      {errors.description && <p>{errors.description.message}</p>}
-      <select {...register("category")}>
-        <option value="tech">Technologie</option>
-        <option value="school">Scolaire</option>
-      </select>
-      <button
-        className="w-30 pl-4 pt-2 pr-4 pb-2 rounded-xl border-1 border-gray-300 bg-gray-100 hover:bg-gray-200"
-        type="submit"
-      >
-        Ajouter
-      </button>
-    </form>
+    <div className="pt-20 pl-20">
+      <h1 className="text-2xl font-mono font-bold">
+        Création d'un nouveau project :
+      </h1>
+      <form className="flex flex-col pt-8" onSubmit={handleSubmit(onSubmit)}>
+        <input
+          className="w-60 border-b-1 border-gray-200 mb-4 outline-none focus:ring-gray-300 focus:ring-1"
+          {...register("name")}
+          placeholder="Nom du projet"
+        />
+        {errors.name && <p>{errors.name.message}</p>} {/* ← message inline */}
+        <input
+          className="w-120 border-b-1 border-gray-200 mb-4 outline-none focus:ring-gray-300 focus:ring-1"
+          {...register("description")}
+          placeholder="Décris ton projet en deux mots"
+        />
+        {errors.description && <p>{errors.description.message}</p>}
+        <select
+          className="w-40 border-1 border-gray-200 rounded-sm p-2 mb-8"
+          {...register("category")}
+        >
+          <option value="tech">Technologie</option>
+          <option value="school">Scolaire</option>
+        </select>
+        <button
+          className="w-30 pl-2 pt-1 pr-2 pb-1 rounded-xl border-1 border-gray-300 bg-gray-100 hover:bg-gray-200 hover:cursor-pointer"
+          type="submit"
+        >
+          Ajouter
+        </button>
+      </form>
+    </div>
   );
 }
