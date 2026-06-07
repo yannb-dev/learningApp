@@ -5,7 +5,7 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 // import components
-import BtnNavProject from "../components/BtnNavProject";
+import NavBtn from "../components/NavBtn";
 
 type SearchParams = Promise<{ [key: string]: string }>;
 
@@ -22,15 +22,15 @@ export default async function AppPage({
 
   const search = typeof project === "string" ? project : "";
 
-  const projectOpen = await prisma.project.findMany({
+  const projectOpen = await prisma.project.findUnique({
     where: { id: search },
   });
 
   console.log("Projet open after select", projectOpen);
 
   return (
-    <div>
-      <BtnNavProject />
+    <div className="w-full flex flex-col items-center">
+      <NavBtn idProject={projectOpen.id} />
     </div>
   );
 }
