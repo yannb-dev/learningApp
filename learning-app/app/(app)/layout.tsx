@@ -40,7 +40,6 @@ export default async function AppLayout({
         <SelectProject projectList={project} />
         <BtnLogOut />
       </div>
-
       {children}
     </div>
   );

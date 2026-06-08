@@ -22,7 +22,6 @@ export default async function AppPage({
 
   const search = typeof project === "string" ? project : "";
 
-  if (search !== null) return;
   const projectOpen = await prisma.project.findUnique({
     where: { id: search },
   });
@@ -31,7 +30,7 @@ export default async function AppPage({
 
   return (
     <div className="w-full flex flex-col items-center">
-      <NavBtn idProject={projectOpen.id} />
+      {projectOpen && <NavBtn idProject={projectOpen.id} />}
     </div>
   );
 }
