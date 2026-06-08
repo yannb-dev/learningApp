@@ -22,11 +22,12 @@ export default async function AppPage({
 
   const search = typeof project === "string" ? project : "";
 
+  if (search !== null) return;
   const projectOpen = await prisma.project.findUnique({
     where: { id: search },
   });
 
-  console.log("Projet open after select", projectOpen);
+  console.log("Projet open after select", projectOpen, search);
 
   return (
     <div className="w-full flex flex-col items-center">
