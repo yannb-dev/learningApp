@@ -41,6 +41,7 @@ export default async function AppLayout({
         <BtnLogOut />
       </div>
       {children}
+      <div className="h-30"></div>
     </div>
   );
 }
