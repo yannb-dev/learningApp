@@ -8,8 +8,6 @@ const styleBtn =
 export default function NavBtn({ idProject }: { idProject: string }) {
   const router = useRouter();
 
-  console.log("id du projet dans la barre de nav", idProject);
-
   const handleNavigation = (page: string) => {
     router.push(`/${page}?project=${idProject}`);
   };

@@ -19,7 +19,7 @@ export async function GET(
 
   try {
     const project = await prisma.project.findUnique({
-      where: { id: id },
+      where: { id: id, userId: session.user.id },
     });
 
     if (!project)

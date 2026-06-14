@@ -1,16 +1,18 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+//___________ import schema ZOD ____________________
 import { MarkdownSchema } from "@/lib/schema/Markdown";
 import { MarkdownData } from "@/lib/schema/Markdown";
-import { useState } from "react";
 
+//____________ style _________________________________
 const styleInput =
   "w-full p-1 pl-4 bg-gray-100 rounded-xl outline-none focus:ring-gray-300 focus:ring-1 mb-4 mt-2";
 
+//____________ interface ____________________________
 interface MarkdownFormProps {
   file: string;
 }
@@ -171,7 +173,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
             download={"mon-fichier.md"}
             className="p-2 bg-red-500 text-white font-mono font-bold rounded-sm"
           >
-            Télécharger le .md
+            Télécharger le fichier.md
           </a>
           <div className="w-[70%] p-6 rounded-xl bg-gray-200 text-justify mt-8">
             <h3 className="font-bold font-mono mb-4">

@@ -4,9 +4,10 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
-// import components
+//__________ import components ___________________
 import NavBtn from "../components/NavBtn";
 
+//___________ type ________________________________
 type SearchParams = Promise<{ [key: string]: string }>;
 
 export default async function AppPage({
@@ -25,8 +26,6 @@ export default async function AppPage({
   const projectOpen = await prisma.project.findUnique({
     where: { id: search },
   });
-
-  console.log("Projet open after select", projectOpen, search);
 
   return (
     <div className="w-full flex flex-col items-center">

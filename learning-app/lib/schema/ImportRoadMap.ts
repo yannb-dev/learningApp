@@ -51,11 +51,4 @@ export const Importroadmap = z.object({
   ),
 });
 
-export const ImportRoadMapWithProjetId = Importroadmap.extend({
-  projetId: z.string().min(1),
-});
-
 export type Importroadmap = z.infer<typeof Importroadmap>;
-export type ImportRoadMapWithProjetId = z.infer<
-  typeof ImportRoadMapWithProjetId
->;

@@ -1,12 +1,12 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+// _____________ import schema ZOD ___________________
 import { ProjectData } from "@/lib/schema/FormNewProject";
 import { ProjectSchema } from "@/lib/schema/FormNewProject";
-import { useRouter } from "next/navigation";
 
 export default function ProjectForm() {
   const router = useRouter();
@@ -22,12 +22,10 @@ export default function ProjectForm() {
   } = useForm({
     resolver: zodResolver(ProjectSchema),
 
-    defaultValues: { category: "tech" }, // valeur initiale de l'enum
+    defaultValues: { category: "tech" },
   });
 
   const onSubmit = async (data: ProjectData) => {
-    // data est déjà validé par Zod — pas besoin de safeParse ici
-
     const response = await fetch("/api/project", {
       method: "POST",
 
@@ -54,7 +52,7 @@ export default function ProjectForm() {
           {...register("name")}
           placeholder="Nom du projet"
         />
-        {errors.name && <p>{errors.name.message}</p>} {/* ← message inline */}
+        {errors.name && <p>{errors.name.message}</p>}
         <input
           className="w-120 border-b-1 border-gray-200 mb-4 outline-none focus:ring-gray-300 focus:ring-1"
           {...register("description")}

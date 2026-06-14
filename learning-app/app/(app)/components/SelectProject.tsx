@@ -2,7 +2,6 @@
 
 import { ProjectDataWithId } from "@/lib/schema/FormNewProject";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 type Props = {
   projectList: ProjectDataWithId[];

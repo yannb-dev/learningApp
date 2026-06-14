@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+// ________________ import schema ZOD ___________________
 import { Importroadmap } from "@/lib/schema/ImportRoadMap";
 
 export default function RoadMapForm({
@@ -11,7 +12,6 @@ export default function RoadMapForm({
 }) {
   const [file, setFile] = useState<Importroadmap | null>(null);
 
-  // _____________ Upload du fichier chargé coté client _________
   const handleUploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files[0];
 
@@ -31,21 +31,30 @@ export default function RoadMapForm({
   const handleCreateRoadMap = async () => {
     if (!file) return;
 
-    const resultRoadmap = await Importroadmap.safeParse(file);
+    try {
+      const resultRoadmap = await Importroadmap.safeParse(file);
 
-    if (!resultRoadmap.success) {
-      console.error("1", resultRoadmap.error);
-    } else {
-      console.log(resultRoadmap, idProject);
+      if (!resultRoadmap.success) {
+        console.error("Contrôle ZOD refusé", resultRoadmap.error);
+      } else {
+        const global = await fetch("/api/roadmap", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            roadmap: resultRoadmap.data,
+            projectId: idProject,
+          }),
+        });
 
-      const global = await fetch("/api/roadmap", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          roadmap: resultRoadmap.data,
-          projectId: idProject,
-        }),
-      });
+        return global;
+      }
+
+      return Response.json({ success: true, data: global });
+    } catch (err) {
+      return Response.json(
+        { error: "Erreur du Fetch Roadmap" },
+        { status: 500 },
+      );
     }
   };
 

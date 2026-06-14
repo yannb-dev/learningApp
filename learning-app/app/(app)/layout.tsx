@@ -1,12 +1,11 @@
 import Image from "next/image";
-
 import prisma from "@/lib/prisma";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
-// import components
+//______________ import components ____________________
 import BtnLogOut from "./components/BtnLogOut";
 import SelectProject from "./components/SelectProject";
 
@@ -28,12 +27,12 @@ export default async function AppLayout({
       <div className="h-30 flex pt-8 pl-12 pr-12 pb-8 justify-between items-center">
         <div className="flex items-center">
           <Image
-            src="/wolf.png" // chemin depuis le dossier public/
-            width={60} // largeur originale
-            height={60} // hauteur originale
-            alt="Logo Wolf" // accessibilité (obligatoire !)
+            src="/wolf.png"
+            width={60}
+            height={60}
+            alt="Logo Wolf"
             priority
-            unoptimized // charge en priorité (pour les images importantes)
+            unoptimized
           />
           <h1 className="font-mono font-bold text-2xl ml-4">Learning APP</h1>
         </div>

@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-//import components
+// ______________import components ________________
 import BtnOpenApp from "./(app)/components/BtnOpenApp";
 
 export default async function Home() {
@@ -18,12 +18,12 @@ export default async function Home() {
     <div className="h-[100vh] w-full flex flex-col justify-center items-center">
       <h1 className="text-4xl font-mono font-bold mb-18">Learning App</h1>
       <Image
-        src="/wolf.png" // chemin depuis le dossier public/
-        width={120} // largeur originale
-        height={120} // hauteur originale
-        alt="Logo Wolf" // accessibilité (obligatoire !)
+        src="/wolf.png"
+        width={120}
+        height={120}
+        alt="Logo Wolf"
         priority
-        unoptimized // charge en priorité (pour les images importantes)
+        unoptimized
       />
       <h3 className="text-xl font-mono font-bold mb-18 mt-12">
         Bonjour {session.user.name}
