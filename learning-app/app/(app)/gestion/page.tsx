@@ -3,8 +3,17 @@ import path from "path";
 
 import MarkdownForm from "../components/MarkdownForm";
 import BtnBack from "../components/BtnBack";
+import RoadMapForm from "../components/RoadMapForm";
 
-export default async function GestionPage() {
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+export default async function GestionPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  const { project } = await searchParams;
+
   const filePath = path.join(
     process.cwd(),
     "public",
@@ -17,19 +26,7 @@ export default async function GestionPage() {
     <div className="p-6">
       <BtnBack />
       <MarkdownForm file={template} />
+      <RoadMapForm idProject={project} />
     </div>
   );
 }
-
-// __________ Pour déclencher le téléchargement ________
-// Étape 3 : déclencher le téléchargement
-//   const blob = new Blob([markdown], { type: "text/markdown" });
-//   const url = URL.createObjectURL(blob);
-
-//   const lien = document.createElement("a");
-//   lien.href = url;
-//   lien.download = "mon-fichier.md";
-//   lien.click();
-
-//   URL.revokeObjectURL(url); // nettoyage
-// };

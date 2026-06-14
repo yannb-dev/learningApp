@@ -175,21 +175,20 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
           </a>
           <div className="w-[70%] p-6 rounded-xl bg-gray-200 text-justify mt-8">
             <h3 className="font-bold font-mono mb-4">
-              Copie ce bloc en tête de ton prompt au LLM, après avoir rempli
-              toutes les sections ci-dessus.
+              Copie ce bloc comme prompt au LLM de ton choix.
             </h3>
             <p className="font-mono">
               Tu es un expert en pédagogie. À partir des informations du fichier
-              "mon-fichier.md", génère une roadmap d'apprentissage personnalisée
-              dans un fichier roadmap.md. Contraintes : - Adapte le rythme à ma
+              importé, génère une roadmap d'apprentissage personnalisée dans un
+              fichier roadmap.json. Contraintes : - Adapte le rythme à ma
               disponibilité hebdomadaire - Commence par consolider les bases
               avant d'introduire de nouveaux concepts - Chaque étape doit
               déboucher sur quelque chose de concret et fonctionnel - Indique
-              clairement les prérequis de chaque module - Signale les étapes
-              critiques (celles qui débloquent la suite) - Si je n'ai pas de
+              clairement les prérequis de chaque module - - Si je n'ai pas de
               stack cible définie, propose-en une cohérente avec mon objectif -
-              Utilise strictement le format définie dans la section ## 9. Format
-              de roadmap souhaité dans un fichier roadmap.md
+              Utilise strictement le format définie dans la section ##### 8.
+              N'ajoutes rien d'autre. Format de roadmap souhaité dans un fichier
+              roadmap.json
             </p>
           </div>
         </div>
