@@ -101,7 +101,7 @@ numModule Int
 duration Int
 prerequisites String
 pointcritical String
-praticalproject String
+practicalproject String
 roadmapId String
 createdAt DateTime @default(now())
 roadmap Roadmap @relation(fields: [roadmapId], references: [id], onDelete: Cascade)
@@ -131,9 +131,8 @@ id String @id @default(cuid())
 name String
 index Int
 state State
-ModuleRef Int
+moduleRef Int
 moduleId String
-updateAt DateTime
 module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
 createdAt DateTime @default(now())
 }

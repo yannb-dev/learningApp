@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     const result = ProjectSchema.safeParse(body);
 
     if (!result.success) {
-      return Response.json({ error: result.error.flatten() }, { status: 400 });
+      return Response.json({ error: result.error.issues }, { status: 400 });
     }
 
     const project = await prisma.project.create({

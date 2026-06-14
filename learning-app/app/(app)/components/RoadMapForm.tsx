@@ -2,75 +2,50 @@
 
 import { useState } from "react";
 
-import { RoadmapSchema, RoadmapFull } from "@/lib/schema/ImportRoadMap";
-import { ModuleSchema } from "@/lib/schema/ImportModule";
-import { ObjectiveSchema } from "@/lib/schema/ImportObjective";
-import { CriteriaSchema } from "@/lib/schema/ImportCriteria";
+import { Importroadmap } from "@/lib/schema/ImportRoadMap";
 
 export default function RoadMapForm({
   idProject,
 }: {
   idProject: string | string[] | undefined;
 }) {
-  const [file, setFile] = useState<RoadmapFull | null>(null);
+  const [file, setFile] = useState<Importroadmap | null>(null);
 
   // _____________ Upload du fichier chargé coté client _________
   const handleUploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files[0];
-    const text = await file.text();
-    const roadmap = JSON.parse(text);
 
-    setFile(roadmap);
+    if (!file) {
+      return console.log("Fichier d'import absent");
+    } else {
+      const text = await file.text();
+      const roadmap = JSON.parse(text);
+
+      setFile(roadmap);
+    }
   };
 
+  console.log(file);
+
   // _____________ Extrait les valeurs puis les fetch _________
-  const handleFilterRoadMap = async () => {
+  const handleCreateRoadMap = async () => {
     if (!file) return;
 
-    const roadmapFormat = {
-      name: file.name,
-      objective: file.objective,
-      echeance: file.echeance,
-      constraint: file.constraint,
-      duration: file.duration,
-      dispo: file.dispo,
-    };
+    const resultRoadmap = await Importroadmap.safeParse(file);
 
-    const module = file.listModule;
-    const objective = file.listCompetence;
-    const criteria = file.listCritereValidation;
-
-    const resultRoadmap = RoadmapSchema.safeParse(roadmapFormat);
-    const resultModule = ModuleSchema.safeParse(module);
-    const resultObjective = ObjectiveSchema.safeParse(objective);
-    const resultCriteria = CriteriaSchema.safeParse(criteria);
-
-    // fetch global pour le roadMap, module, objective, criteria après zod
-    if (
-      !resultRoadmap.success ||
-      !resultModule.success ||
-      !resultObjective.success ||
-      !resultCriteria.success
-    ) {
+    if (!resultRoadmap.success) {
       console.error("1", resultRoadmap.error);
-      console.error("2", resultModule.error);
-      console.error("3", resultObjective.error);
-      console.error("4", resultCriteria.error);
     } else {
+      console.log(resultRoadmap, idProject);
+
       const global = await fetch("/api/roadmap", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          roadmap: resultRoadmap,
-          listModule: resultModule,
-          listeCompetence: resultObjective,
-          listCritereValidation: resultCriteria,
+          roadmap: resultRoadmap.data,
           projectId: idProject,
         }),
       });
-      const globalSave = await global.json();
-
-      console.log(globalSave);
     }
   };
 
@@ -88,7 +63,7 @@ export default function RoadMapForm({
       {file && (
         <button
           className="ml-10 p-1 bg-red-500 rounded-sm mt-6"
-          onClick={handleFilterRoadMap}
+          onClick={handleCreateRoadMap}
         >
           Créer ta roadMap
         </button>

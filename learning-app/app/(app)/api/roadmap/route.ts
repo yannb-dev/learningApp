@@ -1,8 +1,9 @@
 import prisma from "@/lib/prisma";
 
+import { RoadmapApi } from "@/lib/schema/RoadmapApi";
+
 import { getServerSession } from "next-auth";
 
-import { RoadmapDataApi } from "@/lib/schema/ImportRoadMap";
 import { authOptions } from "@/lib/auth";
 
 //______________________POST ___________
@@ -17,26 +18,24 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    console.log(body);
-
-    const result = RoadmapDataApi.safeParse(body);
+    const result = RoadmapApi.safeParse(body);
 
     if (!result.success) {
-      return Response.json({ error: result.error.flatten() }, { status: 400 });
+      return Response.json({ error: result.error.issues }, { status: 400 });
     }
 
-    const moduleList = result.data.listModule;
-    const competenceList = result.data.listCompetence;
-    const criteriaList = result.data.listCritereValidation;
+    const moduleList = result.data.roadmap.listModule;
+    const competenceList = result.data.roadmap.listCompetence;
+    const criteriaList = result.data.roadmap.listCritereValidation;
 
     const roadmap = await prisma.roadmap.create({
       data: {
-        name: result.data.name,
-        objective: result.data.objective,
-        echeance: result.data.echeance,
-        dispo: result.data.dispo,
-        constraint: result.data.constraint,
-        duration: result.data.duration,
+        name: result.data.roadmap.name,
+        objective: result.data.roadmap.objective,
+        echeance: result.data.roadmap.echeance,
+        dispo: result.data.roadmap.dispo,
+        constraint: result.data.roadmap.constraint,
+        duration: result.data.roadmap.duration,
         userId: session.user.id,
         projectId: result.data.projectId,
       },
@@ -52,7 +51,6 @@ export async function POST(request: Request) {
             prerequisites: liste.prerequisites,
             pointcritical: liste.pointcritical,
             practicalproject: liste.practicalproject,
-            userId: session.user.id,
             roadmapId: roadmap.id,
           },
         });
@@ -65,11 +63,11 @@ export async function POST(request: Request) {
         );
         await Promise.all([
           ...newTabCompetence.map((liste) => {
-            prisma.objective.create({
+            return prisma.objective.create({
               data: {
                 name: liste.name,
                 index: liste.index,
-                state: false,
+                state: "UpComming",
                 moduleRef: liste.moduleRef,
                 moduleId: module.id,
               },
@@ -77,7 +75,7 @@ export async function POST(request: Request) {
           }),
 
           ...newTabCriteria.map((liste) => {
-            prisma.criteria.create({
+            return prisma.criteria.create({
               data: {
                 name: liste.name,
                 index: liste.index,
@@ -92,6 +90,7 @@ export async function POST(request: Request) {
 
     return Response.json({ success: true, data: roadmap });
   } catch (err) {
+    console.error("Erreur POST /api/roadmap", err);
     return Response.json({ error: "Erreur serveur du POST" }, { status: 500 });
   }
 }
