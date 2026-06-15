@@ -16,9 +16,10 @@
 - Une page de profil pour les préférences et la gestion du compte.
 - Créer et gérer plusieurs `Projet d'apprentissage`
 - Dashboard de présentation avec une timelime qui retrace les sessions importés et les dates des objectifs atteints `Timeline visuel avec infos bulles`.
-- 3 Blocs de présention sous forme de liste qui correspondent à une session d'apprentissage : [Bloc 1 : `Les dernières compétences aquises`], [Bloc 2 : `Les compétences en cours d'apprentissage`], [Bloc 3 : `Les prochaines compétences immédiates à venir`]
+- 3 Blocs de présention sous forme de liste qui correspondent à une session d'apprentissage : [Bloc 1 : `Les dernières compétences aquises`], [Bloc 2 : `Les compétences en cours d'apprentissage`], [Bloc 3 : `Les prochaines compétences immédiates à venir`].
 - Possibilité pour l'utilisateur de revenir sur une session d'apprentissage antérieur. Une page regroupe les `Memos techniques` des sessions importés, ils sont filtrables via des tags.
-- Depuis une page gestion déterminer création d'un projet et génération d'un fichier markdown à destination des LLM pour standardiser la réponse à la création d'une roadmap.
+- Depuis une page gestion déterminer la création d'un projet et génération d'un fichier markdomn à destination des LLM pour standardiser la réponse à la création d'une roadmap en .json.
+- Import d'un fichier roadmap.json pour enregistrement en BDD.
 - Importer depuis la page gestion un fichier session.md pour actualiser les compétences aquises de l'utilisateur.
 - Fournir un fichier session.md au client qu'il utilisera avec le LLM de son choix. Ce fichier aura un format défini pour être importé dans la page gestion.
 
@@ -374,4 +375,10 @@ memo Memo @relation(fields: [memoId], references: [id], onDelete: Cascade)
 ],
 }
 
-##
+### Répertoire technique
+
+#### 1. Import du fichier roadmap.jsn
+
+Contrôle des valeurs d'entrée avec un schema ZOD pour le fichier JSON entier. Contrôle des valeurs d'entrée sur route API "roadmap" avec les valeurs du project sélectionné. Puis création en cascade des modules avec objectif et critère.
+
+#### 2.
