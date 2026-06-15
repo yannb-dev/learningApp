@@ -30,6 +30,27 @@ export default async function AppPage({
   return (
     <div className="w-full flex flex-col items-center">
       {projectOpen && <NavBtn idProject={projectOpen.id} />}
+      <div className="w-full h-[100vh] flex items-center justify-center">
+        {search === "" && (
+          <div className="w-full flex flex-col justify-center items-center">
+            <h1 className="text-3xl font-bold font-mono">
+              Choisis ton projet !
+            </h1>
+            <p className="mb-14">Sélectionne dans le menu en haut de la page</p>
+            <div className="w-[70%] flex flex-wrap justify-center gap-10">
+              <div className="h-90 w-70 flex border-2 border-black rounded-xl p-6 ">
+                <h3>Tips</h3>
+              </div>
+              <div className="h-90 w-70 flex border-2 border-black rounded-xl p-6 ">
+                <h3>Nouveauté</h3>
+              </div>
+              <div className="h-90 w-70 flex border-2 border-black rounded-xl p-6 ">
+                <h3>Mon activté</h3>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

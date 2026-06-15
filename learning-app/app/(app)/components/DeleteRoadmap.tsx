@@ -2,6 +2,9 @@
 
 import { useRouter } from "next/navigation";
 
+//___________ import Icon ___________________________
+import { FaTrashAlt } from "react-icons/fa";
+
 export default function DeleteRoadmap({ roadmapId }: { roadmapId: string }) {
   const router = useRouter();
 
@@ -27,7 +30,7 @@ export default function DeleteRoadmap({ roadmapId }: { roadmapId: string }) {
 
   return (
     <div>
-      <button onClick={handleDelete}>Delete</button>
+      <FaTrashAlt className="hover:scale-110" onClick={handleDelete} />
     </div>
   );
 }

@@ -75,7 +75,7 @@ userId String
 user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 createdAt DateTime @default(now())
 seances Seance[]
-roadmap Roadmap[]
+roadmap Roadmap?
 }
 
 model Roadmap {
@@ -87,7 +87,7 @@ dispo Int
 constraint String
 duration Int
 userId String
-projectId String
+projectId String @unique
 user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 createdAt DateTime @default(now())
