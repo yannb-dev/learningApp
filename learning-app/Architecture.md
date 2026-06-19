@@ -375,6 +375,77 @@ memo Memo @relation(fields: [memoId], references: [id], onDelete: Cascade)
 ],
 }
 
+### Fichier pour générer via un LLM une session d'apprentissage avec un fichier .json
+
+A partir de l'app Récupération de l'état des modules de la roadmap concerné.
+Evaluation des travaux réalisé et comparaison avec les compétences aquises et les compétences en cours de développement.
+
+Techniquement => Création d'un fichier .json de base avec les éléments (objective + state)
+Téléchargement d'un fichier .md avec les consignes de création.
+
+#### Format du fichier .md
+
+> Compare les travaux effectués lors de la session de travail aux objectifs de l'apprenant. Modifie uniquement l'état des objectifs s'ils sont aquis ou en cours d'apprentissage.
+
+Ajoutes dans les clés du fichiers .json les éléments pertinants pour continuer l'apprentissage
+
+##### Données initiales de l'utilisateur
+
+{
+"objective" : "Devenir marin"
+"module" : [
+{
+
+"numModule" : 1
+"objectives" : [
+{
+"id" : "Zerfvj76tgsfEZR"
+"state" : "Acquired"
+"name" : "Hisser une voile"
+}
+]
+}
+]
+}
+
+##### Format du fichier .json retour
+
+{
+"seance" : {
+"sujet" : exemple,
+"tacheAccomplis" : exemple,
+"techniqueAcquis" : exemple,
+"difficulteRencontre" : exemple,
+"pointCle" : exemple,
+"suiteModule" : exemple,
+"memos" : [
+{
+"domaine" : String,
+"topic" : String,
+"snippet" : String,
+"notes" : String,
+"tag" : [
+{
+"name" : exemple,
+"slug" : exemple,
+
+            }
+        ]
+            }
+        ]
+
+    }
+
+"updateObjective" : [
+{
+"id" : "",
+"name" : "",
+"state" : "",
+}
+]
+
+}
+
 ### Répertoire technique
 
 #### 1. Import du fichier roadmap.jsn

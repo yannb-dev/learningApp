@@ -11,7 +11,7 @@ import MarkdownForm from "../components/MarkdownForm";
 import BtnBack from "../components/BtnBack";
 import RoadMapForm from "../components/RoadMapForm";
 import DeleteRoadmap from "../components/DeleteRoadmap";
-import SeanceForm from "../components/SeanceForm";
+import JsonForm from "../components/JsonForm";
 
 //___________ type _______________________________
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
@@ -27,32 +27,57 @@ export default async function GestionPage({
 
   const { project } = await searchParams;
 
-  const filePath = path.join(
+  // _________ import fichier markdownRoadmap _________
+  const filePathRoadMap = path.join(
     process.cwd(),
     "public",
     "template",
     "markdownRoadMap.md",
   );
-  const template = fs.readFileSync(filePath, "utf-8");
+  const templateRoadmap = fs.readFileSync(filePathRoadMap, "utf-8");
+
+  // _________ import fichier markdownRoadmap _________
+  const filePathSeance = path.join(
+    process.cwd(),
+    "public",
+    "template",
+    "markdownSeance.md",
+  );
+  const templateSeance = fs.readFileSync(filePathSeance, "utf-8");
 
   const roadmap = await prisma.roadmap.findUnique({
     where: {
       projectId: project,
       userId: session.user.id,
     },
-    include: {
-      module: true,
+    select: {
+      name: true,
+      objective: true,
+      duration: true,
+      dispo: true,
+      projectId: true,
+      module: {
+        select: {
+          id: true,
+          name: true,
+          objectives: {
+            select: {
+              id: true,
+              name: true,
+              state: true,
+            },
+          },
+        },
+      },
     },
   });
-
-  console.log(roadmap.module.length);
 
   return (
     <div className="p-6">
       <BtnBack />
       {!roadmap && (
         <div>
-          <MarkdownForm file={template} />
+          <MarkdownForm file={templateRoadmap} />
           <RoadMapForm idProject={project} />
         </div>
       )}
@@ -88,9 +113,9 @@ export default async function GestionPage({
           </section>
           <div className="mt-10">
             <h3 className="font-mono font-bold mb-4">
-              Importer une session de travail :
+              Générer et Importer une session de travail :
             </h3>
-            <SeanceForm />
+            <JsonForm roadmap={roadmap} templateSeance={templateSeance} />
           </div>
           <div className="mt-10">
             <h3 className="font-mono font-bold mb-4">

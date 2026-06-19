@@ -1,0 +1,135 @@
+"use client";
+
+import { useState } from "react";
+
+import { ImportSeance } from "@/lib/schema/ImportSeance";
+
+export default function JsonForm({ roadmap, templateSeance }) {
+  const [stateViewImport, setStateViewImport] = useState(false);
+  const [stateGeneredJson, setStateGeneredJson] = useState(true);
+  const [stateTuto, setStateTuto] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState("");
+
+  // ____________________________________
+  //
+  const handleGenered = () => {
+    const file = JSON.stringify(roadmap);
+
+    const template = templateSeance.replace("{{roadmapJson}}", file);
+
+    const dataUrl = `data:text/markdown;charset=utf-8,${encodeURIComponent(template)}`;
+    setDownloadUrl(dataUrl);
+    setStateGeneredJson(false);
+    setStateViewImport(true);
+
+    const link = document.createElement("a");
+    link.href = dataUrl;
+    link.download = "context.md"; // nom du fichier téléchargé
+    link.click();
+    link.remove();
+  };
+
+  //______________________________________
+  //
+  const handleUploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files[0];
+
+    if (!file) {
+      return console.log("Fichier d'import absent");
+    } else {
+      const text = await file.text();
+      const seance = await JSON.parse(text);
+
+      try {
+        const fileCheck = ImportSeance.safeParse(seance);
+
+        if (!fileCheck.success) {
+          console.log("Erreur lors du contrôle du fichier");
+        } else {
+          const sendingFile = await fetch("api/seance", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              seance: fileCheck.data,
+              projectId: roadmap.projectId,
+            }),
+          });
+
+          return sendingFile;
+        }
+
+        setStateTuto(false);
+        setStateViewImport(false);
+
+        return Response.json({ success: true });
+      } catch (err) {
+        return Response.json(
+          { error: "Erreur du fetch API/SEANCE" },
+          { status: 500 },
+        );
+      }
+    }
+  };
+
+  //______________________________________
+  //
+
+  const handleStateTuto = () => {
+    setStateTuto(true);
+  };
+
+  //______________________________________
+  //
+
+  return (
+    <div className="flex flex-col">
+      <div>
+        {stateGeneredJson && (
+          <div>
+            <button
+              onClick={handleGenered}
+              className="p-1 rounded-sm bg-red-400 text-white"
+            >
+              Générer mon fichier JSON
+            </button>
+          </div>
+        )}
+        {stateViewImport && (
+          <div>
+            <div>
+              <input
+                className="bg-gray-100 rounded-sm p-2 hover:cursor-pointer"
+                type="file"
+                accept=".json"
+                onChange={handleUploadFile}
+              />
+              <button className="p-2 rounded-sm bg-green-500 ml-6 hover:scale-105 hover:cursor-pointer">
+                Charger la session
+              </button>
+            </div>
+            <div>
+              <button
+                className="font-bold mt-4 hover:cursor-pointer"
+                onClick={handleStateTuto}
+              >
+                Comment procéder ?
+              </button>
+              {stateTuto && (
+                <div>
+                  <p>
+                    Tu viens de télécharger un fichier{" "}
+                    <strong>context.md</strong> ajoutes le à la fin de ta
+                    session de travail dans ton LLM préféré. Il va te retourner
+                    un fichier seance.json avec les mises à jour. Il te suffit
+                    de l'importer et de cliquer sur{" "}
+                    <strong>Charger la session</strong>
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
