@@ -13,14 +13,14 @@ export async function GET(
   const { id } = await params;
 
   try {
-    const roadmap = await prisma.roadmap.findUnique({
+    const seance = await prisma.seance.findUnique({
       where: { id: id },
     });
 
-    if (!roadmap)
+    if (!seance)
       return Response.json({ error: "Contact non trouvé" }, { status: 404 });
 
-    return Response.json(roadmap);
+    return Response.json(seance);
   } catch (err) {
     return Response.json({ error: "Erreur serveur du GET" }, { status: 500 });
   }
@@ -40,7 +40,7 @@ export async function DELETE(
   const { id } = await params;
 
   try {
-    await prisma.roadmap.delete({
+    await prisma.seance.delete({
       where: { id: id, userId: session.user.id },
     });
 

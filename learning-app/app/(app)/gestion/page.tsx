@@ -12,6 +12,7 @@ import BtnBack from "../components/BtnBack";
 import RoadMapForm from "../components/RoadMapForm";
 import DeleteRoadmap from "../components/DeleteRoadmap";
 import JsonForm from "../components/JsonForm";
+import DeleteSeance from "../components/DeleteSeance";
 
 //___________ type _______________________________
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
@@ -45,6 +46,8 @@ export default async function GestionPage({
   );
   const templateSeance = fs.readFileSync(filePathSeance, "utf-8");
 
+  // ___________ chargement de la roadmap unique _________
+
   const roadmap = await prisma.roadmap.findUnique({
     where: {
       projectId: project,
@@ -70,6 +73,27 @@ export default async function GestionPage({
         },
       },
     },
+  });
+
+  // __________ chargement des seances ____________________
+
+  const seance = await prisma.seance.findMany({
+    where: {
+      projectId: project,
+    },
+    include: {
+      memos: true,
+    },
+  });
+
+  // __________ formatage date ______________________________
+
+  const date = new Date(seance[0].createdAt);
+
+  const formatter = new Intl.DateTimeFormat("fr-FR", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
   });
 
   return (
@@ -121,6 +145,16 @@ export default async function GestionPage({
             <h3 className="font-mono font-bold mb-4">
               Liste des sessions précédentes :
             </h3>
+            {seance && (
+              <div>
+                {seance.map((seance) => (
+                  <div key={seance.id}>
+                    <h3>Session du : {formatter.format(date)}</h3>
+                    <DeleteSeance seanceId={seance.id} />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}

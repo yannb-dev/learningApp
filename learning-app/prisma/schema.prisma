@@ -145,7 +145,6 @@ skillDone String
 difficulty String
 keyPoint String
 next String
-tags String
 userId String
 projectId String
 user User @relation(fields: [userId], references: [id], onDelete: Cascade)

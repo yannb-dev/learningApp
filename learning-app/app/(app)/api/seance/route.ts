@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 
-import { RoadmapApi } from "@/lib/schema/RoadmapApi";
+import { SeanceApi } from "@/lib/schema/SeanceApi";
 
 import { getServerSession } from "next-auth";
 
@@ -18,75 +18,74 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    const result = RoadmapApi.safeParse(body);
+    const result = SeanceApi.safeParse(body);
 
     if (!result.success) {
       return Response.json({ error: result.error.issues }, { status: 400 });
     }
 
-    const roadmap = await prisma.roadmap.create({
-      data: {
-        name: result.data.roadmap.name,
-        objective: result.data.roadmap.objective,
-        echeance: result.data.roadmap.echeance,
-        dispo: result.data.roadmap.dispo,
-        constraint: result.data.roadmap.constraint,
-        duration: result.data.roadmap.duration,
-        userId: session.user.id,
-        projectId: result.data.projectId,
-      },
+    // ______________ Transaction pour tout ou rien côté BDD _________
+    const sendData = await prisma.$transaction(async (tx) => {
+      const seance = await tx.seance.create({
+        data: {
+          sujet: result.data.seance.sujet,
+          accomplished: result.data.seance.accomplished,
+          skillDone: result.data.seance.skillDone,
+          difficulty: result.data.seance.difficulty,
+          keyPoint: result.data.seance.keyPoint,
+          next: result.data.seance.next,
+          userId: session.user.id,
+          projectId: result.data.projectId,
+        },
+      });
+
+      await Promise.all(
+        result.data.seance.objectives.map((liste) => {
+          const objective = tx.objective.update({
+            where: {
+              id: liste.id,
+            },
+            data: {
+              state: liste.state,
+            },
+          });
+          return objective; // obligatoire avec Promise.all ou fonction arrow sans accolade
+        }),
+      );
+
+      await Promise.all(
+        result.data.seance.memos.map(async (liste) => {
+          const memo = await tx.memo.create({
+            data: {
+              stack: liste.stack,
+              topic: liste.topic,
+              snippet: liste.snippet,
+              notes: liste.notes,
+              userId: session.user.id,
+              seanceId: seance.id,
+            },
+          });
+
+          await Promise.all(
+            liste.tags.map((liste) => {
+              const tag = tx.tag.create({
+                data: {
+                  name: liste.name,
+                  slug: liste.slug,
+                  memoId: memo.id,
+                },
+              });
+
+              return tag; // obligatoire avec Promise.all ou fonction arrow sans accolade
+            }),
+          );
+        }),
+      );
     });
 
-    await Promise.all(
-      moduleList.map(async (liste) => {
-        const module = await prisma.module.create({
-          data: {
-            name: liste.name,
-            numModule: liste.numModule,
-            duration: liste.duration,
-            prerequisites: liste.prerequisites,
-            pointcritical: liste.pointcritical,
-            practicalproject: liste.practicalproject,
-            roadmapId: roadmap.id,
-          },
-        });
-
-        const newTabCompetence = competenceList.filter(
-          (e) => e.moduleRef === module.numModule,
-        );
-        const newTabCriteria = criteriaList.filter(
-          (e) => e.moduleRef === module.numModule,
-        );
-        await Promise.all([
-          ...newTabCompetence.map((liste) => {
-            return prisma.objective.create({
-              data: {
-                name: liste.name,
-                index: liste.index,
-                state: "UpComming",
-                moduleRef: liste.moduleRef,
-                moduleId: module.id,
-              },
-            });
-          }),
-
-          ...newTabCriteria.map((liste) => {
-            return prisma.criteria.create({
-              data: {
-                name: liste.name,
-                index: liste.index,
-                moduleRef: liste.moduleRef,
-                moduleId: module.id,
-              },
-            });
-          }),
-        ]);
-      }),
-    );
-
-    return Response.json({ success: true, data: roadmap });
+    return Response.json({ success: true });
   } catch (err) {
-    console.error("Erreur POST /api/roadmap", err);
+    console.error("Erreur POST /api/seance", err);
     return Response.json({ error: "Erreur serveur du POST" }, { status: 500 });
   }
 }

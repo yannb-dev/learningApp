@@ -1,14 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { ImportSeance } from "@/lib/schema/ImportSeance";
 
 export default function JsonForm({ roadmap, templateSeance }) {
+  const router = useRouter();
+
   const [stateViewImport, setStateViewImport] = useState(false);
   const [stateGeneredJson, setStateGeneredJson] = useState(true);
   const [stateTuto, setStateTuto] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState("");
+  const [file, setFile] = useState({});
 
   // ____________________________________
   //
@@ -40,34 +44,42 @@ export default function JsonForm({ roadmap, templateSeance }) {
       const text = await file.text();
       const seance = await JSON.parse(text);
 
-      try {
-        const fileCheck = ImportSeance.safeParse(seance);
+      setFile(seance);
+    }
+  };
 
-        if (!fileCheck.success) {
-          console.log("Erreur lors du contrôle du fichier");
-        } else {
-          const sendingFile = await fetch("api/seance", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              seance: fileCheck.data,
-              projectId: roadmap.projectId,
-            }),
-          });
+  // ____________________________________
+  //
+  const handleSendFile = async () => {
+    try {
+      const fileCheck = ImportSeance.safeParse(file);
 
-          return sendingFile;
-        }
+      if (!fileCheck.success) {
+        console.log("Erreur lors du contrôle du fichier");
+      } else {
+        const sendingFile = await fetch("api/seance", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            seance: fileCheck.data,
+            projectId: roadmap.projectId,
+          }),
+        });
 
-        setStateTuto(false);
-        setStateViewImport(false);
-
-        return Response.json({ success: true });
-      } catch (err) {
-        return Response.json(
-          { error: "Erreur du fetch API/SEANCE" },
-          { status: 500 },
-        );
+        return sendingFile;
       }
+
+      setStateTuto(false);
+      setStateViewImport(false);
+
+      router.refresh();
+
+      return Response.json({ success: true });
+    } catch (err) {
+      return Response.json(
+        { error: "Erreur du fetch API/SEANCE" },
+        { status: 500 },
+      );
     }
   };
 
@@ -103,7 +115,10 @@ export default function JsonForm({ roadmap, templateSeance }) {
                 accept=".json"
                 onChange={handleUploadFile}
               />
-              <button className="p-2 rounded-sm bg-green-500 ml-6 hover:scale-105 hover:cursor-pointer">
+              <button
+                onClick={handleSendFile}
+                className="p-2 rounded-sm bg-green-500 ml-6 hover:scale-105 hover:cursor-pointer"
+              >
                 Charger la session
               </button>
             </div>
