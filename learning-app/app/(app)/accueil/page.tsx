@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 
 //__________ import components ___________________
 import NavBtn from "../components/NavBtn";
+import TimeLine from "../components/TimeLine";
 
 //___________ type ________________________________
 type SearchParams = Promise<{ [key: string]: string }>;
@@ -23,13 +24,38 @@ export default async function AppPage({
 
   const search = typeof project === "string" ? project : "";
 
+  //____________ Import du Project + séance ______________________
+
   const projectOpen = await prisma.project.findUnique({
     where: { id: search },
+    include: {
+      seances: true,
+    },
+  });
+
+  //___________ Import de la roadmap ____________________________
+
+  const roadmap = await prisma.roadmap.findUnique({
+    where: { projectId: projectOpen.id },
+    select: {
+      createdAt: true,
+      echeance: true,
+    },
   });
 
   return (
     <div className="w-full flex flex-col items-center">
-      {projectOpen && <NavBtn idProject={projectOpen.id} />}
+      {projectOpen && (
+        <div className="w-full flex flex-col">
+          <nav className="w-full flex justify-evenly">
+            <NavBtn idProject={projectOpen.id} />
+          </nav>
+          <div>
+            <h3>TimeLine</h3>
+            <TimeLine seances={projectOpen.seances} roadmap={roadmap} />
+          </div>
+        </div>
+      )}
       <div className="w-full h-[100vh] flex items-center justify-center">
         {search === "" && (
           <div className="w-full flex flex-col justify-center items-center">

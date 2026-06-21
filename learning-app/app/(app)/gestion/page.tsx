@@ -54,6 +54,7 @@ export default async function GestionPage({
       userId: session.user.id,
     },
     select: {
+      id: true,
       name: true,
       objective: true,
       duration: true,
@@ -88,13 +89,13 @@ export default async function GestionPage({
 
   // __________ formatage date ______________________________
 
-  const date = new Date(seance[0].createdAt);
+  // const date = new Date(seance[0].createdAt);
 
-  const formatter = new Intl.DateTimeFormat("fr-FR", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+  // const formatter = new Intl.DateTimeFormat("fr-FR", {
+  //   day: "2-digit",
+  //   month: "long",
+  //   year: "numeric",
+  // });
 
   return (
     <div className="p-6">
@@ -147,12 +148,12 @@ export default async function GestionPage({
             </h3>
             {seance && (
               <div>
-                {seance.map((seance) => (
+                {/* {seance.map((seance) => (
                   <div key={seance.id}>
                     <h3>Session du : {formatter.format(date)}</h3>
                     <DeleteSeance seanceId={seance.id} />
                   </div>
-                ))}
+                ))} */}
               </div>
             )}
           </div>

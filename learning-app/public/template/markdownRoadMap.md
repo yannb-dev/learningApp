@@ -59,7 +59,7 @@
 {
 "name": "Naviguer en bateau",
 "objective": "Naviguer en mer sur un voilier proche des côtes françaises de manière autonome, avec une maîtrise suffisante pour voyager en Bretagne.",
-"echeance": "01/08/2027",
+"echeance": new Date(),
 "dispo": 10,
 "constraint": "Apprentissage orienté pratique et par l'exemple. Pas de budget pour des formations payantes. Titulaire du BNSSA, quelques notions de navigation portuaire.",
 "duration": 240,

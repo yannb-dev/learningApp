@@ -130,6 +130,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
             </label>
             <input
               className={styleInput}
+              type="date"
               id="echeance"
               {...register("echeance")}
             />

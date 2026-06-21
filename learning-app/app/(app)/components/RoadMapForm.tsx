@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 // ________________ import schema ZOD ___________________
 import { Importroadmap } from "@/lib/schema/ImportRoadMap";
@@ -10,6 +11,8 @@ export default function RoadMapForm({
 }: {
   idProject: string | string[] | undefined;
 }) {
+  const router = useRouter();
+
   const [file, setFile] = useState<Importroadmap | null>(null);
 
   const handleUploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +48,8 @@ export default function RoadMapForm({
             projectId: idProject,
           }),
         });
+
+        router.refresh();
 
         return global;
       }

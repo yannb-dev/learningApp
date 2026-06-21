@@ -28,11 +28,13 @@ export async function POST(request: Request) {
     const competenceList = result.data.roadmap.listCompetence;
     const criteriaList = result.data.roadmap.listCritereValidation;
 
+    const date = new Date(result.data.roadmap.echeance);
+
     const roadmap = await prisma.roadmap.create({
       data: {
         name: result.data.roadmap.name,
         objective: result.data.roadmap.objective,
-        echeance: result.data.roadmap.echeance,
+        echeance: date,
         dispo: result.data.roadmap.dispo,
         constraint: result.data.roadmap.constraint,
         duration: result.data.roadmap.duration,

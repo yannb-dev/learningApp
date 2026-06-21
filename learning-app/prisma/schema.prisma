@@ -82,7 +82,7 @@ model Roadmap {
 id String @id @default(cuid())
 name String
 objective String
-echeance String
+echeance DateTime
 dispo Int
 constraint String
 duration Int

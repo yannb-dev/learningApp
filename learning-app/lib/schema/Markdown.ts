@@ -17,7 +17,7 @@ export const MarkdownSchema = z.object({
 
   whyLearn: z.string().min(1, "Ajouter une valeur"),
 
-  echeance: z.string().min(1, "Ajouter une échance d'objectif"),
+  echeance: z.string().min(1),
 
   motivation: z.enum(["1", "2", "3", "4", "5"]),
 });
