@@ -4,6 +4,9 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+
 //___________ type _______________________________
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -76,6 +79,8 @@ export default async function RoadmapPage({
     },
   });
 
+  const dateEcheance = format(roadmap.echeance, "dd/MM/yyyy", { locale: fr });
+
   return (
     <div className="p-6">
       <BtnBack />
@@ -92,6 +97,8 @@ export default async function RoadmapPage({
           <div className="h-auto w-[20%] flex flex-col">
             <h3 className="font-mono font-bold mb-2">Mon objectif :</h3>
             <p className="text-justify">{roadmap.objective}</p>
+            <h3 className="font-mono font-bold mb-2 mt-2">Mon échéance :</h3>
+            <p className="text-justify">{dateEcheance}</p>
           </div>
           <div className="h-auto w-[80%] flex flex-col items-center">
             {roadmap.module.map((module) => (

@@ -26,32 +26,35 @@ export default async function AppPage({
 
   //____________ Import du Project + séance ______________________
 
-  const projectOpen = await prisma.project.findUnique({
-    where: { id: search },
-    include: {
-      seances: true,
-    },
-  });
+  let projectOpen = null;
+  let roadmap = null;
 
-  //___________ Import de la roadmap ____________________________
+  if (search === "") {
+    console.log("Aucun projet n'est sélectionné");
+  } else {
+    projectOpen = await prisma.project.findUnique({
+      where: { id: search },
+      include: {
+        seances: true,
+      },
+    });
 
-  const roadmap = await prisma.roadmap.findUnique({
-    where: { projectId: projectOpen.id },
-    select: {
-      createdAt: true,
-      echeance: true,
-    },
-  });
+    roadmap = await prisma.roadmap.findUnique({
+      where: { projectId: projectOpen.id },
+    });
+  }
 
   return (
     <div className="w-full flex flex-col items-center">
-      {projectOpen && (
+      {projectOpen && roadmap && (
         <div className="w-full flex flex-col">
           <nav className="w-full flex justify-evenly">
             <NavBtn idProject={projectOpen.id} />
           </nav>
-          <div>
-            <h3>TimeLine</h3>
+          <h1 className="text-xl font-mono - font-bold mt-8 mb-8 ml-8">
+            Ma Time-line d'apprentissage :
+          </h1>
+          <div className="w-full flex justify-center items-start p-6">
             <TimeLine seances={projectOpen.seances} roadmap={roadmap} />
           </div>
         </div>

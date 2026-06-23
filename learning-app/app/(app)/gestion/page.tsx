@@ -6,6 +6,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+
 //__________ import components ___________________
 import MarkdownForm from "../components/MarkdownForm";
 import BtnBack from "../components/BtnBack";
@@ -82,9 +85,6 @@ export default async function GestionPage({
     where: {
       projectId: project,
     },
-    include: {
-      memos: true,
-    },
   });
 
   // __________ formatage date ______________________________
@@ -146,16 +146,12 @@ export default async function GestionPage({
             <h3 className="font-mono font-bold mb-4">
               Liste des sessions précédentes :
             </h3>
-            {seance && (
-              <div>
-                {/* {seance.map((seance) => (
-                  <div key={seance.id}>
-                    <h3>Session du : {formatter.format(date)}</h3>
-                    <DeleteSeance seanceId={seance.id} />
-                  </div>
-                ))} */}
-              </div>
-            )}
+            {seance &&
+              seance.map((seance) => (
+                <h1 key={seance.id}>
+                  {format(seance.createdAt, "dd/MM/yyyy", { locale: fr })}
+                </h1>
+              ))}
           </div>
         </div>
       )}
