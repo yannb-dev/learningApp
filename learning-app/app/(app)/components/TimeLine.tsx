@@ -1,18 +1,36 @@
 "use client";
 
-import { parse, format, differenceInDays } from "date-fns";
+import { parse, format, differenceInDays, differenceInMonths } from "date-fns";
 import { fr } from "date-fns/locale";
 
 import { useState } from "react";
 
 import OpenSeance from "./OpenSeance";
 
+import { FaChevronCircleUp } from "react-icons/fa";
+
 export default function TimeLine({ seances, roadmap }) {
+  //___________________ Calcul placement seance et mois ________________________
   const days = differenceInDays(roadmap.echeance, roadmap.createdAt);
-  const positionSeance = differenceInDays(seances.createdAt, roadmap.createdAt);
+  const numberMonth = differenceInMonths(roadmap.echeance, roadmap.createdAt);
+  const arrayPositionMonth = [];
+
+  let position = 0;
+
+  for (let index = 0; index < numberMonth; index++) {
+    position = position + (days * 10) / numberMonth;
+    arrayPositionMonth.push({ num: index + 1, position: position });
+  }
 
   const [seanceSelect, setSeanceSelect] = useState(null);
 
+  function positionSeance(date) {
+    const positionSeance = differenceInDays(date, roadmap.createdAt);
+
+    return positionSeance;
+  }
+
+  //__________________ Ouverture d'une seance _________________________________
   const handleSelectSeance = (seance) => {
     setSeanceSelect(seance);
   };
@@ -28,8 +46,8 @@ export default function TimeLine({ seances, roadmap }) {
             seances.map((seance) => (
               <div
                 key={seance.id}
-                style={{ left: `${positionSeance}px` }}
-                className="absolute bottom-2 h-50 w-2 bg-black rounded-xl "
+                style={{ left: `${positionSeance(seance.createdAt)}px` }}
+                className="absolute bottom-2 h-20 w-2 bg-black rounded-xl "
                 onClick={() => handleSelectSeance(seance)}
               >
                 <div className="absolute h-6 w-6 flex justify-center items-center rounded-[50%] bg-black top-0 left-1 translate-x-[-50%] translate-y-[-50%] ">
@@ -37,6 +55,16 @@ export default function TimeLine({ seances, roadmap }) {
                 </div>
               </div>
             ))}
+          {arrayPositionMonth.map((position) => (
+            <div
+              key={position.num}
+              style={{ left: `${position.position}px` }}
+              className="flex flex-col items-center absolute top-8"
+            >
+              <FaChevronCircleUp />
+              <p className="">{position.num} mois</p>
+            </div>
+          ))}
         </div>
       </div>
       {seanceSelect && <OpenSeance seance={seanceSelect} />}
