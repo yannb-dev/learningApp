@@ -1,25 +1,35 @@
 "use client";
 
+import { parse, format, differenceInDays, differenceInMonths } from "date-fns";
+import { fr } from "date-fns/locale";
+
 export default function OpenSeance(seance) {
   console.log("Depuis le componente", seance.seance.sujet);
 
   return (
-    <div className="w-[80%] h-auto flex flex-col justify-center border-2 border-gray-300 border-dashed rounded-xl mt-12 p-4 ">
-      <div className="w-full flex justify-evenly">
-        <h3>Seance N°{}</h3>
-        <h3>Sujet : {seance.seance.sujet}</h3>
-        <h3>Date : {}</h3>
+    <div className="w-[80%] h-auto flex flex-col justify-center border-2 border-gray-300 border-dashed rounded-xl mt-12 overflow-hidden ">
+      <div className="w-full h-12 flex items-center justify-between bg-red-300 p-2">
+        <h3 className="font-mono">
+          <strong>Sujet : </strong> {seance.seance.sujet}
+        </h3>
+        <h3 className="font-mono">
+          <strong>Date :</strong>{" "}
+          {format(seance.seance.createdAt, "dd/MM/yyyy", { locale: fr })}
+        </h3>
       </div>
-      <div className="flex flex-col">
-        <p className="mt-4">
-          <strong>Thèmes abordés :</strong> {seance.seance.accomplished}
-        </p>
-        <p className="mt-4">
-          <strong>Difficultés rencontrés :</strong> {seance.seance.difficulty}
-        </p>
-        <p className="mt-4">
-          <strong>Points importants :</strong> {seance.seance.keyPoint}
-        </p>
+      <div className="flex flex-col p-2">
+        <div>
+          <h3 className="font-mono font-bold mt-4">Thèmes abordés</h3>
+          <p className="mt-2">{seance.seance.accomplished}</p>
+        </div>
+        <div>
+          <h3 className="font-mono font-bold mt-4">Difficultés rencontrés :</h3>
+          <p className="mt-2">{seance.seance.difficulty}</p>
+        </div>
+        <div>
+          <h3 className="font-mono font-bold mt-4">Points importants :</h3>
+          <p className="mt-2">{seance.seance.keyPoint}</p>
+        </div>
       </div>
     </div>
   );
