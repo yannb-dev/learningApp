@@ -37,7 +37,7 @@ export default function TimeLine({ seances, roadmap }) {
 
   return (
     <div className="w-full h-auto flex flex-col items-center p-6">
-      <div className="w-[80%] h-60 overflow-x-auto flex items-end rounded-xl p-4">
+      <div className="w-[80%] h-60 overflow-x-auto flex items-center p-2">
         <div
           style={{ minWidth: `${days * 10}px` }}
           className="relative h-6 bg-red-400 rounded-xl"
@@ -68,6 +68,14 @@ export default function TimeLine({ seances, roadmap }) {
         </div>
       </div>
       {seanceSelect && <OpenSeance seance={seanceSelect} />}
+      {seanceSelect && (
+        <button
+          className="p-1 rounded-sm bg-red-400 mt-10"
+          onClick={() => setSeanceSelect(null)}
+        >
+          Fermer
+        </button>
+      )}
 
       <div className="w-full flex justify-evenly mt-10">
         <div className="h-70 w-80 border-2 border-black rounded-xl">
