@@ -10,7 +10,8 @@ import OpenSeance from "./OpenSeance";
 
 export default function TimeLine({ seances, roadmap }) {
   const [seanceSelect, setSeanceSelect] = useState(null);
-  const [stateBulle, setStateBulle] = useState(false);
+  const [stateBulle, setStateBulle] = useState(null);
+  const [stateBackgroundBulle, setStateBackgroundBulle] = useState(null);
 
   //___________________ Calcul placement seance et mois ________________________
   const days = differenceInDays(roadmap.echeance, roadmap.createdAt);
@@ -33,6 +34,7 @@ export default function TimeLine({ seances, roadmap }) {
   //__________________ Ouverture d'une seance _________________________________
   const handleSelectSeance = (seance) => {
     setSeanceSelect(seance);
+    setStateBackgroundBulle(seance.id);
   };
 
   return (
@@ -52,12 +54,12 @@ export default function TimeLine({ seances, roadmap }) {
               >
                 <div className="absolute h-6 w-6 flex justify-center items-center rounded-[50%] bg-black top-0 left-[2px] translate-x-[-50%] translate-y-[-50%] ">
                   <div
-                    onMouseEnter={() => setStateBulle(true)}
-                    onMouseLeave={() => setStateBulle(false)}
-                    className="h-5 w-5 bg-red-300 rounded-[50%] hover:bg-green-500"
+                    onMouseEnter={() => setStateBulle(seance.id)}
+                    onMouseLeave={() => setStateBulle(null)}
+                    className={`h-5 w-5 rounded-[50%] hover:bg-green-500 ${stateBackgroundBulle === seance.id ? "bg-green-500" : "bg-red-300"}`}
                   ></div>
                 </div>
-                {stateBulle && (
+                {stateBulle === seance.id && (
                   <div className="absolute h-10 w-100 flex items-center border-1 border-black rounded-sm bottom-5 left-0 p-1">
                     <p className="text-sm">{seance.sujet}</p>
                   </div>
@@ -80,7 +82,9 @@ export default function TimeLine({ seances, roadmap }) {
       {seanceSelect && (
         <button
           className="p-1 rounded-sm bg-red-400 mt-10"
-          onClick={() => setSeanceSelect(null)}
+          onClick={() => {
+            (setSeanceSelect(null), setStateBackgroundBulle(null));
+          }}
         >
           Fermer
         </button>
