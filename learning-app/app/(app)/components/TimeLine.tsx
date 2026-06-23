@@ -2,14 +2,16 @@
 
 import { parse, format, differenceInDays, differenceInMonths } from "date-fns";
 import { fr } from "date-fns/locale";
-
+import { FaChevronCircleUp } from "react-icons/fa";
 import { useState } from "react";
 
+//____________________ Import components ______________________________________
 import OpenSeance from "./OpenSeance";
 
-import { FaChevronCircleUp } from "react-icons/fa";
-
 export default function TimeLine({ seances, roadmap }) {
+  const [seanceSelect, setSeanceSelect] = useState(null);
+  const [stateBulle, setStateBulle] = useState(false);
+
   //___________________ Calcul placement seance et mois ________________________
   const days = differenceInDays(roadmap.echeance, roadmap.createdAt);
   const numberMonth = differenceInMonths(roadmap.echeance, roadmap.createdAt);
@@ -21,8 +23,6 @@ export default function TimeLine({ seances, roadmap }) {
     position = position + (days * 10) / numberMonth;
     arrayPositionMonth.push({ num: index + 1, position: position });
   }
-
-  const [seanceSelect, setSeanceSelect] = useState(null);
 
   function positionSeance(date) {
     const positionSeance = differenceInDays(date, roadmap.createdAt);
@@ -37,22 +37,31 @@ export default function TimeLine({ seances, roadmap }) {
 
   return (
     <div className="w-full h-auto flex flex-col items-center p-6">
-      <div className="w-[80%] h-60 overflow-x-auto flex items-center p-2">
+      <div className="w-[80%] h-60 overflow-x-auto flex items-center p-4">
         <div
           style={{ minWidth: `${days * 10}px` }}
-          className="relative h-6 bg-red-400 rounded-xl"
+          className="relative h-4 bg-red-300"
         >
           {seances &&
             seances.map((seance) => (
               <div
                 key={seance.id}
                 style={{ left: `${positionSeance(seance.createdAt)}px` }}
-                className="absolute bottom-2 h-20 w-2 bg-black rounded-xl "
+                className="absolute bottom-0 h-20 w-[4px] bg-black rounded-xl "
                 onClick={() => handleSelectSeance(seance)}
               >
-                <div className="absolute h-6 w-6 flex justify-center items-center rounded-[50%] bg-black top-0 left-1 translate-x-[-50%] translate-y-[-50%] ">
-                  <div className="h-3 w-3 bg-white rounded-[50%]"></div>
+                <div className="absolute h-6 w-6 flex justify-center items-center rounded-[50%] bg-black top-0 left-[2px] translate-x-[-50%] translate-y-[-50%] ">
+                  <div
+                    onMouseEnter={() => setStateBulle(true)}
+                    onMouseLeave={() => setStateBulle(false)}
+                    className="h-5 w-5 bg-red-300 rounded-[50%] hover:bg-green-500"
+                  ></div>
                 </div>
+                {stateBulle && (
+                  <div className="absolute h-10 w-100 flex items-center border-1 border-black rounded-sm bottom-5 left-0 p-1">
+                    <p className="text-sm">{seance.sujet}</p>
+                  </div>
+                )}
               </div>
             ))}
           {arrayPositionMonth.map((position) => (
