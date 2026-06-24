@@ -76,6 +76,7 @@ user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 createdAt DateTime @default(now())
 seances Seance[]
 roadmap Roadmap?
+objectives Objective[]
 }
 
 model Roadmap {
@@ -132,7 +133,9 @@ name String
 index Int
 state State
 moduleRef Int
+projectId String
 moduleId String
+project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
 createdAt DateTime @default(now())
 }

@@ -87,16 +87,6 @@ export default async function GestionPage({
     },
   });
 
-  // __________ formatage date ______________________________
-
-  // const date = new Date(seance[0].createdAt);
-
-  // const formatter = new Intl.DateTimeFormat("fr-FR", {
-  //   day: "2-digit",
-  //   month: "long",
-  //   year: "numeric",
-  // });
-
   return (
     <div className="p-6">
       <BtnBack />

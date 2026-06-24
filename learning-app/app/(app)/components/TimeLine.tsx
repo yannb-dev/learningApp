@@ -8,7 +8,13 @@ import { useState } from "react";
 //____________________ Import components ______________________________________
 import OpenSeance from "./OpenSeance";
 
-export default function TimeLine({ seances, roadmap }) {
+export default function TimeLine({
+  seances,
+  roadmap,
+  acquired,
+  inProgress,
+  upComming,
+}) {
   const [seanceSelect, setSeanceSelect] = useState(null);
   const [stateBulle, setStateBulle] = useState(null);
   const [stateBackgroundBulle, setStateBackgroundBulle] = useState(null);
@@ -92,13 +98,26 @@ export default function TimeLine({ seances, roadmap }) {
 
       <div className="w-full flex justify-evenly mt-10">
         <div className="h-70 w-80 border-2 border-black rounded-xl">
-          Maitrisé
+          <h1>Maitrisé</h1>
+          {acquired.map((objective) => (
+            <div key={objective.id}>{objective.name}</div>
+          ))}
         </div>
         <div className="h-70 w-80 border-2 border-black rounded-xl">
-          En cours d'apprentissage
+          <h1>En cours d'apprentissage</h1>
+          {inProgress.map((objective) => (
+            <div key={objective.id} className="mt-2">
+              {objective.name}
+            </div>
+          ))}
         </div>
-        <div className="h-70 w-80 border-2 border-black rounded-xl">
-          Non abordé
+        <div className="h-auto w-80 border-2 border-black rounded-xl p-2">
+          <h1>Non abordé</h1>
+          {upComming.map((objective) => (
+            <div key={objective.id} className="mt-2">
+              {objective.name}
+            </div>
+          ))}
         </div>
       </div>
     </div>

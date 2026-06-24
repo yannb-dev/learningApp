@@ -72,6 +72,7 @@ export async function POST(request: Request) {
                 state: "UpComming",
                 moduleRef: liste.moduleRef,
                 moduleId: module.id,
+                projectId: result.data.projectId,
               },
             });
           }),
