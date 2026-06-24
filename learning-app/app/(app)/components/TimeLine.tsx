@@ -8,6 +8,9 @@ import { useState } from "react";
 //____________________ Import components ______________________________________
 import OpenSeance from "./OpenSeance";
 
+//____________________ Import icon ___________________________________________
+import { FaRegHandPointDown } from "react-icons/fa";
+
 export default function TimeLine({
   seances,
   roadmap,
@@ -41,6 +44,18 @@ export default function TimeLine({
   const handleSelectSeance = (seance) => {
     setSeanceSelect(seance);
     setStateBackgroundBulle(seance.id);
+  };
+
+  //__________________ Listing des objectives _________________________________
+  const handleListObjective = (tri) => {
+    const tab = tri.map((objective) => (
+      <div key={objective.id} className="flex flex-col font-mono mb-4">
+        <FaRegHandPointDown className="text-red-500 mb-2" />
+        {objective.name}
+      </div>
+    ));
+
+    return tab;
   };
 
   return (
@@ -97,27 +112,19 @@ export default function TimeLine({
       )}
 
       <div className="w-full flex justify-evenly mt-10">
-        <div className="h-70 w-80 border-2 border-black rounded-xl">
-          <h1>Maitrisé</h1>
-          {acquired.map((objective) => (
-            <div key={objective.id}>{objective.name}</div>
-          ))}
+        <div className="h-70 w-80 border-2 border-black rounded-xl p-2">
+          <h1 className="font-mono font-bold text-center mb-6">Maitrisé</h1>
+          {handleListObjective(acquired)}
         </div>
-        <div className="h-70 w-80 border-2 border-black rounded-xl">
-          <h1>En cours d'apprentissage</h1>
-          {inProgress.map((objective) => (
-            <div key={objective.id} className="mt-2">
-              {objective.name}
-            </div>
-          ))}
+        <div className="h-70 w-80 border-2 border-black rounded-xl p-2">
+          <h1 className="font-mono font-bold text-center mb-6">
+            En cours d'apprentissage
+          </h1>
+          {handleListObjective(inProgress)}
         </div>
         <div className="h-auto w-80 border-2 border-black rounded-xl p-2">
-          <h1>Non abordé</h1>
-          {upComming.map((objective) => (
-            <div key={objective.id} className="mt-2">
-              {objective.name}
-            </div>
-          ))}
+          <h1 className="font-mono font-bold text-center mb-6">Non abordé</h1>
+          {handleListObjective(upComming)}
         </div>
       </div>
     </div>
