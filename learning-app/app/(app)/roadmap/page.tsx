@@ -64,7 +64,7 @@ export default async function RoadmapPage({
 
   const { project } = await searchParams;
 
-  const roadmap = await prisma.roadmap.findUnique({
+  const roadmap = await prisma.roadmap.findFirst({
     where: {
       projectId: project,
       userId: session.user.id,
@@ -75,11 +75,10 @@ export default async function RoadmapPage({
           criterias: true,
           objectives: true,
         },
+        orderBy: { numModule: "asc" },
       },
     },
   });
-
-  const dateEcheance = format(roadmap.echeance, "dd/MM/yyyy", { locale: fr });
 
   return (
     <div className="p-6">
@@ -97,8 +96,6 @@ export default async function RoadmapPage({
           <div className="h-auto w-[20%] flex flex-col">
             <h3 className="font-mono font-bold mb-2">Mon objectif :</h3>
             <p className="text-justify">{roadmap.objective}</p>
-            <h3 className="font-mono font-bold mb-2 mt-2">Mon échéance :</h3>
-            <p className="text-justify">{dateEcheance}</p>
           </div>
           <div className="h-auto w-[80%] flex flex-col items-center">
             {roadmap.module.map((module) => (
@@ -158,7 +155,7 @@ export default async function RoadmapPage({
                       <div className="h-1 rounded-xl w-[60%] bg-black"></div>
                     </div>
                   </div>
-                  <div className="h-auto w-full flex flex-col p-4">
+                  <div className="h-auto w-full flex flex-col p-4 bg-gray-100">
                     <h3 className="font-mono font-bold mb-4">Projet :</h3>
                     <p>{module.practicalproject}</p>
                   </div>

@@ -61,8 +61,8 @@ export async function POST(request: Request) {
               topic: liste.topic,
               snippet: liste.snippet,
               notes: liste.notes,
+              projectId: result.data.projectId,
               userId: session.user.id,
-              seanceId: seance.id,
             },
           });
 

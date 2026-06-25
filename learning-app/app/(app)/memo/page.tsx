@@ -1,17 +1,19 @@
-"use client";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
-export default function MemoPage() {
-  const router = useRouter();
+import BtnBack from "../components/BtnBack";
+
+export default async function MemoPage({ searchParams }) {
+  const session = getServerSession(authOptions);
+
+  if (!session) redirect("/login");
+
+  const { idProject } = await searchParams;
   return (
-    <div>
-      <button
-        className="p-2 bg-red-500 text-white font-bold rounded-sm"
-        onClick={() => router.back()}
-      >
-        Retour
-      </button>
+    <div className="p-6">
+      <BtnBack />
     </div>
   );
 }

@@ -77,6 +77,7 @@ createdAt DateTime @default(now())
 seances Seance[]
 roadmap Roadmap?
 objectives Objective[]
+memos Memo[]
 }
 
 model Roadmap {
@@ -152,7 +153,6 @@ userId String
 projectId String
 user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-memos Memo[]
 createdAt DateTime @default(now())
 }
 
@@ -163,9 +163,9 @@ topic String
 snippet String
 notes String
 userId String
-seanceId String
+projectId String
 user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-seance Seance @relation(fields: [seanceId], references: [id], onDelete: Cascade)
+project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 createdAt DateTime @default(now())
 tags Tag[]
 }

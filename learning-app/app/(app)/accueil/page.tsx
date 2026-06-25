@@ -68,8 +68,6 @@ export default async function AppPage({
     });
   }
 
-  console.log(objectivesUpComming);
-
   return (
     <div className="w-full flex flex-col items-center">
       {projectOpen && (

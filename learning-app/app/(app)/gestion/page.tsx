@@ -138,9 +138,12 @@ export default async function GestionPage({
             </h3>
             {seance &&
               seance.map((seance) => (
-                <h1 key={seance.id}>
-                  {format(seance.createdAt, "dd/MM/yyyy", { locale: fr })}
-                </h1>
+                <div className="flex" key={seance.id}>
+                  <h1 className="font-mono font-bold mr-4">
+                    {format(seance.createdAt, "dd/MM/yyyy", { locale: fr })}
+                  </h1>
+                  <p className="font-mono">{seance.sujet}</p>
+                </div>
               ))}
           </div>
         </div>
