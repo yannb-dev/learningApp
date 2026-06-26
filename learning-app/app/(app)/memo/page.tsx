@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 
 import BtnBack from "../components/BtnBack";
 import ListMemo from "../components/ListMemo";
-import { memoryUsage } from "node:process";
 
 export default async function MemoPage({ searchParams }) {
   const session = getServerSession(authOptions);
@@ -22,10 +21,22 @@ export default async function MemoPage({ searchParams }) {
       tags: true,
     },
   });
+
+  const arrayTag = [];
+
+  memo.map((memo) => {
+    memo.tags.map((tag) => {
+      const includeArray = arrayTag.some((a) => a.slug === tag.slug);
+
+      if (!includeArray) {
+        arrayTag.push({ slug: tag.slug });
+      }
+    });
+  });
   return (
     <div className="p-6">
       <BtnBack />
-      <ListMemo memo={memo} />
+      <ListMemo memo={memo} tags={arrayTag} />
     </div>
   );
 }
