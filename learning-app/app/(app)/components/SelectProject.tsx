@@ -22,10 +22,10 @@ export default function SelectProject({ projectList }: Props) {
     <div>
       {projectList && (
         <select
-          className="w-80 bg-gray-100 border-1 border-gray-300 rounded-sm p-2 font-mono "
+          className="w-80 bg-gray-100 border-1 border-gray-300 rounded-sm p-2 font-mono text-center "
           onChange={(e) => handleSelect(e.target.value)}
         >
-          <option value="">-- Quel projet afficher ? --</option>
+          <option value="">-- Afficher / Créer --</option>
           {projectList.map((p) => (
             <option key={p.id} value={p.id}>
               {p.name}

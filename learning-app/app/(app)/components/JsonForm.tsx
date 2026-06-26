@@ -54,25 +54,25 @@ export default function JsonForm({ roadmap, templateSeance }) {
     try {
       const fileCheck = ImportSeance.safeParse(file);
 
-      if (!fileCheck.success) {
-        console.log("Erreur lors du contrôle du fichier");
+      if (!fileCheck.success)
+        return console.log("Erreur de contrôle du fichier");
+
+      const sendingFile = await fetch("api/seance", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          seance: fileCheck.data,
+          projectId: roadmap.projectId,
+        }),
+      });
+
+      if (sendingFile) {
+        setStateTuto(false);
+        setStateViewImport(false);
+        router.refresh();
       } else {
-        const sendingFile = await fetch("api/seance", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            seance: fileCheck.data,
-            projectId: roadmap.projectId,
-          }),
-        });
-
-        return sendingFile;
+        console.log("Erreur d'enregistrement en BDD");
       }
-
-      setStateTuto(false);
-      setStateViewImport(false);
-
-      router.refresh();
 
       return Response.json({ success: true });
     } catch (err) {

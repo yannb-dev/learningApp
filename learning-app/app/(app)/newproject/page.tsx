@@ -6,6 +6,9 @@ import { authOptions } from "@/lib/auth";
 import ProjectForm from "../components/ProjectForm";
 import DeleteProject from "../components/DeleteProject";
 
+//______________ import icon __________________________
+import { FaRegHandPointRight } from "react-icons/fa";
+
 import { redirect } from "next/navigation";
 
 export default async function newProject() {
@@ -16,16 +19,29 @@ export default async function newProject() {
   const project = await prisma.project.findMany({
     where: { userId: session.user.id },
   });
+
+  console.log(project);
+
   return (
     <div>
       <ProjectForm />
-      {project &&
+      <h1 className="flex items-center mt-12 ml-12 font-mono font-bold">
+        {" "}
+        <FaRegHandPointRight className="mr-4" />
+        Liste des projets :
+      </h1>
+      {project.length > 0 ? (
         project.map((project) => (
           <div key={project.id}>
             <h1>{project.name}</h1>
             <DeleteProject projectId={project.id} />
           </div>
-        ))}
+        ))
+      ) : (
+        <div>
+          <h1 className="font-mono mt-6 ml-12">Aucun project initié</h1>
+        </div>
+      )}
     </div>
   );
 }
