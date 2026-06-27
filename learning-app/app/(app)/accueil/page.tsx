@@ -55,16 +55,16 @@ export default async function AppPage({
   }
 
   if (roadmap) {
-    objectivesAcquired = await prisma.objective.findMany({
-      where: { projectId: projectOpen.id, state: "Acquired" },
+    const objectivesAcquired = roadmap.module.forEach((module) => {
+      module.objectives.filter((m) => m.state === "Acquired");
     });
 
-    objectivesInProgress = await prisma.objective.findMany({
-      where: { projectId: projectOpen.id, state: "InProgress" },
+    const objectivesInProgress = roadmap.module.forEach((module) => {
+      module.objectives.filter((m) => m.state === "InProgress");
     });
 
-    objectivesUpComming = await prisma.objective.findMany({
-      where: { projectId: projectOpen.id, state: "UpComming" },
+    const objectivesUpComming = roadmap.module.forEach((module) => {
+      module.objectives.filter((m) => m.state === "UpComming");
     });
   }
 
