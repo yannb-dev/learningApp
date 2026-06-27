@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
-import { Objectives } from "@/lib/schema/RoadmapApi";
+import { Objective } from "@/app/generated/prisma";
 
 //__________ import components ___________________
 import NavBtn from "../components/NavBtn";
@@ -30,22 +30,23 @@ export default async function AppPage({
 
   let projectOpen = null;
   let roadmap = null;
-  let arrayAcquired: Objectives = [];
-  let arrayInProgress: Objectives = [];
-  let arrayUpComming: Objectives = [];
+  let arrayAcquired: Objective[] = [];
+  let arrayInProgress: Objective[] = [];
+  let arrayUpComming: Objective[] = [];
 
   if (search === "") {
     console.log("Aucun projet n'est sélectionné");
   } else {
     projectOpen = await prisma.project.findUnique({
-      where: { id: search },
+      where: { id: search, userId: session.user.id },
       include: {
         seances: true,
       },
     });
 
-    if (!projectOpen)
-      return Response.json({ error: "Pas de projet trouvé" }, { status: 404 });
+    if (!projectOpen) {
+      return <div>Aucun projet sélectionné !</div>;
+    }
 
     roadmap = await prisma.roadmap.findUnique({
       where: { projectId: projectOpen.id, userId: session.user.id },
@@ -53,11 +54,33 @@ export default async function AppPage({
         module: {
           include: {
             objectives: true,
+            criterias: true,
           },
         },
       },
     });
   }
+
+  if (!roadmap)
+    return (
+      <div className="w-full h-[100vh] flex items-center justify-center">
+        <div className="w-full flex flex-col justify-center items-center">
+          <h1 className="text-3xl font-bold font-mono">Choisis ton projet !</h1>
+          <p className="mb-14">Sélectionne dans le menu en haut de la page</p>
+          <div className="w-[70%] flex flex-wrap justify-center gap-10">
+            <div className="h-90 w-70 flex flex-col border-2 border-black rounded-xl p-6 ">
+              <h3>Tips</h3>
+            </div>
+            <div className="h-90 w-70 flex border-2 border-black rounded-xl p-6 ">
+              <h3>Nouveauté</h3>
+            </div>
+            <div className="h-90 w-70 flex border-2 border-black rounded-xl p-6 ">
+              <h3>Mon activté</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
 
   if (roadmap) {
     roadmap.module.forEach((module) => {
@@ -75,8 +98,6 @@ export default async function AppPage({
         }
       });
     });
-  } else {
-    return Response.json({ error: "Aucune roadMap" }, { status: 404 });
   }
 
   return (
@@ -114,27 +135,6 @@ export default async function AppPage({
           )}
         </div>
       )}
-      <div className="w-full h-[100vh] flex items-center justify-center">
-        {search === "" && (
-          <div className="w-full flex flex-col justify-center items-center">
-            <h1 className="text-3xl font-bold font-mono">
-              Choisis ton projet !
-            </h1>
-            <p className="mb-14">Sélectionne dans le menu en haut de la page</p>
-            <div className="w-[70%] flex flex-wrap justify-center gap-10">
-              <div className="h-90 w-70 flex flex-col border-2 border-black rounded-xl p-6 ">
-                <h3>Tips</h3>
-              </div>
-              <div className="h-90 w-70 flex border-2 border-black rounded-xl p-6 ">
-                <h3>Nouveauté</h3>
-              </div>
-              <div className="h-90 w-70 flex border-2 border-black rounded-xl p-6 ">
-                <h3>Mon activté</h3>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
     </div>
   );
 }

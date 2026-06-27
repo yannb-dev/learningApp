@@ -1,14 +1,22 @@
 "use client";
+import { Objective, Prisma } from "@/app/generated/prisma";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { ImportSeance } from "@/lib/schema/ImportSeance";
+import { Roadmap } from "@/app/generated/prisma";
 
-import { RoadmapApi } from "@/lib/schema/RoadmapApi";
+type RoadmapData = Prisma.RoadmapGetPayload<{
+  include: {
+    module: {
+      include: { objectives: true };
+    };
+  };
+}>;
 
 type Props = {
-  roadmap: RoadmapApi;
+  roadmap: RoadmapData;
   templateSeance: String;
 };
 

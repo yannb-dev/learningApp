@@ -3,10 +3,10 @@ import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-import { ProjectDataWithId } from "@/lib/schema/FormNewProject";
-
 import ProjectForm from "../components/ProjectForm";
 import DeleteProject from "../components/DeleteProject";
+
+import { Project } from "@/app/generated/prisma";
 
 //______________ import icon __________________________
 import { FaRegHandPointRight } from "react-icons/fa";
@@ -31,7 +31,7 @@ export default async function NewProject() {
         Liste des projets :
       </h1>
       {project.length > 0 ? (
-        project.map((project: ProjectDataWithId) => (
+        project.map((project: Project) => (
           <div key={project.id}>
             <h1>{project.name}</h1>
             <DeleteProject projectId={project.id} />

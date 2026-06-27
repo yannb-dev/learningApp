@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 
 import { z } from "zod";
-import { SeanceApi } from "@/lib/schema/SeanceApi";
+import { Prisma } from "@/app/generated/prisma";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -11,8 +11,12 @@ import { redirect } from "next/navigation";
 import BtnBack from "../components/BtnBack";
 import ListMemo from "../components/ListMemo";
 
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
-type Memo = z.infer<typeof SeanceApi>["seance"]["memos"][number];
+type SearchParams = Promise<{ [key: string]: string | undefined }>;
+type Memo = Prisma.MemoGetPayload<{
+  include: {
+    tags: true;
+  };
+}>;
 
 export default async function MemoPage({
   searchParams,
@@ -34,8 +38,8 @@ export default async function MemoPage({
 
   const arrayTag: { slug: string }[] = [];
 
-  memo.map((memo: Memo) => {
-    memo.tags.map((tag) => {
+  memo.forEach((memo: Memo) => {
+    memo.tags.forEach((tag) => {
       const includeArray = arrayTag.some((a) => a.slug === tag.slug);
 
       if (!includeArray) {

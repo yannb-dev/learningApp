@@ -86,7 +86,7 @@ export async function POST(request: Request) {
             }),
 
             ...newTabCriteria.map((liste) => {
-              return prisma.criteria.create({
+              return tx.criteria.create({
                 data: {
                   name: liste.name,
                   index: liste.index,

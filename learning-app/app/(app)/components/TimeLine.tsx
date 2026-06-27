@@ -1,15 +1,14 @@
 "use client";
 
+import { Prisma } from "@/app/generated/prisma";
+
 import { parse, format, differenceInDays, differenceInMonths } from "date-fns";
 import { fr } from "date-fns/locale";
 import { FaChevronCircleUp } from "react-icons/fa";
 import { useState } from "react";
 
-import { z } from "zod";
-
 import { Seance } from "@/lib/schema/SeanceApi";
-import { RoadMapWithChildren } from "@/lib/schema/RoadmapApi";
-import { Objectives } from "@/lib/schema/RoadmapApi";
+import { Objective } from "@/app/generated/prisma";
 
 //____________________ Import components ______________________________________
 import OpenSeance from "./OpenSeance";
@@ -17,14 +16,23 @@ import OpenSeance from "./OpenSeance";
 //____________________ Import icon ___________________________________________
 import { FaRegHandPointDown } from "react-icons/fa";
 
-type Roadmap = z.infer<typeof RoadMapWithChildren>["roadmap"];
+type RoadmapData = Prisma.RoadmapGetPayload<{
+  include: {
+    module: {
+      include: {
+        criterias: true;
+        objectives: true;
+      };
+    };
+  };
+}>;
 
 type Props = {
   seances: Seance[];
-  roadmap: Roadmap;
-  acquired: Objectives;
-  inProgress: Objectives;
-  upComming: Objectives;
+  roadmap: RoadmapData;
+  acquired: Objective[];
+  inProgress: Objective[];
+  upComming: Objective[];
 };
 
 export default function TimeLine({
@@ -63,7 +71,7 @@ export default function TimeLine({
   };
 
   //__________________ Listing des objectives _________________________________
-  const handleListObjective = (tri: Objectives) => {
+  const handleListObjective = (tri: Objective[]) => {
     const tab = tri.map((objective) => (
       <div key={objective.id} className="flex flex-col font-mono mb-4">
         <FaRegHandPointDown className="text-red-500 mb-2" />

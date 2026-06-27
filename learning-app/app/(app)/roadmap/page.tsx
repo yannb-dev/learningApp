@@ -5,13 +5,8 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-import { z } from "zod";
-
-import { RoadMapWithChildren } from "@/lib/schema/RoadmapApi";
-
 //___________ type _______________________________
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
-type Module = z.infer<typeof RoadMapWithChildren>["roadmap"]["module"][number];
 type RoadmapData = Prisma.RoadmapGetPayload<{
   include: {
     module: {
@@ -48,7 +43,7 @@ function stateObjective(state: string) {
 function calculNumObjective(roadmap: RoadmapData) {
   let totalObjective = 0;
 
-  const numObjective = roadmap.module.forEach((module) => {
+  roadmap.module.forEach((module) => {
     totalObjective = totalObjective + module.objectives.length;
   });
 
@@ -58,7 +53,7 @@ function calculNumObjective(roadmap: RoadmapData) {
 function calculUpComming(roadmap: RoadmapData) {
   let totalUpComming = 0;
   roadmap.module.forEach((module) => {
-    module.objectives.map((objective) => {
+    module.objectives.forEach((objective) => {
       if (objective.state === "UpComming") {
         totalUpComming = totalUpComming + 1;
       }

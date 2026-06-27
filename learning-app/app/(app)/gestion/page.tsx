@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 
-import { Seance } from "@/lib/schema/SeanceApi";
+import { Seance } from "@/app/generated/prisma";
 
 //__________ import components ___________________
 import MarkdownForm from "../components/MarkdownForm";
@@ -19,7 +19,7 @@ import DeleteRoadmap from "../components/DeleteRoadmap";
 import JsonForm from "../components/JsonForm";
 
 //___________ type _______________________________
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+type SearchParams = Promise<{ [key: string]: string | undefined }>;
 
 export default async function GestionPage({
   searchParams,
@@ -57,25 +57,9 @@ export default async function GestionPage({
       projectId: project,
       userId: session.user.id,
     },
-    select: {
-      id: true,
-      name: true,
-      objective: true,
-      duration: true,
-      dispo: true,
-      projectId: true,
+    include: {
       module: {
-        select: {
-          id: true,
-          name: true,
-          objectives: {
-            select: {
-              id: true,
-              name: true,
-              state: true,
-            },
-          },
-        },
+        include: { objectives: true },
       },
     },
   });

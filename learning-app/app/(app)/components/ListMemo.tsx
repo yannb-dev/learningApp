@@ -1,9 +1,14 @@
 "use client";
-import { z } from "zod";
+
+import { Prisma } from "@/app/generated/prisma";
+
 import { useState } from "react";
 
-import { SeanceApi } from "@/lib/schema/SeanceApi";
-import { Memo } from "@/lib/schema/SeanceApi";
+type Memo = Prisma.MemoGetPayload<{
+  include: {
+    tags: true;
+  };
+}>;
 
 type Props = {
   memo: Memo[];
@@ -15,18 +20,12 @@ export default function ListMemo({ memo, tags }: Props) {
   const [stateTag, setStateTag] = useState("");
 
   //____________ Filtre par tag ____________________
-  const handleFiltre = async (tag: string) => {
-    let newArray: Memo[] = [];
-
-    await memo.map((m) => {
-      const present = m.tags.some((t) => t.slug === tag);
-
-      if (present) {
-        newArray.push(m);
-      }
-    });
-
-    setListMemo(newArray);
+  const handleFiltre = (tag: string) => {
+    setListMemo(
+      memo.filter((m) => {
+        m.tags.some((t) => t.slug === tag);
+      }),
+    );
   };
 
   return (
