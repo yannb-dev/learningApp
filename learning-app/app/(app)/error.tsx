@@ -1,6 +1,6 @@
 "use client";
 
-export default function Error({ error, reset }) {
+export default function Error({ reset }) {
   return (
     <div>
       <p>Impossible de charger la page d'accueil.</p>

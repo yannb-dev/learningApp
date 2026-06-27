@@ -45,7 +45,7 @@ export const authOptions: NextAuthOptions = {
     },
 
     async redirect({ url, baseUrl }) {
-      if (url.includes("signout")) return `${baseUrl}/login`;
+      if (url.includes("signout")) return `${baseUrl}/login`; // Attention à prendre en compte si URL redirige vers /signout-page
 
       if (url.startsWith(baseUrl)) return url;
 

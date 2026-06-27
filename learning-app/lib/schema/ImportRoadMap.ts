@@ -1,7 +1,7 @@
 // contrôle des valeurs pour le fichier roadmap.json qui entre sur RoadMapForm
 //
 
-import { object, z } from "zod";
+import { z } from "zod";
 
 export const Importroadmap = z.object({
   name: z.string().min(1),

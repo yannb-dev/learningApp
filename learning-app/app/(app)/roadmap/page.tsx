@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { Prisma } from "@/app/generated/prisma";
 
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
@@ -11,6 +12,16 @@ import { RoadMapWithChildren } from "@/lib/schema/RoadmapApi";
 //___________ type _______________________________
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 type Module = z.infer<typeof RoadMapWithChildren>["roadmap"]["module"][number];
+type RoadmapData = Prisma.RoadmapGetPayload<{
+  include: {
+    module: {
+      include: {
+        criterias: true;
+        objectives: true;
+      };
+    };
+  };
+}>;
 
 //______________import components _____________________
 import BtnBack from "../components/BtnBack";
@@ -34,7 +45,7 @@ function stateObjective(state: string) {
   }
 }
 
-function calculNumObjective({ roadmap }: RoadMapWithChildren) {
+function calculNumObjective(roadmap: RoadmapData) {
   let totalObjective = 0;
 
   const numObjective = roadmap.module.map((module) => {
@@ -44,7 +55,7 @@ function calculNumObjective({ roadmap }: RoadMapWithChildren) {
   return totalObjective;
 }
 
-function calculUpComming({ roadmap }: RoadMapWithChildren) {
+function calculUpComming(roadmap: RoadmapData) {
   let totalUpComming = 0;
   roadmap.module.map((module) => {
     module.objectives.map((objective) => {
@@ -65,6 +76,8 @@ export default async function RoadmapPage({
   if (!session) redirect("/login");
 
   const { project } = await searchParams;
+
+  if (!project || Array.isArray(project)) redirect("/");
 
   const roadmap = await prisma.roadmap.findFirst({
     where: {
@@ -101,7 +114,7 @@ export default async function RoadmapPage({
               <p className="text-justify">{roadmap.objective}</p>
             </div>
             <div className="h-auto w-[80%] flex flex-col items-center">
-              {roadmap.module.map((module: Module) => (
+              {roadmap.module.map((module) => (
                 <div
                   className="w-[80%] flex h-auto bg-gray-100 rounded-xl mb-6 border-2 border-gray-300"
                   key={module.id}

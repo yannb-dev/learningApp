@@ -13,15 +13,15 @@
 ### Fonctionnalités
 
 - Se connecter via une plateforme tiers GitHub - google (OAuth).
-- Une page de profil pour les préférences et la gestion du compte.
+- Une page de profil pour les préférences et la gestion du compte. **A développer**
 - Créer et gérer plusieurs `Projet d'apprentissage`
 - Dashboard de présentation avec une timelime qui retrace les sessions importés et les dates des objectifs atteints `Timeline visuel avec infos bulles`.
 - 3 Blocs de présention sous forme de liste qui correspondent à une session d'apprentissage : [Bloc 1 : `Les dernières compétences aquises`], [Bloc 2 : `Les compétences en cours d'apprentissage`], [Bloc 3 : `Les prochaines compétences immédiates à venir`].
 - Possibilité pour l'utilisateur de revenir sur une session d'apprentissage antérieur. Une page regroupe les `Memos techniques` des sessions importés, ils sont filtrables via des tags.
 - Depuis une page gestion déterminer la création d'un projet et génération d'un fichier markdomn à destination des LLM pour standardiser la réponse à la création d'une roadmap en .json.
 - Import d'un fichier roadmap.json pour enregistrement en BDD.
-- Importer depuis la page gestion un fichier session.md pour actualiser les compétences aquises de l'utilisateur.
-- Fournir un fichier session.md au client qu'il utilisera avec le LLM de son choix. Ce fichier aura un format défini pour être importé dans la page gestion.
+- Importer depuis la page gestion un fichier seance.json pour actualiser les compétences aquises de l'utilisateur et enregistrer des mémos.
+- Fournir un fichier session.md au client qu'il utilisera avec le LLM de son choix. Ce fichier aura un format défini avec les valeurs des données de la roadmap pour être importé dans la page gestion.
 
 ### Contrainte technique
 
@@ -30,10 +30,9 @@
 - Projet initialisé en TypeScript
 - Les schémas Zod servent de source unique de vérité pour les types.
 - Création du `Projet d'apprentissage` côté client
-- Import des données via un fichier.md, extraction des valeurs du fichier pour mise en base de données sous un format défini.
-- Utilisation de gray-matter et remark pour extraire les données du .md
+- Import des données via un fichier.json, extraction des valeurs du fichier pour mise en base de données sous un format défini.
 - Application principalement de lecture, peu d'action côté client.
-- Déploiement Vercel + Base de données hébergés
+- Déploiement Vercel + Base de données hébergés **A développer**
 
 ### Modèle de données
 
@@ -113,19 +112,21 @@ userId String
 user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 createdAt DateTime @default(now())
 seances Seance[]
-roadmap Roadmap[]
+roadmap Roadmap?
+objectives Objective[]
+memos Memo[]
 }
 
 model Roadmap {
 id String @id @default(cuid())
 name String
 objective String
-echeance String
+echeance DateTime
 dispo Int
 constraint String
 duration Int
 userId String
-projectId String
+projectId String @unique
 user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 createdAt DateTime @default(now())
@@ -169,7 +170,9 @@ name String
 index Int
 state State
 moduleRef Int
+projectId String
 moduleId String
+project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
 createdAt DateTime @default(now())
 }
@@ -182,12 +185,10 @@ skillDone String
 difficulty String
 keyPoint String
 next String
-tags String
 userId String
 projectId String
 user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-memos Memo[]
 createdAt DateTime @default(now())
 }
 
@@ -198,9 +199,9 @@ topic String
 snippet String
 notes String
 userId String
-seanceId String
+projectId String
 user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-seance Seance @relation(fields: [seanceId], references: [id], onDelete: Cascade)
+project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 createdAt DateTime @default(now())
 tags Tag[]
 }
@@ -214,6 +215,8 @@ memo Memo @relation(fields: [memoId], references: [id], onDelete: Cascade)
 }
 
 ### Architecture
+
+Principe d'architecture. Séparation du front (app) et du back (auth)/(api)
 
 ```
 ├── app\
@@ -232,13 +235,10 @@ memo Memo @relation(fields: [memoId], references: [id], onDelete: Cascade)
 │   │   │   │   │   └── route.ts
 │   │   │   │   └── route.ts
 │   │   │   ├── seance\
-│   │   │   │   ├── [id]\
-│   │   │   │   │   └── route.ts
-│   │   │   │   └── route.ts
-│   │   │   └── skill\
 │   │   │       ├── [id]\
 │   │   │       │   └── route.ts
 │   │   │       └── route.ts
+│   │   │
 │   │   ├── components\
 │   │   │   ├── BlockAfter.tsx
 │   │   │   ├── BlockBefore.tsx
@@ -448,7 +448,7 @@ Ajoutes dans les clés du fichiers .json les éléments pertinants pour continue
 
 ### Répertoire technique
 
-#### 1. Import du fichier roadmap.jsn
+#### 1. Import du fichier roadmap.json
 
 Contrôle des valeurs d'entrée avec un schema ZOD pour le fichier JSON entier. Contrôle des valeurs d'entrée sur route API "roadmap" avec les valeurs du project sélectionné. Puis création en cascade des modules avec objectif et critère.
 

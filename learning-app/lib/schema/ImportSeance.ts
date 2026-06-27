@@ -1,5 +1,4 @@
-import { memo } from "react";
-import { object, z } from "zod";
+import { z } from "zod";
 
 export const ImportSeance = z.object({
   sujet: z.string().min(1),
