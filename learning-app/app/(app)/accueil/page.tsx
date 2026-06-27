@@ -43,7 +43,7 @@ export default async function AppPage({
     });
 
     roadmap = await prisma.roadmap.findUnique({
-      where: { projectId: projectOpen.id },
+      where: { projectId: projectOpen.id, userId: session.user.id },
       include: {
         module: {
           include: {

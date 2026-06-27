@@ -85,6 +85,7 @@ export default async function GestionPage({
   const seance = await prisma.seance.findMany({
     where: {
       projectId: project,
+      userId: session.user.id,
     },
   });
 

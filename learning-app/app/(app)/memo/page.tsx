@@ -19,14 +19,14 @@ export default async function MemoPage({
 }: {
   searchParams: SearchParams;
 }) {
-  const session = getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
 
   if (!session) redirect("/login");
 
   const { idProject } = await searchParams;
 
   const memo = await prisma.memo.findMany({
-    where: { projectId: idProject },
+    where: { projectId: idProject, userId: session.user.id },
     include: {
       tags: true,
     },
