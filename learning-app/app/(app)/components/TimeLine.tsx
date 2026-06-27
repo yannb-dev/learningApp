@@ -5,11 +5,27 @@ import { fr } from "date-fns/locale";
 import { FaChevronCircleUp } from "react-icons/fa";
 import { useState } from "react";
 
+import { z } from "zod";
+
+import { Seance } from "@/lib/schema/SeanceApi";
+import { RoadMapWithChildren } from "@/lib/schema/RoadmapApi";
+import { Objectives } from "@/lib/schema/RoadmapApi";
+
 //____________________ Import components ______________________________________
 import OpenSeance from "./OpenSeance";
 
 //____________________ Import icon ___________________________________________
 import { FaRegHandPointDown } from "react-icons/fa";
+
+type Roadmap = z.infer<typeof RoadMapWithChildren>["roadmap"];
+
+type Props = {
+  seances: Seance[];
+  roadmap: Roadmap;
+  acquired: Objectives;
+  inProgress: Objectives;
+  upComming: Objectives;
+};
 
 export default function TimeLine({
   seances,
@@ -17,10 +33,10 @@ export default function TimeLine({
   acquired,
   inProgress,
   upComming,
-}) {
-  const [seanceSelect, setSeanceSelect] = useState(null);
-  const [stateBulle, setStateBulle] = useState(null);
-  const [stateBackgroundBulle, setStateBackgroundBulle] = useState(null);
+}: Props) {
+  const [seanceSelect, setSeanceSelect] = useState<Seance | null>();
+  const [stateBulle, setStateBulle] = useState("");
+  const [stateBackgroundBulle, setStateBackgroundBulle] = useState("");
 
   //___________________ Calcul placement seance et mois ________________________
   const days = differenceInDays(roadmap.echeance, roadmap.createdAt);
@@ -34,20 +50,20 @@ export default function TimeLine({
     arrayPositionMonth.push({ num: index + 1, position: position });
   }
 
-  function positionSeance(date) {
+  function positionSeance(date: Date = new Date()) {
     const positionSeance = differenceInDays(date, roadmap.createdAt);
 
     return positionSeance;
   }
 
   //__________________ Ouverture d'une seance _________________________________
-  const handleSelectSeance = (seance) => {
+  const handleSelectSeance = (seance: Seance) => {
     setSeanceSelect(seance);
     setStateBackgroundBulle(seance.id);
   };
 
   //__________________ Listing des objectives _________________________________
-  const handleListObjective = (tri) => {
+  const handleListObjective = (tri: Objectives) => {
     const tab = tri.map((objective) => (
       <div key={objective.id} className="flex flex-col font-mono mb-4">
         <FaRegHandPointDown className="text-red-500 mb-2" />
@@ -66,7 +82,7 @@ export default function TimeLine({
           className="relative h-4 bg-red-300"
         >
           {seances &&
-            seances.map((seance) => (
+            seances.map((seance: Seance) => (
               <div
                 key={seance.id}
                 style={{ left: `${positionSeance(seance.createdAt)}px` }}
@@ -76,7 +92,7 @@ export default function TimeLine({
                 <div className="absolute h-6 w-6 flex justify-center items-center rounded-[50%] bg-black top-0 left-[2px] translate-x-[-50%] translate-y-[-50%] ">
                   <div
                     onMouseEnter={() => setStateBulle(seance.id)}
-                    onMouseLeave={() => setStateBulle(null)}
+                    onMouseLeave={() => setStateBulle("")}
                     className={`h-5 w-5 rounded-[50%] hover:bg-green-500 ${stateBackgroundBulle === seance.id ? "bg-green-500" : "bg-red-300"}`}
                   ></div>
                 </div>
@@ -104,7 +120,7 @@ export default function TimeLine({
         <button
           className="p-1 rounded-sm bg-red-400 mt-10"
           onClick={() => {
-            (setSeanceSelect(null), setStateBackgroundBulle(null));
+            (setSeanceSelect(null), setStateBackgroundBulle(""));
           }}
         >
           Fermer

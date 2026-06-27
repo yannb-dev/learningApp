@@ -9,13 +9,14 @@ import { redirect } from "next/navigation";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 
+import { Seance } from "@/lib/schema/SeanceApi";
+
 //__________ import components ___________________
 import MarkdownForm from "../components/MarkdownForm";
 import BtnBack from "../components/BtnBack";
 import RoadMapForm from "../components/RoadMapForm";
 import DeleteRoadmap from "../components/DeleteRoadmap";
 import JsonForm from "../components/JsonForm";
-import DeleteSeance from "../components/DeleteSeance";
 
 //___________ type _______________________________
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
@@ -137,7 +138,7 @@ export default async function GestionPage({
               Liste des sessions précédentes :
             </h3>
             {seance &&
-              seance.map((seance) => (
+              seance.map((seance: Seance) => (
                 <div className="flex" key={seance.id}>
                   <h1 className="font-mono font-bold mr-4">
                     {format(seance.createdAt, "dd/MM/yyyy", { locale: fr })}

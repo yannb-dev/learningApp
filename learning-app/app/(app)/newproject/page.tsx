@@ -3,6 +3,8 @@ import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
+import { ProjectDataWithId } from "@/lib/schema/FormNewProject";
+
 import ProjectForm from "../components/ProjectForm";
 import DeleteProject from "../components/DeleteProject";
 
@@ -31,7 +33,7 @@ export default async function newProject() {
         Liste des projets :
       </h1>
       {project.length > 0 ? (
-        project.map((project) => (
+        project.map((project: ProjectDataWithId) => (
           <div key={project.id}>
             <h1>{project.name}</h1>
             <DeleteProject projectId={project.id} />

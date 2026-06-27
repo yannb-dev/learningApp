@@ -4,11 +4,13 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
+import { z } from "zod";
+
+import { RoadMapWithChildren } from "@/lib/schema/RoadmapApi";
 
 //___________ type _______________________________
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+type Module = z.infer<typeof RoadMapWithChildren>["roadmap"]["module"][number];
 
 //______________import components _____________________
 import BtnBack from "../components/BtnBack";
@@ -18,7 +20,7 @@ import { ImArrowDown } from "react-icons/im";
 import { FaCheck } from "react-icons/fa";
 
 //______________ function _____________________________
-function stateObjective(state) {
+function stateObjective(state: string) {
   if (state === "UpComming") {
     return "bg-red-500";
   }
@@ -32,7 +34,7 @@ function stateObjective(state) {
   }
 }
 
-function calculNumObjective(roadmap) {
+function calculNumObjective({ roadmap }: RoadMapWithChildren) {
   let totalObjective = 0;
 
   const numObjective = roadmap.module.map((module) => {
@@ -42,15 +44,15 @@ function calculNumObjective(roadmap) {
   return totalObjective;
 }
 
-function calculUpComming(roadmap) {
+function calculUpComming({ roadmap }: RoadMapWithChildren) {
   let totalUpComming = 0;
-
-  const filtre = roadmap.module.map((module) => {
-    if (module.objectives.state === "UpComming") {
-      totalUpComming = totalUpComming + 1;
-    }
+  roadmap.module.map((module) => {
+    module.objectives.map((objective) => {
+      if (objective.state === "UpComming") {
+        totalUpComming = totalUpComming + 1;
+      }
+    });
   });
-
   return totalUpComming;
 }
 
@@ -99,7 +101,7 @@ export default async function RoadmapPage({
               <p className="text-justify">{roadmap.objective}</p>
             </div>
             <div className="h-auto w-[80%] flex flex-col items-center">
-              {roadmap.module.map((module) => (
+              {roadmap.module.map((module: Module) => (
                 <div
                   className="w-[80%] flex h-auto bg-gray-100 rounded-xl mb-6 border-2 border-gray-300"
                   key={module.id}

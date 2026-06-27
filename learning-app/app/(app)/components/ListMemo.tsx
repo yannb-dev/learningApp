@@ -1,14 +1,22 @@
 "use client";
-
+import { z } from "zod";
 import { useState } from "react";
 
-export default function ListMemo({ memo, tags }) {
+import { SeanceApi } from "@/lib/schema/SeanceApi";
+import { Memo } from "@/lib/schema/SeanceApi";
+
+type Props = {
+  memo: Memo[];
+  tags: { slug: string }[];
+};
+
+export default function ListMemo({ memo, tags }: Props) {
   const [listMemo, setListMemo] = useState(memo);
-  const [stateTag, setStateTag] = useState(null);
+  const [stateTag, setStateTag] = useState("");
 
   //____________ Filtre par tag ____________________
-  const handleFiltre = async (tag) => {
-    let newArray = [];
+  const handleFiltre = async (tag: string) => {
+    let newArray: Memo[] = [];
 
     await memo.map((m) => {
       const present = m.tags.some((t) => t.slug === tag);
@@ -26,11 +34,6 @@ export default function ListMemo({ memo, tags }) {
   return (
     <div className="flex flex-col items-center">
       <div>
-        <input
-          className="h-10 w-100 rounded-xl bg-gray-200 p-2"
-          type="text"
-          placeholder="Recherche un mémo"
-        />
         <div className="flex mt-6 mb-6">
           {tags.map((tag) => (
             <div
@@ -47,17 +50,17 @@ export default function ListMemo({ memo, tags }) {
         <h3
           className="hover:cursor-pointer text-center font-mono font-bold mb-6"
           onClick={() => {
-            (setStateTag(null), setListMemo(memo));
+            (setStateTag(""), setListMemo(memo));
           }}
         >
           Effacer les filtres
         </h3>
       </div>
       {memo.length > 0 ? (
-        <div className=" w-[90%] h-auto grid grid-cols-4 gap-4 ">
+        <div className=" w-[90%] h-auto grid grid-cols-3 gap-4 ">
           {listMemo.map((memo) => (
             <div
-              className="h-60 rounded-xl border-2 border-gray-400 bg-gray-100 p-4"
+              className="h-80 rounded-xl border-2 border-gray-400 bg-gray-100 p-4"
               key={memo.id}
             >
               <h1 className="font-mono font-bold">Mémo :</h1>
@@ -72,6 +75,7 @@ export default function ListMemo({ memo, tags }) {
                   </div>
                 ))}
               </div>
+              <p className="text-justify mt-6">{memo.notes}</p>
             </div>
           ))}
         </div>

@@ -5,7 +5,14 @@ import { useRouter } from "next/navigation";
 
 import { ImportSeance } from "@/lib/schema/ImportSeance";
 
-export default function JsonForm({ roadmap, templateSeance }) {
+import { RoadmapApi } from "@/lib/schema/RoadmapApi";
+
+type Props = {
+  roadmap: RoadmapApi;
+  templateSeance: String;
+};
+
+export default function JsonForm({ roadmap, templateSeance }: Props) {
   const router = useRouter();
 
   const [stateViewImport, setStateViewImport] = useState(false);
@@ -36,13 +43,13 @@ export default function JsonForm({ roadmap, templateSeance }) {
   //______________________________________
   //
   const handleUploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
 
     if (!file) {
       return console.log("Fichier d'import absent");
     } else {
       const text = await file.text();
-      const seance = await JSON.parse(text);
+      const seance = JSON.parse(text);
 
       setFile(seance);
     }

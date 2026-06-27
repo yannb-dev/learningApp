@@ -16,7 +16,7 @@ export default function RoadMapForm({
   const [file, setFile] = useState<Importroadmap | null>(null);
 
   const handleUploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
 
     if (!file) {
       return console.log("Fichier d'import absent");
