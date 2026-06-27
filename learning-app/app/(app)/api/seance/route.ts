@@ -24,6 +24,13 @@ export async function POST(request: Request) {
       return Response.json({ error: result.error.issues }, { status: 400 });
     }
 
+    const project = await prisma.project.findUnique({
+      where: { id: result.data.projectId, userId: session.user.id },
+    });
+
+    if (!project)
+      return Response.json({ error: "Project introuvable" }, { status: 404 });
+
     // ______________ Transaction pour tout ou rien côté BDD _________
     const sendData = await prisma.$transaction(async (tx) => {
       const seance = await tx.seance.create({
@@ -44,6 +51,7 @@ export async function POST(request: Request) {
           const objective = tx.objective.update({
             where: {
               id: liste.id,
+              projectId: result.data.projectId,
             },
             data: {
               state: liste.state,

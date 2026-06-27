@@ -30,6 +30,13 @@ export async function POST(request: Request) {
 
     const date = new Date(result.data.roadmap.echeance);
 
+    const project = await prisma.project.findUnique({
+      where: { id: result.data.projectId, userId: session.user.id },
+    });
+
+    if (!project)
+      return Response.json({ error: "Project introuvable" }, { status: 404 });
+
     const roadmap = await prisma.roadmap.create({
       data: {
         name: result.data.roadmap.name,
