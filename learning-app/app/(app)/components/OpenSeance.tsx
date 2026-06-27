@@ -10,8 +10,6 @@ type Props = {
 };
 
 export default function OpenSeance({ seance }: Props) {
-  console.log("Depuis le componente", seance.id);
-
   return (
     <div className="w-[80%] h-auto flex flex-col justify-center border-2 border-black border-dashed rounded-xl mt-12 overflow-hidden ">
       <div className="w-full h-12 flex items-center justify-between bg-red-300 p-2">

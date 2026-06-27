@@ -21,8 +21,6 @@ export default function ListMemo({ memo, tags }: Props) {
     await memo.map((m) => {
       const present = m.tags.some((t) => t.slug === tag);
 
-      console.log(m.tags);
-
       if (present) {
         newArray.push(m);
       }

@@ -12,8 +12,6 @@ export default async function Home() {
 
   if (!session) redirect("/login");
 
-  console.log("Contrôle de la session depuis app", session);
-
   return (
     <div className="h-[100vh] w-full flex flex-col justify-center items-center">
       <h1 className="text-4xl font-mono font-bold mb-18">Learning App</h1>

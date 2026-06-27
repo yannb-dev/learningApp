@@ -64,7 +64,7 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
       if (!fileCheck.success)
         return console.log("Erreur de contrôle du fichier");
 
-      const sendingFile = await fetch("api/seance", {
+      const sendingFile = await fetch("/api/seance", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -73,7 +73,7 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
         }),
       });
 
-      if (sendingFile) {
+      if (sendingFile.ok) {
         setStateTuto(false);
         setStateViewImport(false);
         router.refresh();

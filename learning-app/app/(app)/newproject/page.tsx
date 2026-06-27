@@ -13,7 +13,7 @@ import { FaRegHandPointRight } from "react-icons/fa";
 
 import { redirect } from "next/navigation";
 
-export default async function newProject() {
+export default async function NewProject() {
   const session = await getServerSession(authOptions);
 
   if (!session) return redirect("/login");
@@ -21,8 +21,6 @@ export default async function newProject() {
   const project = await prisma.project.findMany({
     where: { userId: session.user.id },
   });
-
-  console.log(project);
 
   return (
     <div>

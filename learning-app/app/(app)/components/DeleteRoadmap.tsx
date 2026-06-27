@@ -16,7 +16,6 @@ export default function DeleteRoadmap({ roadmapId }: { roadmapId: string }) {
 
       if (response.ok) {
         router.refresh();
-        console.log("Effacé");
       }
 
       return Response.json({ success: true, data: response });

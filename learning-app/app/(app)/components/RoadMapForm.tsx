@@ -28,8 +28,6 @@ export default function RoadMapForm({
     }
   };
 
-  console.log(file);
-
   // _____________ Extrait les valeurs puis les fetch _________
   const handleCreateRoadMap = async () => {
     if (!file) return;

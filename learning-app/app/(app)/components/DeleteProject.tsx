@@ -16,7 +16,6 @@ export default function DeleteProject({ projectId }: { projectId: string }) {
 
       if (response.ok) {
         router.refresh();
-        console.log("Effacé");
       }
 
       return Response.json({ success: true, data: response });

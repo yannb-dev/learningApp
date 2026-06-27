@@ -48,7 +48,7 @@ function stateObjective(state: string) {
 function calculNumObjective(roadmap: RoadmapData) {
   let totalObjective = 0;
 
-  const numObjective = roadmap.module.map((module) => {
+  const numObjective = roadmap.module.forEach((module) => {
     totalObjective = totalObjective + module.objectives.length;
   });
 
@@ -57,7 +57,7 @@ function calculNumObjective(roadmap: RoadmapData) {
 
 function calculUpComming(roadmap: RoadmapData) {
   let totalUpComming = 0;
-  roadmap.module.map((module) => {
+  roadmap.module.forEach((module) => {
     module.objectives.map((objective) => {
       if (objective.state === "UpComming") {
         totalUpComming = totalUpComming + 1;
