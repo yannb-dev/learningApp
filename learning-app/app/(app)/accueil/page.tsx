@@ -4,6 +4,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
+import { Objectives } from "@/lib/schema/RoadmapApi";
+
 //__________ import components ___________________
 import NavBtn from "../components/NavBtn";
 import TimeLine from "../components/TimeLine";
@@ -28,9 +30,9 @@ export default async function AppPage({
 
   let projectOpen = null;
   let roadmap = null;
-  let objectivesAcquired = null;
-  let objectivesInProgress = null;
-  let objectivesUpComming = null;
+  let arrayAcquired: Objectives = [];
+  let arrayInProgress: Objectives = [];
+  let arrayUpComming: Objectives = [];
 
   if (search === "") {
     console.log("Aucun projet n'est sélectionné");
@@ -41,6 +43,9 @@ export default async function AppPage({
         seances: true,
       },
     });
+
+    if (!projectOpen)
+      return Response.json({ error: "Pas de projet trouvé" }, { status: 404 });
 
     roadmap = await prisma.roadmap.findUnique({
       where: { projectId: projectOpen.id, userId: session.user.id },
@@ -55,17 +60,23 @@ export default async function AppPage({
   }
 
   if (roadmap) {
-    const objectivesAcquired = roadmap.module.forEach((module) => {
-      module.objectives.filter((m) => m.state === "Acquired");
-    });
+    roadmap.module.forEach((module) => {
+      module.objectives.forEach((objective) => {
+        if (objective.state === "Acquired") {
+          arrayAcquired.push(objective);
+        }
 
-    const objectivesInProgress = roadmap.module.forEach((module) => {
-      module.objectives.filter((m) => m.state === "InProgress");
-    });
+        if (objective.state === "InProgress") {
+          arrayInProgress.push(objective);
+        }
 
-    const objectivesUpComming = roadmap.module.forEach((module) => {
-      module.objectives.filter((m) => m.state === "UpComming");
+        if (objective.state === "UpComming") {
+          arrayUpComming.push(objective);
+        }
+      });
     });
+  } else {
+    return Response.json({ error: "Aucune roadMap" }, { status: 404 });
   }
 
   return (
@@ -94,9 +105,9 @@ export default async function AppPage({
                 <TimeLine
                   seances={projectOpen.seances}
                   roadmap={roadmap}
-                  acquired={objectivesAcquired}
-                  inProgress={objectivesInProgress}
-                  upComming={objectivesUpComming}
+                  acquired={arrayAcquired}
+                  inProgress={arrayInProgress}
+                  upComming={arrayUpComming}
                 />
               </div>
             </div>
