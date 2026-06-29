@@ -1,13 +1,10 @@
 @import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Style générale */
 
 body {
   font-family: Helvetica, sans-serif;
 }
-
 .bg-aside {
   @apply bg-[#414141];
 }
@@ -16,9 +13,17 @@ body {
   @apply bg-[#2a2a2a];
 }
 
-.h1bold {
-  font-family:
-    "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
-    Arial, sans-serif;
-  font-weight: 400;
+/* Animation  */
+
+@keyframes expand {
+  from {
+    height: 0%;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+@theme {
+  --animate-expand: expand ease-in 0.2s;
 }

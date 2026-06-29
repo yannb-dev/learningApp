@@ -91,7 +91,7 @@ export default async function RoadmapPage({
   });
 
   return (
-    <div className="p-6">
+    <div className="w-[83%] p-6">
       <BtnBack />
       {roadmap ? (
         <main>

@@ -74,7 +74,7 @@ export default async function GestionPage({
   });
 
   return (
-    <div className="p-6">
+    <div className="w-[83%] p-6">
       <BtnBack />
       {!roadmap && (
         <div>

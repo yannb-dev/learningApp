@@ -29,7 +29,7 @@ export default async function AppLayout({
   return (
     <div className="w-screen flex">
       {/* aside */}
-      <div className="h-screen w-[20%] flex flex-col justify-between bg-aside border-r-2 border-gray-500">
+      <div className="h-screen w-[17%] flex flex-col justify-between bg-aside border-r-2 border-gray-500">
         <div className="w-full flex flex-col items-start p-2">
           <div className="w-full flex p-6">
             <Image
@@ -45,11 +45,11 @@ export default async function AppLayout({
               Learning APP
             </h1>
           </div>
-          <div className="h-[1px] w-full bg-gray-600 mb-12"></div>
+          <div className="h-px w-full bg-gray-600 mb-12"></div>
           <NavBtn idProject={project[0].id} />
         </div>
         <div>
-          <div className="h-[1px] w-full bg-gray-600"></div>
+          <div className="h-px w-full bg-gray-600"></div>
           <SelectProject projectList={project} />
           <BtnLogOut />
         </div>

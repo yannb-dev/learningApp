@@ -23,7 +23,7 @@ export default async function NewProject() {
   });
 
   return (
-    <div>
+    <div className="w-[83]%">
       <ProjectForm />
       <h1 className="flex items-center mt-12 ml-12 font-mono font-bold">
         {" "}

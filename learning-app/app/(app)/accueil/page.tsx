@@ -63,7 +63,7 @@ export default async function AppPage({
 
   if (!roadmap)
     return (
-      <div className="w-full h-[100vh] flex items-center justify-center">
+      <div className="w-[83%] h-screen flex items-center justify-center">
         <div className="w-full flex flex-col justify-center items-center">
           <h1 className="text-3xl font-bold font-mono">Choisis ton projet !</h1>
           <p className="mb-14">Sélectionne dans le menu en haut de la page</p>
@@ -101,11 +101,11 @@ export default async function AppPage({
   }
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-[80%] flex flex-col items-center">
       {projectOpen && (
         <div className="w-full flex flex-col">
           {!roadmap && (
-            <div className="w-full h-[100vh] flex flex-col justify-center items-center">
+            <div className="w-full h-screen flex flex-col justify-center items-center">
               <h1 className="text-xl font-mono font-bold mb-6">
                 Vous n'avez pas inséré de Roadmap dans votre projet !
               </h1>

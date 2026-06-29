@@ -48,7 +48,7 @@ export default async function MemoPage({
     });
   });
   return (
-    <div className="p-6">
+    <div className="w-[83%] p-6">
       <BtnBack />
       <ListMemo memo={memo} tags={arrayTag} />
     </div>
