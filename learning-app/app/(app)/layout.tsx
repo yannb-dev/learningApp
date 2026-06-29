@@ -27,9 +27,9 @@ export default async function AppLayout({
   if (!project) redirect("/newproject");
 
   return (
-    <div className="w-full flex">
+    <div className="w-screen flex">
       {/* aside */}
-      <div className="h-screen w-70 flex flex-col justify-between bg-aside border-r-2 border-gray-500">
+      <div className="h-screen w-[20%] flex flex-col justify-between bg-aside border-r-2 border-gray-500">
         <div className="w-full flex flex-col items-start p-2">
           <div className="w-full flex p-6">
             <Image
@@ -46,12 +46,7 @@ export default async function AppLayout({
             </h1>
           </div>
           <div className="h-[1px] w-full bg-gray-600 mb-12"></div>
-          <h3 className="text-gray-400 font-mono text-xl ml-6 mb-6">
-            Application
-          </h3>
           <NavBtn idProject={project[0].id} />
-          <h3 className="text-gray-400 font-mono text-xl ml-6 mb-6">Compte</h3>
-          <ProfilBtn idProject={project[0].id} />
         </div>
         <div>
           <div className="h-[1px] w-full bg-gray-600"></div>
@@ -61,7 +56,6 @@ export default async function AppLayout({
       </div>
       {/* main */}
       {children}
-      <div className="h-30"></div>
     </div>
   );
 }

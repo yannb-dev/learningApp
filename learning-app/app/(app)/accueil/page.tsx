@@ -104,9 +104,6 @@ export default async function AppPage({
     <div className="w-full flex flex-col items-center">
       {projectOpen && (
         <div className="w-full flex flex-col">
-          <nav className="w-full flex justify-evenly">
-            <NavBtn idProject={projectOpen.id} />
-          </nav>
           {!roadmap && (
             <div className="w-full h-[100vh] flex flex-col justify-center items-center">
               <h1 className="text-xl font-mono font-bold mb-6">

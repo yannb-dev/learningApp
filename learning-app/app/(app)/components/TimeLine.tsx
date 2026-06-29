@@ -84,45 +84,7 @@ export default function TimeLine({
 
   return (
     <div className="w-full h-auto flex flex-col items-center p-6">
-      <div className="w-[80%] h-60 overflow-x-auto flex items-center p-4">
-        <div
-          style={{ minWidth: `${days * 10}px` }}
-          className="relative h-4 bg-red-300"
-        >
-          {seances &&
-            seances.map((seance: Seance) => (
-              <div
-                key={seance.id}
-                style={{ left: `${positionSeance(seance.createdAt)}px` }}
-                className="absolute bottom-0 h-20 w-[4px] bg-black rounded-xl "
-                onClick={() => handleSelectSeance(seance)}
-              >
-                <div className="absolute h-6 w-6 flex justify-center items-center rounded-[50%] bg-black top-0 left-[2px] translate-x-[-50%] translate-y-[-50%] ">
-                  <div
-                    onMouseEnter={() => setStateBulle(seance.id)}
-                    onMouseLeave={() => setStateBulle("")}
-                    className={`h-5 w-5 rounded-[50%] hover:bg-green-500 ${stateBackgroundBulle === seance.id ? "bg-green-500" : "bg-red-300"}`}
-                  ></div>
-                </div>
-                {stateBulle === seance.id && (
-                  <div className="absolute h-10 w-100 flex items-center border-1 border-black rounded-sm bottom-5 left-0 p-1">
-                    <p className="text-sm">{seance.sujet}</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          {arrayPositionMonth.map((position) => (
-            <div
-              key={position.num}
-              style={{ left: `${position.position}px` }}
-              className="flex flex-col items-center absolute top-8"
-            >
-              <FaChevronCircleUp />
-              <p className="">{position.num} mois</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      <div className="w-[80%] h-60 overflow-x-auto flex items-center p-4"></div>
       {seanceSelect && <OpenSeance seance={seanceSelect} />}
       {seanceSelect && (
         <button
