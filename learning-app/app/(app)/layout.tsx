@@ -8,6 +8,8 @@ import { redirect } from "next/navigation";
 //______________ import components ____________________
 import BtnLogOut from "./components/BtnLogOut";
 import SelectProject from "./components/SelectProject";
+import NavBtn from "./components/NavBtn";
+import ProfilBtn from "./components/ProfilBtn";
 
 export default async function AppLayout({
   children,
@@ -22,23 +24,42 @@ export default async function AppLayout({
     where: { userId: session.user.id },
   });
 
+  if (!project) redirect("/newproject");
+
   return (
-    <div>
-      <div className="h-30 flex pt-8 pl-12 pr-12 pb-8 justify-between items-center">
-        <div className="flex items-center">
-          <Image
-            src="/wolf.png"
-            width={60}
-            height={60}
-            alt="Logo Wolf"
-            priority
-            unoptimized
-          />
-          <h1 className="font-mono font-bold text-2xl ml-4">Learning APP</h1>
+    <div className="w-full flex">
+      {/* aside */}
+      <div className="h-screen w-70 flex flex-col justify-between bg-aside border-r-2 border-gray-500">
+        <div className="w-full flex flex-col items-start p-2">
+          <div className="w-full flex p-6">
+            <Image
+              src="/wolf.png"
+              width={40}
+              height={40}
+              alt="Logo Wolf"
+              priority
+              unoptimized
+            />
+
+            <h1 className="font-mono font-bold text-xl ml-4 text-gray-100">
+              Learning APP
+            </h1>
+          </div>
+          <div className="h-[1px] w-full bg-gray-600 mb-12"></div>
+          <h3 className="text-gray-400 font-mono text-xl ml-6 mb-6">
+            Application
+          </h3>
+          <NavBtn idProject={project[0].id} />
+          <h3 className="text-gray-400 font-mono text-xl ml-6 mb-6">Compte</h3>
+          <ProfilBtn idProject={project[0].id} />
         </div>
-        <SelectProject projectList={project} />
-        <BtnLogOut />
+        <div>
+          <div className="h-[1px] w-full bg-gray-600"></div>
+          <SelectProject projectList={project} />
+          <BtnLogOut />
+        </div>
       </div>
+      {/* main */}
       {children}
       <div className="h-30"></div>
     </div>

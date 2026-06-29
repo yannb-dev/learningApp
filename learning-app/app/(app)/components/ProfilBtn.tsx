@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 const styleBtn =
   "w-full text-start rounded-sm font-mono text-xl mb-4 p-2 hover:bg-gray-200 hover:text-black";
 
-export default function NavBtn({ idProject }: { idProject: string }) {
+export default function ProfilBtn({ idProject }: { idProject: string }) {
   const router = useRouter();
 
   const handleNavigation = (page: string) => {
@@ -14,14 +14,8 @@ export default function NavBtn({ idProject }: { idProject: string }) {
 
   return (
     <div className="w-full flex flex-col items-start mb-12">
-      <button className={styleBtn} onClick={() => handleNavigation("gestion")}>
-        Gestion
-      </button>
-      <button className={styleBtn} onClick={() => handleNavigation("roadmap")}>
-        Roadmap
-      </button>
-      <button className={styleBtn} onClick={() => handleNavigation("memo")}>
-        Memo
+      <button className={styleBtn} onClick={() => handleNavigation("profil")}>
+        Profil
       </button>
     </div>
   );

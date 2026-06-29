@@ -135,7 +135,7 @@ export default function TimeLine({
         </button>
       )}
 
-      <div className="w-full flex justify-evenly mt-10">
+      {/* <div className="w-full flex justify-evenly mt-10">
         <div className="h-min w-80 border-2 border-black rounded-xl p-2">
           <h1 className="font-mono font-bold text-center mb-6">Maitrisé</h1>
           {handleListObjective(acquired)}
@@ -150,7 +150,7 @@ export default function TimeLine({
           <h1 className="font-mono font-bold text-center mb-6">Non abordé</h1>
           {handleListObjective(upComming)}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

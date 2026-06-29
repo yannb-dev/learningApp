@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Helvetica, sans-serif;
+}
+
+.bg-aside {
+  @apply bg-[#414141];
+}
+
+.bg-page {
+  @apply bg-[#2a2a2a];
+}
+
+.h1bold {
+  font-family:
+    "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
+    Arial, sans-serif;
+  font-weight: 400;
 }
