@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 import BtnLogOut from "./components/BtnLogOut";
 import SelectProject from "./components/SelectProject";
 import NavBtn from "./components/NavBtn";
-import ProfilBtn from "./components/ProfilBtn";
+import IconApp from "./components/IconApp";
 
 export default async function AppLayout({
   children,
@@ -32,14 +32,7 @@ export default async function AppLayout({
       <div className="h-screen w-[17%] flex flex-col justify-between bg-aside border-r-2 border-gray-500">
         <div className="w-full flex flex-col items-start p-2">
           <div className="w-full flex p-6">
-            <Image
-              src="/wolf.png"
-              width={40}
-              height={40}
-              alt="Logo Wolf"
-              priority
-              unoptimized
-            />
+            <IconApp className=" w-16 h-16 text-gray-400" />
 
             <h1 className="font-mono font-bold text-xl ml-4 text-gray-100">
               Learning APP
