@@ -4,7 +4,6 @@ import { Prisma } from "@/app/generated/prisma";
 
 import { parse, format, differenceInDays, differenceInMonths } from "date-fns";
 import { fr } from "date-fns/locale";
-import { FaChevronCircleUp } from "react-icons/fa";
 import { useState } from "react";
 
 import { Seance } from "@/lib/schema/SeanceApi";
@@ -15,6 +14,7 @@ import IconSeance from "./IconSeance";
 
 //____________________ Import icon ___________________________________________
 import { FaRegHandPointDown } from "react-icons/fa";
+import { FaCircle } from "react-icons/fa6";
 
 type RoadmapData = Prisma.RoadmapGetPayload<{
   include: {
@@ -59,20 +59,21 @@ export default function TimeLine({ seances, roadmap }: Props) {
   };
 
   return (
-    <div className="w-full h-min-100 flex flex-col items-start mt-20 bg-aside rounded-xl border-1 border-gray-300">
+    <div className="w-full h-min-150 flex flex-col items-start mt-20 bg-aside rounded-xl border-1 border-gray-300">
       <h1 className="m-4 text-gray-100 font-mono">
         Chronologie des sessions :
       </h1>
       <div className="h-px w-full bg-gray-300"></div>
-      <div className="h-full w-[80%] overflow-y flex flex-col justify-center p-4">
+      <div className="h-full w-full flex flex-col justify-start p-6 ">
         {seances.map((s) => (
-          <div className="w-full flex justify-between" key={s.id}>
-            <div className="flex">
-              <IconSeance />
-              <div className="flex flex-col ml-6">
-                <h1 className="font-mono text-white text-sm">
-                  {s.sujet}
-                  {/* {s.tags.map((t) => (
+          <div className="w-full flex justify-between mb-10" key={s.id}>
+            <div>
+              <div className="flex">
+                <IconSeance />
+                <div className="flex flex-col ml-6">
+                  <h1 className="font-mono text-white text-sm">
+                    {s.sujet}
+                    {/* {s.tags.map((t) => (
                 <div
                   className="p-1 rounded-xl bg-gray-100 font-mono text-amber-600"
                   key={t.slug}
@@ -80,46 +81,23 @@ export default function TimeLine({ seances, roadmap }: Props) {
                   #{t.name}
                 </div>
               ))} */}
-                </h1>
-                <p className="font-mono text-gray-400 text-xs mt-4">
-                  {s.accomplished}
-                </p>
+                  </h1>
+                  <div></div>
+                  <p className="w-200 font-mono text-gray-400 text-xs text-justify mt-4">
+                    {s.accomplished}
+                  </p>
+                </div>
               </div>
             </div>
-            <p className="font-mono text-white">
-              {format(s.createdAt, "dd/MM", { locale: fr })}
-            </p>
+            <div className="flex h-min items-center">
+              <FaCircle className="text-amber-600 text-sm" />
+              <p className="font-mono text-white ml-4">
+                {format(s.createdAt, "dd/MM", { locale: fr })}
+              </p>
+            </div>
           </div>
         ))}
       </div>
-
-      {/* {seanceSelect && <OpenSeance seance={seanceSelect} />}
-      {seanceSelect && (
-        <button
-          className="p-1 rounded-sm bg-red-400 mt-10"
-          onClick={() => {
-            setSeanceSelect(null);
-          }}
-        >
-          Fermer
-        </button>
-      )} */}
-      {/* <div className="w-full flex justify-evenly mt-10">
-        <div className="h-min w-80 border-2 border-black rounded-xl p-2">
-          <h1 className="font-mono font-bold text-center mb-6">Maitrisé</h1>
-          {handleListObjective(acquired)}
-        </div>
-        <div className="h-min w-80 border-2 border-black rounded-xl p-2">
-          <h1 className="font-mono font-bold text-center mb-6">
-            En cours d'apprentissage
-          </h1>
-          {handleListObjective(inProgress)}
-        </div>
-        <div className="h-min w-80 border-2 border-black rounded-xl p-2">
-          <h1 className="font-mono font-bold text-center mb-6">Non abordé</h1>
-          {handleListObjective(upComming)}
-        </div>
-      </div> */}
     </div>
   );
 }

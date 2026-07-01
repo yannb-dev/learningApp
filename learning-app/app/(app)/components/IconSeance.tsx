@@ -69,7 +69,7 @@ export default function IconSeance() {
   return (
     <div>
       {
-        <div className="w-12 h-12 flex justify-center items-center rounded-[50%] border-2 border-gray-500">
+        <div className="w-12 h-12 flex justify-center items-center rounded-[50%] border-2 border-white">
           <filter.Icon className={filter?.className} />
         </div>
       }
