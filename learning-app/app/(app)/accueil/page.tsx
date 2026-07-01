@@ -4,11 +4,15 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+
 import { Objective } from "@/app/generated/prisma";
 
 //__________ import components ___________________
-import NavBtn from "../components/NavBtn";
 import TimeLine from "../components/TimeLine";
+import ListObjective from "../components/ListObjective";
+import DetailProject from "../components/DetailProject";
 
 //___________ type ________________________________
 type SearchParams = Promise<{ [key: string]: string }>;
@@ -61,23 +65,16 @@ export default async function AppPage({
     });
   }
 
-  if (!roadmap)
+  if (search === "")
     return (
       <div className="w-[83%] h-screen flex items-center justify-center">
         <div className="w-full flex flex-col justify-center items-center">
-          <h1 className="text-3xl font-bold font-mono">Choisis ton projet !</h1>
-          <p className="mb-14">Sélectionne dans le menu en haut de la page</p>
-          <div className="w-[70%] flex flex-wrap justify-center gap-10">
-            <div className="h-90 w-70 flex flex-col border-2 border-black rounded-xl p-6 ">
-              <h3>Tips</h3>
-            </div>
-            <div className="h-90 w-70 flex border-2 border-black rounded-xl p-6 ">
-              <h3>Nouveauté</h3>
-            </div>
-            <div className="h-90 w-70 flex border-2 border-black rounded-xl p-6 ">
-              <h3>Mon activté</h3>
-            </div>
-          </div>
+          <h1 className="text-3xl font-bold font-mono text-gray-100">
+            Choisis ton projet !
+          </h1>
+          <p className="mb-14 text-gray-100">
+            Sélectionne dans le menu un projet
+          </p>
         </div>
       </div>
     );
@@ -100,8 +97,11 @@ export default async function AppPage({
     });
   }
 
+  //_______________ Date et mise à jour _______________________
+  const dateToday = format(new Date(), "dd/MM/yyyy", { locale: fr });
+
   return (
-    <div className="w-[80%] flex flex-col items-center">
+    <div className="w-[80%] flex flex-col items-center p-18">
       {projectOpen && (
         <div className="w-full flex flex-col">
           {!roadmap && (
@@ -116,17 +116,22 @@ export default async function AppPage({
           )}
           {roadmap && (
             <div className="w-full flex flex-col">
-              <h1 className="text-xl font-mono - font-bold mt-8 mb-8 ml-8">
-                Ma Time-line d'apprentissage :
+              <h1 className="text-2xl font-mono text-gray-100 font-bold">
+                Vue d'ensemble
               </h1>
-              <div className="w-full flex justify-center items-start p-6">
-                <TimeLine
-                  seances={projectOpen.seances}
-                  roadmap={roadmap}
+              <p className="text-gray-300 font-mono text-xs">
+                {dateToday} Mise à jour il y à ...
+              </p>
+              <div className="w-full flex justify-center items-start">
+                <TimeLine seances={projectOpen.seances} roadmap={roadmap} />
+              </div>
+              <div className="w-full flex justify-between mt-10">
+                <ListObjective
                   acquired={arrayAcquired}
                   inProgress={arrayInProgress}
                   upComming={arrayUpComming}
                 />
+                <DetailProject />
               </div>
             </div>
           )}

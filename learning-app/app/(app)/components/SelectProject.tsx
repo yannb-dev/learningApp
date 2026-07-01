@@ -19,7 +19,7 @@ export default function SelectProject({ projectList }: Props) {
   };
 
   return (
-    <div className="p-2 mt-4">
+    <div className="p-2 mt-2">
       {projectList && (
         <select
           className="w-full bg-gray-100 border-1 border-gray-300 rounded-sm p-2 font-mono text-center "

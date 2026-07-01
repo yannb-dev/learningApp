@@ -11,7 +11,7 @@ import { Seance } from "@/lib/schema/SeanceApi";
 import { Objective } from "@/app/generated/prisma";
 
 //____________________ Import components ______________________________________
-import OpenSeance from "./OpenSeance";
+import IconSeance from "./IconSeance";
 
 //____________________ Import icon ___________________________________________
 import { FaRegHandPointDown } from "react-icons/fa";
@@ -30,44 +30,14 @@ type RoadmapData = Prisma.RoadmapGetPayload<{
 type Props = {
   seances: Seance[];
   roadmap: RoadmapData;
-  acquired: Objective[];
-  inProgress: Objective[];
-  upComming: Objective[];
 };
 
-export default function TimeLine({
-  seances,
-  roadmap,
-  acquired,
-  inProgress,
-  upComming,
-}: Props) {
+export default function TimeLine({ seances, roadmap }: Props) {
   const [seanceSelect, setSeanceSelect] = useState<Seance | null>();
-  const [stateBulle, setStateBulle] = useState("");
-  const [stateBackgroundBulle, setStateBackgroundBulle] = useState("");
-
-  //___________________ Calcul placement seance et mois ________________________
-  const days = differenceInDays(roadmap.echeance, roadmap.createdAt);
-  const numberMonth = differenceInMonths(roadmap.echeance, roadmap.createdAt);
-  const arrayPositionMonth = [];
-
-  let position = 0;
-
-  for (let index = 0; index < numberMonth; index++) {
-    position = position + (days * 10) / numberMonth;
-    arrayPositionMonth.push({ num: index + 1, position: position });
-  }
-
-  function positionSeance(date: Date = new Date()) {
-    const positionSeance = differenceInDays(date, roadmap.createdAt);
-
-    return positionSeance;
-  }
 
   //__________________ Ouverture d'une seance _________________________________
   const handleSelectSeance = (seance: Seance) => {
     setSeanceSelect(seance);
-    setStateBackgroundBulle(seance.id);
   };
 
   //__________________ Listing des objectives _________________________________
@@ -79,24 +49,61 @@ export default function TimeLine({
       </div>
     ));
 
+    //_________________handleColorPoint _______________________________________
+
     return tab;
   };
 
+  const handleColorPoint = () => {
+    console.log();
+  };
+
   return (
-    <div className="w-full h-auto flex flex-col items-center p-6">
-      <div className="w-[80%] h-60 overflow-x-auto flex items-center p-4"></div>
-      {seanceSelect && <OpenSeance seance={seanceSelect} />}
+    <div className="w-full h-min-100 flex flex-col items-start mt-20 bg-aside rounded-xl border-1 border-gray-300">
+      <h1 className="m-4 text-gray-100 font-mono">
+        Chronologie des sessions :
+      </h1>
+      <div className="h-px w-full bg-gray-300"></div>
+      <div className="h-full w-[80%] overflow-y flex flex-col justify-center p-4">
+        {seances.map((s) => (
+          <div className="w-full flex justify-between" key={s.id}>
+            <div className="flex">
+              <IconSeance />
+              <div className="flex flex-col ml-6">
+                <h1 className="font-mono text-white text-sm">
+                  {s.sujet}
+                  {/* {s.tags.map((t) => (
+                <div
+                  className="p-1 rounded-xl bg-gray-100 font-mono text-amber-600"
+                  key={t.slug}
+                >
+                  #{t.name}
+                </div>
+              ))} */}
+                </h1>
+                <p className="font-mono text-gray-400 text-xs mt-4">
+                  {s.accomplished}
+                </p>
+              </div>
+            </div>
+            <p className="font-mono text-white">
+              {format(s.createdAt, "dd/MM", { locale: fr })}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* {seanceSelect && <OpenSeance seance={seanceSelect} />}
       {seanceSelect && (
         <button
           className="p-1 rounded-sm bg-red-400 mt-10"
           onClick={() => {
-            (setSeanceSelect(null), setStateBackgroundBulle(""));
+            setSeanceSelect(null);
           }}
         >
           Fermer
         </button>
-      )}
-
+      )} */}
       {/* <div className="w-full flex justify-evenly mt-10">
         <div className="h-min w-80 border-2 border-black rounded-xl p-2">
           <h1 className="font-mono font-bold text-center mb-6">Maitrisé</h1>

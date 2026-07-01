@@ -6,11 +6,11 @@ body {
   font-family: Helvetica, sans-serif;
 }
 .bg-aside {
-  @apply bg-[#414141];
+  @apply bg-[#373737];
 }
 
 .bg-page {
-  @apply bg-[#2a2a2a];
+  @apply bg-[#262626];
 }
 
 /* Animation  */

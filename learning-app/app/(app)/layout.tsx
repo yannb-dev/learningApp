@@ -32,17 +32,22 @@ export default async function AppLayout({
       <div className="h-screen w-[17%] flex flex-col justify-between bg-aside border-r-2 border-gray-500">
         <div className="w-full flex flex-col items-start p-2">
           <div className="w-full flex p-6">
-            <IconApp className=" w-16 h-16 text-gray-400" />
-
-            <h1 className="font-mono font-bold text-xl ml-4 text-gray-100">
-              Learning APP
-            </h1>
+            <IconApp className=" w-16 h-16 text-gray-100" />
+            <div className="flex flex-col">
+              <h1 className="font-mono font-bold text-xl ml-4 text-gray-100">
+                Learning APP
+              </h1>
+              <p className="font-mono text-xs ml-4 text-gray-300">
+                Version 0.0.1
+              </p>
+            </div>
           </div>
           <div className="h-px w-full bg-gray-600 mb-12"></div>
           <NavBtn idProject={project[0].id} />
         </div>
-        <div>
+        <div className="p-2">
           <div className="h-px w-full bg-gray-600"></div>
+          <h3 className="font-mono text-gray-100 mt-4">Mon projet :</h3>
           <SelectProject projectList={project} />
           <BtnLogOut />
         </div>
