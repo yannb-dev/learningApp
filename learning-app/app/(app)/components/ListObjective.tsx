@@ -6,14 +6,60 @@ import { FaCheck } from "react-icons/fa";
 import { GrInProgress } from "react-icons/gr";
 import { RiMailForbidFill } from "react-icons/ri";
 
-export default function ListObjective({ acquired, inProgress, upComming }) {
+export default function ListObjective({
+  acquired,
+  inProgress,
+  upComming,
+  numberModule,
+}) {
   const [filter, setFilter] = useState("");
 
-  console.log(acquired, inProgress, upComming);
+  const handleListModule = (value) => {
+    if (value.length === 0) {
+      return (
+        <div>
+          <h3>Aucune compétences dans la section !</h3>
+        </div>
+      );
+    }
+
+    return Array.from({ length: numberModule + 1 }, (_, i) => i + 1).map(
+      (index) => {
+        const tri = value.filter((objective) => index === objective.moduleRef);
+
+        if (tri.length === 0) {
+          return (
+            <div>
+              <h3 className="text-white font-mono font-bold mb-4">
+                Module N°{index}
+              </h3>
+              <p>Aucune compétences dans ce module</p>
+            </div>
+          );
+        }
+
+        return (
+          <div className="mt-6" key={index}>
+            <h3 className="text-white font-mono font-bold mb-4">
+              Module N°{index}
+            </h3>
+            {tri.map((objective) => (
+              <div
+                className="flex mb-2 items-center font-mono text-xs"
+                key={objective.id}
+              >
+                <RiMailForbidFill className="mr-4 text-sm" />
+                {objective.name}
+              </div>
+            ))}
+          </div>
+        );
+      },
+    );
+  };
 
   const handleFilter = (filter: string) => {
     setFilter(filter);
-    console.log(filter);
   };
   return (
     <div className="w-[40%] h-60 border-1 border-gray-300 rounded-xl">
@@ -40,36 +86,9 @@ export default function ListObjective({ acquired, inProgress, upComming }) {
       <div className="h-px w-full bg-gray-300"></div>
       <div className="h-[75%] overflow-x-scroll p-4 text-gray-400">
         <div>
-          {filter === "acquired" && (
-            <div>
-              {acquired.map((a) => (
-                <div className="flex mb-2" key={a.id}>
-                  <FaCheck className="mr-4 text-sm" />
-                  {a.name}
-                </div>
-              ))}
-            </div>
-          )}
-          {filter === "inProgress" && (
-            <div>
-              {inProgress.map((a) => (
-                <div className="flex mb-2" key={a.id}>
-                  <GrInProgress className="mr-4 text-sm" />
-                  {a.name}
-                </div>
-              ))}
-            </div>
-          )}
-          {filter === "upComming" && (
-            <div>
-              {upComming.map((a) => (
-                <div className="flex mb-2 items-center" key={a.id}>
-                  <RiMailForbidFill className="mr-4 text-sm" />
-                  {a.name}
-                </div>
-              ))}
-            </div>
-          )}
+          {filter === "acquired" && <div>{handleListModule(acquired)}</div>}
+          {filter === "inProgress" && <div>{handleListModule(inProgress)}</div>}
+          {filter === "upComming" && <div>{handleListModule(upComming)}</div>}
         </div>
       </div>
     </div>

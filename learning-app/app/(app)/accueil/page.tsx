@@ -130,6 +130,7 @@ export default async function AppPage({
                   acquired={arrayAcquired}
                   inProgress={arrayInProgress}
                   upComming={arrayUpComming}
+                  numberModule={roadmap.module.length}
                 />
                 <DetailProject />
               </div>
