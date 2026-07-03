@@ -27,6 +27,7 @@ export async function POST(request: Request) {
     const moduleList = result.data.roadmap.listModule;
     const competenceList = result.data.roadmap.listCompetence;
     const criteriaList = result.data.roadmap.listCritereValidation;
+    const projectList = result.data.roadmap.listPracticalProject;
 
     const date = new Date(result.data.roadmap.echeance);
 
@@ -60,7 +61,6 @@ export async function POST(request: Request) {
               duration: liste.duration,
               prerequisites: liste.prerequisites,
               pointcritical: liste.pointcritical,
-              practicalproject: liste.practicalproject,
               roadmapId: roadmap.id,
             },
           });
@@ -70,6 +70,10 @@ export async function POST(request: Request) {
           );
           const newTabCriteria = criteriaList.filter(
             (e) => e.moduleRef === module.numModule,
+          );
+
+          const newTabPracticalProject = projectList.filter(
+            (e) => e.numModule === module.numModule,
           );
           await Promise.all([
             ...newTabCompetence.map((liste) => {
@@ -92,6 +96,20 @@ export async function POST(request: Request) {
                   index: liste.index,
                   moduleRef: liste.moduleRef,
                   moduleId: module.id,
+                },
+              });
+            }),
+
+            ...newTabPracticalProject.map((liste) => {
+              return tx.practicalproject.create({
+                data: {
+                  name: liste.name,
+                  stack: liste.stack,
+                  detail: liste.detail,
+                  warning: liste.warning,
+                  moduleId: module.id,
+                  numModule: liste.numModule,
+                  stepHelp: liste.stepHelp,
                 },
               });
             }),

@@ -28,7 +28,7 @@ export default function DeleteRoadmap({ roadmapId }: { roadmapId: string }) {
   };
 
   return (
-    <div className="w-full flex justify-center mb-6 mt-6">
+    <div className="w-20 flex justify-center mb-6 mt-6">
       <FaTrashAlt className="hover:scale-110" onClick={handleDelete} />
     </div>
   );

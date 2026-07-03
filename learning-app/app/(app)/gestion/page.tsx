@@ -51,7 +51,6 @@ export default async function GestionPage({
   const templateSeance = fs.readFileSync(filePathSeance, "utf-8");
 
   // ___________ chargement de la roadmap unique _________
-
   const roadmap = await prisma.roadmap.findUnique({
     where: {
       projectId: project,
@@ -74,66 +73,68 @@ export default async function GestionPage({
   });
 
   return (
-    <div className="w-[83%] p-6">
+    <div className="w-[83%] h-screen p-6 overflow-y-scroll">
       <BtnBack />
-      {!roadmap && (
-        <div>
-          <MarkdownForm file={templateRoadmap} />
-          <RoadMapForm idProject={project} />
-        </div>
-      )}
-      {roadmap && (
-        <div className="w-full flex flex-col">
-          <h3 className="font-mono font-bold">Ma roadmap :</h3>
-          <section className="w-[50%] h-auto flex flex-col justify-evenly border-2 border-black rounded-xl mt-6">
-            <div className="w-full h-10 bg-gray-300 flex items-center rounded-tl-xl rounded-tr-xl">
-              <h1 className="text-xl font-mono font-bold ml-6">
-                {roadmap.name}
-              </h1>
-            </div>
-            <div className="w-full flex justify-evenly mt-4">
-              <div className="w-[45%]">
-                <h3 className="font-mono font-bold">Mon objectif :</h3>
-                <p className="text-justify">{roadmap.objective}</p>
-              </div>
-              <div className="w-[45%] flex flex-col">
-                <div className="w-full flex justify-evenly mb-4 ">
-                  <div className="p-1 rounded-sm bg-red-300">
-                    <strong>{roadmap.duration}</strong> Heures
-                  </div>
-                  <div className="p-1 rounded-sm bg-red-300">
-                    <strong>{roadmap.module.length}</strong> Modules
+      <div className="">
+        {!roadmap && (
+          <div>
+            <MarkdownForm file={templateRoadmap} />
+            <RoadMapForm idProject={project} />
+          </div>
+        )}
+        {roadmap && (
+          <div className="w-full flex flex-col font-mono text-gray-300 p-6">
+            <h3>Ma roadmap :</h3>
+            <section className="w-full h-auto flex justify-evenly border border-gray-300 bg-aside rounded-xl p-6 mt-6">
+              <div className="w-[50%] flex flex-col">
+                <h1 className="text-2xl font-bold">{roadmap.name}</h1>
+                <p className="text-xs">
+                  {format(roadmap.createdAt, "dd/MM/yyyy", { locale: fr })}
+                </p>
+                <div className="w-full flex mt-6 text-sm">
+                  <p>Objectif :</p>
+                  <div className="w-[70%] ml-2 text-justify">
+                    {roadmap.objective}
                   </div>
                 </div>
-                <p className="text-center font-bold">
-                  Format : {roadmap.dispo}h / semaine
+              </div>
+              <div className="w-[50%] flex flex-col">
+                <div className="flex justify-evenly mb-6">
+                  <p className="text-amber-600 font-bold p-1 border border-gray-300 rounded-xl">
+                    {roadmap.duration} heures
+                  </p>
+                  <p className="text-amber-600 font-bold p-1 border border-gray-300 rounded-xl">
+                    {roadmap.module.length} Modules
+                  </p>
+                </div>
+                <p>
+                  Format d'apprentissage : {roadmap.dispo} heures par semaine
                 </p>
               </div>
+              <DeleteRoadmap roadmapId={roadmap.id} />
+            </section>
+            <div className="flex mt-10">
+              <h3 className="font-mono font-bold mb-4">Générer mon modele :</h3>
+              <JsonForm roadmap={roadmap} templateSeance={templateSeance} />
             </div>
-            <DeleteRoadmap roadmapId={roadmap.id} />
-          </section>
-          <div className="mt-10">
-            <h3 className="font-mono font-bold mb-4">
-              Générer et Importer une session de travail :
-            </h3>
-            <JsonForm roadmap={roadmap} templateSeance={templateSeance} />
+
+            <div className="mt-10">
+              <h3 className="font-mono font-bold mb-4">
+                Liste des sessions précédentes :
+              </h3>
+              {seance &&
+                seance.map((seance: Seance) => (
+                  <div className="flex" key={seance.id}>
+                    <h1 className="font-mono font-bold mr-4">
+                      {format(seance.createdAt, "dd/MM/yyyy", { locale: fr })}
+                    </h1>
+                    <p className="font-mono">{seance.sujet}</p>
+                  </div>
+                ))}
+            </div>
           </div>
-          <div className="mt-10">
-            <h3 className="font-mono font-bold mb-4">
-              Liste des sessions précédentes :
-            </h3>
-            {seance &&
-              seance.map((seance: Seance) => (
-                <div className="flex" key={seance.id}>
-                  <h1 className="font-mono font-bold mr-4">
-                    {format(seance.createdAt, "dd/MM/yyyy", { locale: fr })}
-                  </h1>
-                  <p className="font-mono">{seance.sujet}</p>
-                </div>
-              ))}
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

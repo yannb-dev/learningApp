@@ -24,6 +24,8 @@ export default async function AppLayout({
     where: { userId: session.user.id },
   });
 
+  console.log(project);
+
   if (!project) redirect("/newproject");
 
   return (

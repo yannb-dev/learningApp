@@ -28,6 +28,7 @@
 "difficulty" : String
 "keyPoint" : String
 "next" : String
+"tags" : [String]
 "objectives" : [
 {
 "id" : String

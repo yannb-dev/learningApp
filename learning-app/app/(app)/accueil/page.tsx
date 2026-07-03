@@ -13,6 +13,7 @@ import { Objective } from "@/app/generated/prisma";
 import TimeLine from "../components/TimeLine";
 import ListObjective from "../components/ListObjective";
 import DetailProject from "../components/DetailProject";
+import BtnDirectNewRoadmap from "../components/BtnDirectNewRoadmap";
 
 //___________ type ________________________________
 type SearchParams = Promise<{ [key: string]: string }>;
@@ -72,8 +73,12 @@ export default async function AppPage({
           <h1 className="text-3xl font-bold font-mono text-gray-100">
             Choisis ton projet !
           </h1>
-          <p className="mb-14 text-gray-100">
+          <p className="mb-8 text-gray-100">
             Sélectionne dans le menu un projet
+          </p>
+          <p className="mb-14 text-gray-100">
+            Si tu n'as aucun project en cours tu peux en créer un de nouveau
+            dans l'onglet de sélection
           </p>
         </div>
       </div>
@@ -109,9 +114,10 @@ export default async function AppPage({
               <h1 className="text-xl font-mono font-bold mb-6">
                 Vous n'avez pas inséré de Roadmap dans votre projet !
               </h1>
-              <p className="font-mono">
-                Rendez vous dans la section "Gestion"{" "}
-              </p>
+              <div className="flex">
+                <p className="font-mono">Rendez vous dans la section</p>
+                <BtnDirectNewRoadmap idProject={search} />
+              </div>
             </div>
           )}
           {roadmap && (

@@ -1,13 +1,8 @@
 "use client";
 
-import { ProjectDataWithId } from "@/lib/schema/FormNewProject";
 import { useRouter } from "next/navigation";
 
-type Props = {
-  projectList: ProjectDataWithId[];
-};
-
-export default function SelectProject({ projectList }: Props) {
+export default function SelectProject({ projectList }) {
   const router = useRouter();
 
   const handleSelect = (id: string) => {

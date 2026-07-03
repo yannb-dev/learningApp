@@ -8,4 +8,4 @@ export const ProjectSchema = z.object({
   category: z.enum(["school", "tech"]),
 });
 
-export type ProjectData = z.infer<typeof ProjectSchema>;
+export type ProjectSchema = z.infer<typeof ProjectSchema>;

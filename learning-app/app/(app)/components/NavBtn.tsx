@@ -8,9 +8,9 @@ export default function NavBtn({ idProject }: { idProject: string }) {
 
   const titleBtnApp = [
     { name: "Vue d'ensemble", slug: "accueil" },
-    { name: "Gestion", slug: "gestion" },
     { name: "Roadmap", slug: "roadmap" },
     { name: "Memo", slug: "memo" },
+    { name: "Gestion", slug: "gestion" },
   ];
 
   const titleBtnCompte = [{ name: "Profil", slug: "profil" }];

@@ -27,8 +27,6 @@ export const Importroadmap = z.object({
       prerequisites: z.string().min(1),
 
       pointcritical: z.string().min(1),
-
-      practicalproject: z.string().min(1),
     }),
   ),
   listCompetence: z.array(
@@ -47,6 +45,21 @@ export const Importroadmap = z.object({
       index: z.number().int(),
 
       moduleRef: z.int(),
+    }),
+  ),
+  listPracticalProject: z.array(
+    z.object({
+      name: z.string().min(1),
+
+      stack: z.string().min(1),
+
+      detail: z.string().min(1),
+
+      warning: z.string().min(1),
+
+      numModule: z.number().int(),
+
+      stepHelp: z.array(z.string().min(1)),
     }),
   ),
 });

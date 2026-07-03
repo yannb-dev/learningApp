@@ -9,7 +9,7 @@ export default function BtnBack() {
   return (
     <div>
       <button
-        className="p-2 bg-red-300 text-white font-bold rounded-sm mb-8"
+        className="p-2 bg-amber-600 text-white font-bold rounded-sm mb-8"
         onClick={() => router.back()}
       >
         <TbArrowBackUp className="text-2xl" />

@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { ImportSeance } from "@/lib/schema/ImportSeance";
 import { Roadmap } from "@/app/generated/prisma";
 
+import { LuImport } from "react-icons/lu";
+
 type RoadmapData = Prisma.RoadmapGetPayload<{
   include: {
     module: {
@@ -113,33 +115,31 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
       <div>
         {stateGeneredJson && (
           <div>
-            <button
+            <LuImport
               onClick={handleGenered}
-              className="p-1 rounded-sm bg-red-400 text-white"
-            >
-              Générer mon fichier JSON
-            </button>
+              className="p-1 rounded-sm bg-red-400 text-white text-2xl ml-6 hover:cursor-pointer hover:scale-105"
+            />
           </div>
         )}
         {stateViewImport && (
-          <div>
-            <div>
+          <div className="flex items-center">
+            <div className="ml-6">
               <input
-                className="bg-gray-100 rounded-sm p-2 hover:cursor-pointer"
+                className="bg-gray-100 rounded-sm p-1 hover:cursor-pointer"
                 type="file"
                 accept=".json"
                 onChange={handleUploadFile}
               />
               <button
                 onClick={handleSendFile}
-                className="p-2 rounded-sm bg-green-500 ml-6 hover:scale-105 hover:cursor-pointer"
+                className="p-1 rounded-sm bg-amber-600 ml-6 hover:scale-105 hover:cursor-pointer"
               >
                 Charger la session
               </button>
             </div>
             <div>
               <button
-                className="font-bold mt-4 hover:cursor-pointer"
+                className="font-bold mt-4 ml-6 hover:cursor-pointer"
                 onClick={handleStateTuto}
               >
                 Comment procéder ?

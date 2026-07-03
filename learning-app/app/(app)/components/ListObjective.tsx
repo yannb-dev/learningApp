@@ -29,8 +29,8 @@ export default function ListObjective({
 
         if (tri.length === 0) {
           return (
-            <div>
-              <h3 className="text-white font-mono font-bold mb-4">
+            <div key={index}>
+              <h3 className="text-amber-600 font-mono font-bold mb-4">
                 Module N°{index}
               </h3>
               <p>Aucune compétences dans ce module</p>
@@ -40,7 +40,7 @@ export default function ListObjective({
 
         return (
           <div className="mt-6" key={index}>
-            <h3 className="text-white font-mono font-bold mb-4">
+            <h3 className="text-amber-600 font-mono font-bold mb-4">
               Module N°{index}
             </h3>
             {tri.map((objective) => (
@@ -62,8 +62,8 @@ export default function ListObjective({
     setFilter(filter);
   };
   return (
-    <div className="w-[40%] h-60 border-1 border-gray-300 rounded-xl">
-      <div className="h-[20%] flex justify-evenly p-2">
+    <div className="w-[40%] h-80 border-1 border-gray-300 rounded-xl">
+      <div className="h-[15%] flex justify-evenly p-2">
         <button
           className={`${filter === "acquired" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm  bg-black border-1  font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
           onClick={() => handleFilter("acquired")}

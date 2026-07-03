@@ -70,7 +70,6 @@
 "prerequisites": "Aucun (notions portuaires déjà acquises, BNSSA valorisé)",
 "duration": 30,
 "pointcritical": "Comprendre le fonctionnement du vent et de la voile. Identifier toutes les parties d'un voilier et leur rôle. Maîtriser les nœuds marins essentiels.",
-"practicalproject": "Réaliser une session d'observation à bord d'un voilier (club local, ami marin) : identifier en live les éléments du bateau et noter les manœuvres observées dans un carnet de bord personnel."
 }
 ],
 "listCompetence": [
@@ -81,4 +80,7 @@
 {"name": "Nommer sans aide toutes les parties visibles d'un voilier", "index": 1, "moduleRef": 1},
 {"name": "Réaliser les 5 nœuds en moins de 2 minutes chacun", "index": 2, "moduleRef": 1}
 ],
+"listPracticalProject": [
+{"name": "Panneau d'aide mémoire", "stack": "allure-structure-corde", "detail": "Sur un panneau de bois réaliser un dessin représentant les différentes allures et la structure d'un bateau. Dessus sera accroché des bout de corde représentant les noeuds" , "warning": "Ajouter des pécisions de sécurité sur les allures", "numModule": 1, "stepHelp" : ["Dissocier les allures pour descendre le vent et le remonter", "Utiliser des couleurs différentes pour les vents"
+]}]
 }

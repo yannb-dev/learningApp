@@ -24,6 +24,8 @@ export const Seance = z.object({
 
   next: z.string().min(1),
 
+  tags: z.array(z.string().min(1)),
+
   projectId: z.string().min(1),
 
   userId: z.string(),
