@@ -59,42 +59,35 @@ export default function TimeLine({ seances, roadmap }: Props) {
   };
 
   return (
-    <div className="w-full h-min-150 flex flex-col items-start mt-20 bg-aside rounded-xl border-1 border-gray-300">
+    <div className="w-full flex flex-col items-start mt-20 bg-aside rounded-xl border-1 border-gray-300">
       <h1 className="m-4 text-gray-100 font-mono">
         Chronologie des sessions :
       </h1>
       <div className="h-px w-full bg-gray-300"></div>
-      <div className="h-full w-full flex flex-col justify-start p-6 ">
+      <div className="h-80 w-full overflow-y-scroll flex flex-col justify-start p-6 ">
         {seances.map((s) => (
-          <div className="w-full flex justify-between mb-10" key={s.id}>
-            <div>
-              <div className="flex">
-                <IconSeance />
-                <div className="flex flex-col ml-6">
-                  <h1 className="font-mono text-white text-sm">
-                    {s.sujet}
-                    {/* {s.tags.map((t) => (
-                <div
-                  className="p-1 rounded-xl bg-gray-100 font-mono text-amber-600"
-                  key={t.slug}
-                >
-                  #{t.name}
-                </div>
-              ))} */}
-                  </h1>
-                  <div></div>
-                  <p className="w-200 font-mono text-gray-400 text-xs text-justify mt-4">
-                    {s.accomplished}
-                  </p>
+          <div className="flex flex-col items-center">
+            <div className="w-full flex justify-between mb-6" key={s.id}>
+              <div>
+                <div className="flex">
+                  <IconSeance />
+                  <div className="flex flex-col ml-6">
+                    <h1 className="font-mono text-white text-sm">{s.sujet}</h1>
+                    <div></div>
+                    <p className="w-200 font-mono text-gray-400 text-xs text-justify mt-4">
+                      {s.accomplished}
+                    </p>
+                  </div>
                 </div>
               </div>
+              <div className="flex h-min items-center">
+                <FaCircle className="text-amber-600 text-sm" />
+                <p className="font-mono text-white ml-4">
+                  {format(s.createdAt, "dd/MM", { locale: fr })}
+                </p>
+              </div>
             </div>
-            <div className="flex h-min items-center">
-              <FaCircle className="text-amber-600 text-sm" />
-              <p className="font-mono text-white ml-4">
-                {format(s.createdAt, "dd/MM", { locale: fr })}
-              </p>
-            </div>
+            <div className="w-[50%] h-[1px] bg-gray-300 rounded-xl mb-6"></div>
           </div>
         ))}
       </div>

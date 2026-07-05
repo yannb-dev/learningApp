@@ -12,7 +12,7 @@ export default function ListObjective({
   upComming,
   numberModule,
 }) {
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState("acquired");
 
   const handleListModule = (value) => {
     if (value.length === 0) {
@@ -29,12 +29,13 @@ export default function ListObjective({
 
         if (tri.length === 0) {
           return (
-            <div key={index}>
-              <h3 className="text-amber-600 font-mono font-bold mb-4">
-                Module N°{index}
-              </h3>
-              <p>Aucune compétences dans ce module</p>
-            </div>
+            //   <div key={index}>
+            //     <h3 className="text-amber-600 font-mono font-bold mb-4">
+            //       Module N°{index}
+            //     </h3>
+            //     <p>Aucune compétences dans ce module</p>
+            //   </div>
+            <div></div>
           );
         }
 

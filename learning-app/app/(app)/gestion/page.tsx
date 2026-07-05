@@ -74,7 +74,6 @@ export default async function GestionPage({
 
   return (
     <div className="w-[83%] h-screen p-6 overflow-y-scroll">
-      <BtnBack />
       <div className="">
         {!roadmap && (
           <div>
@@ -118,17 +117,25 @@ export default async function GestionPage({
               <JsonForm roadmap={roadmap} templateSeance={templateSeance} />
             </div>
 
-            <div className="mt-10">
-              <h3 className="font-mono font-bold mb-4">
-                Liste des sessions précédentes :
-              </h3>
+            <div className="w-full h-auto flex flex-col justify-evenly border border-gray-300 bg-aside rounded-xl p-6 mt-10 text-xs">
+              <div className="mb-8">
+                <div className="flex justify-evenly text-gray-500">
+                  <div className="w-[15%]">Date</div>
+                  <div className="w-[35%]">Détail</div>
+                  <div className="w-[45%]">Prochaines étapes</div>
+                </div>
+              </div>
               {seance &&
                 seance.map((seance: Seance) => (
-                  <div className="flex" key={seance.id}>
-                    <h1 className="font-mono font-bold mr-4">
-                      {format(seance.createdAt, "dd/MM/yyyy", { locale: fr })}
-                    </h1>
-                    <p className="font-mono">{seance.sujet}</p>
+                  <div className="flex flex-col">
+                    <div className="flex justify-evenly" key={seance.id}>
+                      <div className="w-[15%]">
+                        {format(seance.createdAt, "dd/MM/yyyy", { locale: fr })}
+                      </div>
+                      <div className="w-[35%]">{seance.sujet}</div>
+                      <div className="w-[45%]">{seance.next}</div>
+                    </div>
+                    <div className="h-[1px] w-full rounded-sm bg-gray-400 mt-10 mb-12"></div>
                   </div>
                 ))}
             </div>

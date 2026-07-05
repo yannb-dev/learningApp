@@ -48,9 +48,8 @@ export default async function MemoPage({
     });
   });
   return (
-    <div className="w-[83%] p-6">
-      <BtnBack />
-      <ListMemo memo={memo} tags={arrayTag} />
+    <div className="w-[83%] h-screen p-6 ">
+      <ListMemo memo={memo} array={arrayTag} />
     </div>
   );
 }
