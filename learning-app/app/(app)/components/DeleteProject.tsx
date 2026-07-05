@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 //___________ import Icon ___________________________
 import { FaTrashAlt } from "react-icons/fa";
@@ -16,6 +16,7 @@ export default function DeleteProject({ projectId }: { projectId: string }) {
 
       if (response.ok) {
         router.refresh();
+        redirect("/newproject");
       }
 
       return Response.json({ success: true, data: response });
@@ -29,7 +30,10 @@ export default function DeleteProject({ projectId }: { projectId: string }) {
 
   return (
     <div className="w-full flex justify-start mb-6 mt-6">
-      <FaTrashAlt className="hover:scale-110" onClick={handleDelete} />
+      <FaTrashAlt
+        className="text-xl text-gray-300 hover:scale-110"
+        onClick={handleDelete}
+      />
     </div>
   );
 }

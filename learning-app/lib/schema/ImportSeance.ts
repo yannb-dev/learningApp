@@ -13,6 +13,10 @@ export const ImportSeance = z.object({
 
   next: z.string().min(1),
 
+  practicalProjectInProgress: z.number().int(),
+
+  tags: z.array(z.string().min(1)),
+
   objectives: z.array(
     z.object({
       id: z.string().min(1),
@@ -34,6 +38,12 @@ export const ImportSeance = z.object({
       ),
     }),
   ),
+
+  practicalProject: z.object({
+    moduleId: z.string().min(1),
+    statePracticalProject: z.enum(["ToEnd", "NoStart", "InProgress"]),
+    noteInProgress: z.string().min(1),
+  }),
 });
 
 export type ImportSeance = z.infer<typeof ImportSeance>;

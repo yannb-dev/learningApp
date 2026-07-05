@@ -33,6 +33,17 @@ export async function POST(request: Request) {
 
     // ______________ Transaction pour tout ou rien côté BDD _________
     const sendData = await prisma.$transaction(async (tx) => {
+      const roadmap = tx.roadmap.update({
+        where: {
+          userId: session.user.id,
+          projectId: result.data.projectId,
+        },
+        data: {
+          practicalProjectInProgress:
+            result.data.seance.practicalProjectInProgress,
+        },
+      });
+
       const seance = await tx.seance.create({
         data: {
           sujet: result.data.seance.sujet,
@@ -41,8 +52,20 @@ export async function POST(request: Request) {
           difficulty: result.data.seance.difficulty,
           keyPoint: result.data.seance.keyPoint,
           next: result.data.seance.next,
+          tags: result.data.seance.tags,
           userId: session.user.id,
           projectId: result.data.projectId,
+        },
+      });
+
+      const practicalProject = tx.practicalproject.update({
+        where: {
+          moduleId: result.data.seance.practicalProject.moduleId,
+        },
+        data: {
+          statePracticalProject:
+            result.data.seance.practicalProject.statePracticalProject,
+          noteInProgress: result.data.seance.practicalProject.noteInProgress,
         },
       });
 

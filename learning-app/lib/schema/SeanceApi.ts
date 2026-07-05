@@ -5,6 +5,7 @@ import { ImportSeance } from "./ImportSeance";
 export const SeanceApi = z.object({
   seance: ImportSeance,
   projectId: z.string().min(1),
+  roadmapId: z.string().min(1),
 });
 
 export type SeanceApi = z.infer<typeof SeanceApi>;

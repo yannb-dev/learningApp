@@ -31,10 +31,19 @@ export default async function AppPage({
 
   const search = typeof project === "string" ? project : "";
 
+  const checkProject = await prisma.project.findMany({
+    where: { userId: session.user.id },
+  });
+
+  if (checkProject.length === 0) {
+    redirect("/newproject");
+  }
+
   //____________ Import du Project + séance ______________________
 
   let projectOpen = null;
   let roadmap = null;
+  let practicalProject = null;
   let arrayAcquired: Objective[] = [];
   let arrayInProgress: Objective[] = [];
   let arrayUpComming: Objective[] = [];
@@ -64,7 +73,15 @@ export default async function AppPage({
         },
       },
     });
+
+    practicalProject = await prisma.practicalproject.findMany({
+      where: {
+        numModule: roadmap?.practicalProjectInProgress,
+      },
+    });
   }
+
+  console.log(practicalProject);
 
   if (search === "")
     return (
@@ -125,9 +142,7 @@ export default async function AppPage({
               <h1 className="text-2xl font-mono text-gray-100 font-bold">
                 Vue d'ensemble
               </h1>
-              <p className="text-gray-300 font-mono text-xs">
-                {dateToday} Mise à jour il y à ...
-              </p>
+              <p className="text-gray-300 font-mono text-xs">{dateToday}</p>
               <div className="w-full flex justify-center items-start">
                 <TimeLine seances={projectOpen.seances} roadmap={roadmap} />
               </div>
@@ -138,7 +153,7 @@ export default async function AppPage({
                   upComming={arrayUpComming}
                   numberModule={roadmap.module.length}
                 />
-                <DetailProject />
+                <DetailProject project={practicalProject[0]} />
               </div>
             </div>
           )}

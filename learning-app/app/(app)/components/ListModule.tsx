@@ -23,19 +23,24 @@ export default function ListModule({ module }) {
     (module) => module.numModule === numViewModule,
   );
 
-  console.log(viewModule);
+  // const acquiredObjectve = viewModule.filter(
+  //   (objective) => objective.state === "Acquired",
+  // );
 
   return (
     <div className="w-full flex mt-6">
       <div className="w-[5%] flex justify-center items-center">
         <FaChevronLeft
           onClick={() => handleSelectModule("-")}
-          className="hover:scale-105 hover:text-amber-600"
+          className={`hover:scale-105 hover:text-amber-600 ${numViewModule === 1 ? "hidden" : ""}`}
         />
       </div>
       <div className="w-[90%] flex flex-col h-100 border border-gray-300 bg-aside rounded-xl">
         <div className="flex p-4 justify-between">
           <h3 className="font-bold">Module N°{viewModule.numModule}</h3>
+          {/* {acquiredObjectve.length === viewModule.objectives.length && (
+            <h3 className="p-2 bg-green-600 rounded-sm">Terminé</h3>
+          )} */}
           <h3 className="p-1 bg-amber-600 rounded-sm">
             {viewModule.duration} heures
           </h3>
@@ -71,7 +76,9 @@ export default function ListModule({ module }) {
                   className="flex items-start text-xs text-gray-400 mb-2"
                   key={objective.id}
                 >
-                  <FaFlag className="mr-2 text-amber-600" />
+                  <FaFlag
+                    className={`mr-2 ${objective.state === "InProgress" ? "text-amber-600" : ""} ${objective.state === "Acquired" ? "text-green-600" : ""}`}
+                  />
                   {objective.name}
                 </li>
               ))}
@@ -94,7 +101,7 @@ export default function ListModule({ module }) {
       <div className="w-[5%] flex justify-center items-center">
         <FaChevronRight
           onClick={() => handleSelectModule("+")}
-          className="hover:scale-105 hover:text-amber-600"
+          className={`hover:scale-105 hover:text-amber-600 ${numViewModule === module.length ? "hidden" : ""}`}
         />
       </div>
     </div>

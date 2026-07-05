@@ -66,7 +66,7 @@ export default function TimeLine({ seances, roadmap }: Props) {
       <div className="h-px w-full bg-gray-300"></div>
       <div className="h-80 w-full overflow-y-scroll flex flex-col justify-start p-6 ">
         {seances.map((s) => (
-          <div className="flex flex-col items-center">
+          <div key={s.id} className="flex flex-col items-center">
             <div className="w-full flex justify-between mb-6" key={s.id}>
               <div>
                 <div className="flex">

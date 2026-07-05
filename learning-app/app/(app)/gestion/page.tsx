@@ -127,7 +127,7 @@ export default async function GestionPage({
               </div>
               {seance &&
                 seance.map((seance: Seance) => (
-                  <div className="flex flex-col">
+                  <div key={seance.id} className="flex flex-col">
                     <div className="flex justify-evenly" key={seance.id}>
                       <div className="w-[15%]">
                         {format(seance.createdAt, "dd/MM/yyyy", { locale: fr })}

@@ -10,7 +10,7 @@ import { MarkdownData } from "@/lib/schema/Markdown";
 
 //____________ style _________________________________
 const styleInput =
-  "w-full p-1 pl-4 bg-amber-100 text-black rounded-xl outline-none focus:ring-gray-300 focus:ring-1 mb-4 mt-2";
+  "w-full p-1 pl-4 bg-gray-300 text-black rounded-sm outline-none focus:ring-gray-300 focus:ring-1 mb-4 mt-2";
 
 //____________ interface ____________________________
 interface MarkdownFormProps {

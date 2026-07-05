@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 // _____________ import schema ZOD ___________________
@@ -37,7 +37,7 @@ export default function ProjectForm() {
     if (response.ok) {
       reset();
       router.refresh();
-      router.push("/accueil");
+      redirect("/accueil");
     }
   };
 

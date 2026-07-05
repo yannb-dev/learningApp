@@ -24,10 +24,6 @@ export default async function AppLayout({
     where: { userId: session.user.id },
   });
 
-  console.log(project);
-
-  if (!project) redirect("/newproject");
-
   return (
     <div className="w-screen flex">
       {/* aside */}
@@ -45,7 +41,7 @@ export default async function AppLayout({
             </div>
           </div>
           <div className="h-px w-full bg-gray-600 mb-12"></div>
-          <NavBtn idProject={project[0].id} />
+          {project.length > 0 && <NavBtn idProject={project[0].id} />}
         </div>
         <div className="p-2">
           <div className="h-px w-full bg-gray-600"></div>

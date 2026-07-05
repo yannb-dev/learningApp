@@ -148,7 +148,7 @@ export default async function RoadmapPage({
                   <div className="w-[90%] h-full flex justify-evenly">
                     {roadmap.module.map((module) => (
                       <div className="h-45 flex flex-col" key={module.id}>
-                        <div className="h-full w-3 flex flex-col rounded-xl overflow-hidden">
+                        <div className="h-full w-3 flex flex-col rounded-tr-xl rounded-tl-xl overflow-hidden">
                           <div
                             style={{
                               height: `${handleTypeObjective("UpComming", module)}%`,

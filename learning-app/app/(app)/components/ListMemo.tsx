@@ -4,6 +4,7 @@ import { Prisma } from "@/app/generated/prisma";
 import { log } from "console";
 
 import { useState } from "react";
+import CodeBlock from "./CodeBlock";
 
 type Memo = Prisma.MemoGetPayload<{
   include: {
@@ -74,7 +75,9 @@ export default function ListMemo({ memo, array }: Props) {
                     </div>
                   ))}
                 </div>
-                <p className="text-justify mt-6 text-sm">{memo.snippet}</p>
+                <h3>Snippet :</h3>
+                <CodeBlock code={memo.snippet} />
+                <h3>Notes :</h3>
                 <p className="text-justify mt-6 text-sm">{memo.notes}</p>
               </div>
             ))}

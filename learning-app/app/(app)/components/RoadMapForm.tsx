@@ -62,7 +62,7 @@ export default function RoadMapForm({
   };
 
   return (
-    <div className="mt-10">
+    <div className="mt-10 text-gray-300">
       <h3 className="font-mono font-bold mb-8">
         Ajoutes ton fichier markdown pour incrémenter ton projet :
       </h3>

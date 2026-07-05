@@ -47,6 +47,7 @@ export async function POST(request: Request) {
           dispo: result.data.roadmap.dispo,
           constraint: result.data.roadmap.constraint,
           duration: result.data.roadmap.duration,
+          practicalProjectInProgress: 1,
           userId: session.user.id,
           projectId: result.data.projectId,
         },
@@ -109,6 +110,8 @@ export async function POST(request: Request) {
                   warning: liste.warning,
                   moduleId: module.id,
                   numModule: liste.numModule,
+                  state: "NoStart",
+                  noteInProgress: "Aucune note.",
                   stepHelp: liste.stepHelp,
                 },
               });

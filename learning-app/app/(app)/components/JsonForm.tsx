@@ -80,6 +80,7 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
         body: JSON.stringify({
           seance: fileCheck.data,
           projectId: roadmap.projectId,
+          roadmapId: roadmap.id,
         }),
       });
 

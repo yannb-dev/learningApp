@@ -88,6 +88,7 @@ echeance DateTime
 dispo Int
 constraint String
 duration Int
+practicalProjectInProgress Int
 userId String
 projectId String @unique
 user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -141,12 +142,20 @@ module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
 createdAt DateTime @default(now())
 }
 
+enum StatePracticalProject {
+NoStart
+InProgress
+ToEnd
+}
+
 model Practicalproject {
     id String @id @default(cuid())
     name String
     stack String
     detail String
     warning String
+    noteInProgress String
+    state StatePracticalProject
     numModule Int
     moduleId String @unique
     stepHelp String[]
@@ -163,6 +172,7 @@ skillDone String
 difficulty String
 keyPoint String
 next String
+tags String[]
 userId String
 projectId String
 user User @relation(fields: [userId], references: [id], onDelete: Cascade)
