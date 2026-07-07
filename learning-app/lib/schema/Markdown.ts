@@ -5,7 +5,7 @@ export const MarkdownSchema = z.object({
 
   competence: z.string().min(1, "Ajouter vos compétences et vos savoirs faire"),
 
-  dispo: z.string().min(1, "Entrer vos disponibilités"),
+  dispo: z.string().min(1, "Entrer vos disponibilités avec un numéro"),
 
   learningMode: z
     .string()
@@ -17,7 +17,7 @@ export const MarkdownSchema = z.object({
 
   whyLearn: z.string().min(1, "Ajouter une valeur"),
 
-  echeance: z.string().min(1),
+  echeance: z.string().min(1, "Ajouter une date d'objectif"),
 
   motivation: z.enum(["1", "2", "3", "4", "5"]),
 });

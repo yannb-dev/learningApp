@@ -28,8 +28,6 @@ export default function ListMemo({ memo, array }: Props) {
     setListMemo(memo.filter((m) => m.tags.find((t) => t.slug === tag)));
   };
 
-  console.log(listMemo);
-
   return (
     <div className="w-full h-screen flex flex-col items-center font-mono">
       <div>
@@ -75,9 +73,9 @@ export default function ListMemo({ memo, array }: Props) {
                     </div>
                   ))}
                 </div>
-                <h3>Snippet :</h3>
+                <h3 className="mt-4 mb-2">Snippet :</h3>
                 <CodeBlock code={memo.snippet} />
-                <h3>Notes :</h3>
+                <h3 className="mt-4 mb-2">Notes :</h3>
                 <p className="text-justify mt-6 text-sm">{memo.notes}</p>
               </div>
             ))}

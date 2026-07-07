@@ -54,6 +54,7 @@
 ]
 "practicalProject" : {
 "moduleId" : String
+"roadmapId" : String
 "statePracticalProject" : String
 "noteInProgress" : String
 }

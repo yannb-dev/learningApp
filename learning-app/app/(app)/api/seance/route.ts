@@ -33,7 +33,7 @@ export async function POST(request: Request) {
 
     // ______________ Transaction pour tout ou rien côté BDD _________
     const sendData = await prisma.$transaction(async (tx) => {
-      const roadmap = tx.roadmap.update({
+      const roadmap = await tx.roadmap.update({
         where: {
           userId: session.user.id,
           projectId: result.data.projectId,
@@ -58,13 +58,13 @@ export async function POST(request: Request) {
         },
       });
 
-      const practicalProject = tx.practicalproject.update({
+      const practicalProject = await tx.practicalproject.update({
         where: {
           moduleId: result.data.seance.practicalProject.moduleId,
+          roadmapId: result.data.seance.roadmapId,
         },
         data: {
-          statePracticalProject:
-            result.data.seance.practicalProject.statePracticalProject,
+          state: result.data.seance.practicalProject.statePracticalProject,
           noteInProgress: result.data.seance.practicalProject.noteInProgress,
         },
       });
@@ -114,7 +114,7 @@ export async function POST(request: Request) {
       );
     });
 
-    return Response.json({ success: true });
+    return Response.json({ success: true, data: sendData });
   } catch (err) {
     console.error("Erreur POST /api/seance", err);
     return Response.json({ error: "Erreur serveur du POST" }, { status: 500 });

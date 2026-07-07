@@ -18,11 +18,6 @@ export default async function NewProject() {
   return (
     <div className="w-[83%] text-gray-300">
       <ProjectForm />
-      <h1 className="flex items-center mt-12 ml-12 font-mono font-bold">
-        {" "}
-        <FaRegHandPointRight className="mr-4" />
-        Liste des projets :
-      </h1>
     </div>
   );
 }

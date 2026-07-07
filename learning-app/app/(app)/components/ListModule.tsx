@@ -23,10 +23,6 @@ export default function ListModule({ module }) {
     (module) => module.numModule === numViewModule,
   );
 
-  // const acquiredObjectve = viewModule.filter(
-  //   (objective) => objective.state === "Acquired",
-  // );
-
   return (
     <div className="w-full flex mt-6">
       <div className="w-[5%] flex justify-center items-center">
@@ -38,15 +34,11 @@ export default function ListModule({ module }) {
       <div className="w-[90%] flex flex-col h-100 border border-gray-300 bg-aside rounded-xl">
         <div className="flex p-4 justify-between">
           <h3 className="font-bold">Module N°{viewModule.numModule}</h3>
-          {/* {acquiredObjectve.length === viewModule.objectives.length && (
-            <h3 className="p-2 bg-green-600 rounded-sm">Terminé</h3>
-          )} */}
           <h3 className="p-1 bg-amber-600 rounded-sm">
             {viewModule.duration} heures
           </h3>
         </div>
-        <div className="h-[1px] w-full bg-gray-300"></div>
-        <div className="w-full flex p-4">
+        <div className="w-full overflow-y-scroll flex p-4">
           <div className="w-[50%] flex flex-col p-2">
             <h3>Pré-requis :</h3>
             <p className="text-xs text-gray-400 mt-2 mb-4">

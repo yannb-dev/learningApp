@@ -32,6 +32,8 @@ export default async function GestionPage({
 
   const { project } = await searchParams;
 
+  console.log("Id du projet", project);
+
   // _________ import fichier markdownRoadmap _________
   const filePathRoadMap = path.join(
     process.cwd(),
@@ -83,7 +85,7 @@ export default async function GestionPage({
         )}
         {roadmap && (
           <div className="w-full flex flex-col font-mono text-gray-300 p-6">
-            <h3>Ma roadmap :</h3>
+            <h3 className="text-2xl font-bold">Ma roadmap :</h3>
             <section className="w-full h-auto flex justify-evenly border border-gray-300 bg-aside rounded-xl p-6 mt-6">
               <div className="w-[50%] flex flex-col">
                 <h1 className="text-2xl font-bold">{roadmap.name}</h1>
@@ -121,8 +123,9 @@ export default async function GestionPage({
               <div className="mb-8">
                 <div className="flex justify-evenly text-gray-500">
                   <div className="w-[15%]">Date</div>
-                  <div className="w-[35%]">Détail</div>
-                  <div className="w-[45%]">Prochaines étapes</div>
+                  <div className="w-[25%]">Détail</div>
+                  <div className="w-[30%]">Accompli</div>
+                  <div className="w-[25%]">Prochaines étapes</div>
                 </div>
               </div>
               {seance &&
@@ -132,8 +135,11 @@ export default async function GestionPage({
                       <div className="w-[15%]">
                         {format(seance.createdAt, "dd/MM/yyyy", { locale: fr })}
                       </div>
-                      <div className="w-[35%]">{seance.sujet}</div>
-                      <div className="w-[45%]">{seance.next}</div>
+                      <div className="w-[25%] text-justify">{seance.sujet}</div>
+                      <div className="w-[30%] text-justify">
+                        {seance.accomplished}
+                      </div>
+                      <div className="w-[25%] text-justify">{seance.next}</div>
                     </div>
                     <div className="h-[1px] w-full rounded-sm bg-gray-400 mt-10 mb-12"></div>
                   </div>

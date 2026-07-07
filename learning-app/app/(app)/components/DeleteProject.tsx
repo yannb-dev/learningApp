@@ -29,7 +29,7 @@ export default function DeleteProject({ projectId }: { projectId: string }) {
   };
 
   return (
-    <div className="w-full flex justify-start mb-6 mt-6">
+    <div className="w-20 flex justify-start mb-6 mt-6">
       <FaTrashAlt
         className="text-xl text-gray-300 hover:scale-110"
         onClick={handleDelete}

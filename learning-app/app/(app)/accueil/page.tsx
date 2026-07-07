@@ -76,12 +76,13 @@ export default async function AppPage({
 
     practicalProject = await prisma.practicalproject.findMany({
       where: {
+        roadmapId: roadmap?.id,
         numModule: roadmap?.practicalProjectInProgress,
       },
     });
   }
 
-  console.log(practicalProject);
+  console.log(roadmap);
 
   if (search === "")
     return (
@@ -125,14 +126,14 @@ export default async function AppPage({
   return (
     <div className="w-[80%] flex flex-col items-center p-18">
       {projectOpen && (
-        <div className="w-full flex flex-col">
+        <div className="w-full flex flex-col text-gray-300">
           {!roadmap && (
             <div className="w-full h-screen flex flex-col justify-center items-center">
               <h1 className="text-xl font-mono font-bold mb-6">
                 Vous n'avez pas inséré de Roadmap dans votre projet !
               </h1>
-              <div className="flex">
-                <p className="font-mono">Rendez vous dans la section</p>
+              <div className="flex items-center">
+                <p className="font-mono mr-10">Rendez vous dans la section</p>
                 <BtnDirectNewRoadmap idProject={search} />
               </div>
             </div>

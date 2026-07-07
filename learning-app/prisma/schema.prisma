@@ -157,6 +157,7 @@ model Practicalproject {
     noteInProgress String
     state StatePracticalProject
     numModule Int
+    roadmapId String
     moduleId String @unique
     stepHelp String[]
     module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)

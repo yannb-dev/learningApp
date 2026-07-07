@@ -65,6 +65,7 @@ export default function ProjectForm() {
         >
           <option value="tech">Technologie</option>
           <option value="school">Scolaire</option>
+          <option value="other">Autre</option>
         </select>
         <button
           className="w-30 pl-2 pt-1 pr-2 pb-1 rounded-xl border-1 border-gray-300 bg-gray-100 hover:bg-gray-200 hover:cursor-pointer"

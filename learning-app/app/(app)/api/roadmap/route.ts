@@ -109,6 +109,7 @@ export async function POST(request: Request) {
                   detail: liste.detail,
                   warning: liste.warning,
                   moduleId: module.id,
+                  roadmapId: roadmap.id,
                   numModule: liste.numModule,
                   state: "NoStart",
                   noteInProgress: "Aucune note.",

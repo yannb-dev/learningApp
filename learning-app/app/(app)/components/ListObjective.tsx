@@ -35,7 +35,7 @@ export default function ListObjective({
             //     </h3>
             //     <p>Aucune compétences dans ce module</p>
             //   </div>
-            <div></div>
+            <div key={index}></div>
           );
         }
 

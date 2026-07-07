@@ -15,7 +15,7 @@ export default function CodeBlock({ code }) {
 
   return (
     <pre>
-      <code ref={ref} className="language-typescript">
+      <code ref={ref} className="language-typescript text-xs p-2 rounded-sm">
         {code}
       </code>
     </pre>
