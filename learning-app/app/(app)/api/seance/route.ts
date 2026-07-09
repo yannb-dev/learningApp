@@ -61,7 +61,7 @@ export async function POST(request: Request) {
       const practicalProject = await tx.practicalproject.update({
         where: {
           moduleId: result.data.seance.practicalProject.moduleId,
-          roadmapId: result.data.seance.roadmapId,
+          roadmapId: result.data.roadmapId,
         },
         data: {
           state: result.data.seance.practicalProject.statePracticalProject,
@@ -80,7 +80,7 @@ export async function POST(request: Request) {
               state: liste.state,
             },
           });
-          return objective; // obligatoire avec Promise.all ou fonction arrow sans accolade
+          return objective;
         }),
       );
 

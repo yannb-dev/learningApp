@@ -22,12 +22,13 @@ type RoadmapData = Prisma.RoadmapGetPayload<{
   };
 }>;
 
-//______________import components _____________________
-import BtnBack from "../components/BtnBack";
+type ModuleWithObjective = Prisma.ModuleGetPayload<{
+  include: {
+    objectives: true;
+  };
+}>;
 
 //______________ import icon __________________________
-import { ImArrowDown } from "react-icons/im";
-import { FaCheck } from "react-icons/fa";
 import ListModule from "../components/ListModule";
 import { TbPointFilled } from "react-icons/tb";
 
@@ -70,7 +71,7 @@ function calculUpComming(roadmap: RoadmapData) {
 
 //___________ handleTypeObjective _______________
 
-function handleTypeObjective(type, module) {
+function handleTypeObjective(type: string, module: ModuleWithObjective) {
   const total = module.objectives.length;
 
   const lengthObjective = module.objectives.filter(
@@ -139,7 +140,7 @@ export default async function RoadmapPage({
                     non abordé
                   </p>
                 </div>
-                <div className="h-[1px] w-full bg-gray-300"></div>
+                <div className="h-1px w-full bg-gray-300"></div>
                 <div className="w-full h-full flex p-2">
                   <div className="w-[10%] h-45 flex flex-col justify-between">
                     <p>100%</p>
@@ -176,7 +177,7 @@ export default async function RoadmapPage({
               </div>
               <div className="w-[60%] h-70 border border-gray-300 bg-aside rounded-xl ml-5">
                 <h3 className="m-2 font-bold">Description</h3>
-                <div className="h-[1px] w-full bg-gray-300"></div>
+                <div className="h-px w-full bg-gray-300"></div>
                 <div className="p-4 w-full flex flex-col">
                   <h3>Mon projet :</h3>
                   <p className="text-xs text-gray-400 mb-4 mt-2">

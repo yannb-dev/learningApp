@@ -5,7 +5,6 @@ import { redirect, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 // _____________ import schema ZOD ___________________
-import { ProjectData } from "@/lib/schema/FormNewProject";
 import { ProjectSchema } from "@/lib/schema/FormNewProject";
 
 export default function ProjectForm() {
@@ -25,7 +24,7 @@ export default function ProjectForm() {
     defaultValues: { category: "tech" },
   });
 
-  const onSubmit = async (data: ProjectData) => {
+  const onSubmit = async (data: ProjectSchema) => {
     const response = await fetch("/api/project", {
       method: "POST",
 
@@ -48,19 +47,19 @@ export default function ProjectForm() {
       </h1>
       <form className="flex flex-col pt-8" onSubmit={handleSubmit(onSubmit)}>
         <input
-          className="w-60 border-b-1 border-gray-200 mb-4 outline-none focus:ring-gray-300 focus:ring-1"
+          className="w-60 border-b border-gray-200 mb-4 outline-none focus:ring-gray-300 focus:ring-1"
           {...register("name")}
           placeholder="Nom du projet"
         />
         {errors.name && <p>{errors.name.message}</p>}
         <input
-          className="w-120 border-b-1 border-gray-200 mb-4 outline-none focus:ring-gray-300 focus:ring-1"
+          className="w-120 border-b border-gray-200 mb-4 outline-none focus:ring-gray-300 focus:ring-1"
           {...register("description")}
           placeholder="Décris ton projet en deux mots"
         />
         {errors.description && <p>{errors.description.message}</p>}
         <select
-          className="w-40 border-1 border-gray-200 rounded-sm p-2 mb-8"
+          className="w-40 border border-gray-200 rounded-sm p-2 mb-8"
           {...register("category")}
         >
           <option value="tech">Technologie</option>
@@ -68,7 +67,7 @@ export default function ProjectForm() {
           <option value="other">Autre</option>
         </select>
         <button
-          className="w-30 pl-2 pt-1 pr-2 pb-1 rounded-xl border-1 border-gray-300 bg-gray-100 hover:bg-gray-200 hover:cursor-pointer"
+          className="w-30 pl-2 pt-1 pr-2 pb-1 rounded-md bg-amber-600  hover:bg-gray-200 hover:cursor-pointer"
           type="submit"
         >
           Ajouter

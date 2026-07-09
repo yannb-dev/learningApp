@@ -1,14 +1,16 @@
 "use client";
-import { Objective, Prisma } from "@/app/generated/prisma";
+import { Prisma } from "@/app/generated/prisma";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+//_______________component __________________
 import { ImportSeance } from "@/lib/schema/ImportSeance";
-import { Roadmap } from "@/app/generated/prisma";
 
+// ____________ icon __________________________
 import { LuImport } from "react-icons/lu";
 
+//_____________ type ___________________________
 type RoadmapData = Prisma.RoadmapGetPayload<{
   include: {
     module: {
@@ -45,7 +47,7 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
 
     const link = document.createElement("a");
     link.href = dataUrl;
-    link.download = "context.md"; // nom du fichier téléchargé
+    link.download = "context.md";
     link.click();
     link.remove();
   };
@@ -87,6 +89,7 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
       if (sendingFile.ok) {
         setStateTuto(false);
         setStateViewImport(false);
+        setStateGeneredJson(true);
         router.refresh();
       } else {
         console.log("Erreur d'enregistrement en BDD");

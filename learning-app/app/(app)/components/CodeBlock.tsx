@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import hljs from "highlight.js";
 import "highlight.js/styles/atom-one-dark.css";
 
-export default function CodeBlock({ code }) {
+export default function CodeBlock({ code }: { code: String }) {
   const ref = useRef(null);
 
   useEffect(() => {

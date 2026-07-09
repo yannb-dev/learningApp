@@ -7,7 +7,7 @@ export default function BtnOpenApp() {
   return (
     <div>
       <button
-        className="pl-4 pt-2 pr-4 pb-2 rounded-xl border-1 border-gray-300 bg-gray-100 hover:bg-gray-200"
+        className="pl-4 pt-2 pr-4 pb-2 rounded-xl border border-gray-300 bg-gray-100 hover:bg-gray-200"
         onClick={() => router.push("/accueil")}
       >
         Ouvrir mon app !

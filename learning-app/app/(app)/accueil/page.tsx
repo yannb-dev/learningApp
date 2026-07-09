@@ -7,15 +7,16 @@ import { redirect } from "next/navigation";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 
-import { Objective } from "@/app/generated/prisma";
-
 //__________ import components ___________________
+
 import TimeLine from "../components/TimeLine";
 import ListObjective from "../components/ListObjective";
 import DetailProject from "../components/DetailProject";
 import BtnDirectNewRoadmap from "../components/BtnDirectNewRoadmap";
 
 //___________ type ________________________________
+
+import { Objective } from "@/app/generated/prisma";
 type SearchParams = Promise<{ [key: string]: string }>;
 
 export default async function AppPage({
@@ -82,8 +83,6 @@ export default async function AppPage({
     });
   }
 
-  console.log(roadmap);
-
   if (search === "")
     return (
       <div className="w-[83%] h-screen flex items-center justify-center">
@@ -95,8 +94,8 @@ export default async function AppPage({
             Sélectionne dans le menu un projet
           </p>
           <p className="mb-14 text-gray-100">
-            Si tu n'as aucun project en cours tu peux en créer un de nouveau
-            dans l'onglet de sélection
+            Si tu n'as aucun project en cours clique sur Nouveau dans l'onglet
+            de sélection
           </p>
         </div>
       </div>
@@ -154,7 +153,9 @@ export default async function AppPage({
                   upComming={arrayUpComming}
                   numberModule={roadmap.module.length}
                 />
-                <DetailProject project={practicalProject[0]} />
+                {practicalProject && (
+                  <DetailProject project={practicalProject[0]} />
+                )}
               </div>
             </div>
           )}

@@ -2,19 +2,26 @@
 
 import { useState } from "react";
 
-import { FaCheck } from "react-icons/fa";
-import { GrInProgress } from "react-icons/gr";
+//______________icon ___________________
 import { RiMailForbidFill } from "react-icons/ri";
+
+//_______________type __________________
+import { Objective } from "@/app/generated/prisma";
 
 export default function ListObjective({
   acquired,
   inProgress,
   upComming,
   numberModule,
+}: {
+  acquired: Objective[];
+  inProgress: Objective[];
+  upComming: Objective[];
+  numberModule: number;
 }) {
   const [filter, setFilter] = useState("acquired");
 
-  const handleListModule = (value) => {
+  const handleListModule = (value: Objective[]) => {
     if (value.length === 0) {
       return (
         <div>
@@ -25,18 +32,10 @@ export default function ListObjective({
 
     return Array.from({ length: numberModule + 1 }, (_, i) => i + 1).map(
       (index) => {
-        const tri = value.filter((objective) => index === objective.moduleRef);
+        const tri = value.filter((module) => index === module.moduleRef);
 
         if (tri.length === 0) {
-          return (
-            //   <div key={index}>
-            //     <h3 className="text-amber-600 font-mono font-bold mb-4">
-            //       Module N°{index}
-            //     </h3>
-            //     <p>Aucune compétences dans ce module</p>
-            //   </div>
-            <div key={index}></div>
-          );
+          return <div key={index}></div>;
         }
 
         return (
@@ -63,22 +62,22 @@ export default function ListObjective({
     setFilter(filter);
   };
   return (
-    <div className="w-[40%] h-80 border-1 border-gray-300 rounded-xl">
+    <div className="w-[40%] h-80 border border-gray-300 rounded-xl bg-aside">
       <div className="h-[15%] flex justify-evenly p-2">
         <button
-          className={`${filter === "acquired" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm  bg-black border-1  font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
+          className={`${filter === "acquired" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm  bg-black border  font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
           onClick={() => handleFilter("acquired")}
         >
           Acquis
         </button>
         <button
-          className={`${filter === "inProgress" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm  bg-black border-1 font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
+          className={`${filter === "inProgress" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm  bg-black border font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
           onClick={() => handleFilter("inProgress")}
         >
           En cours
         </button>
         <button
-          className={`${filter === "upComming" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm bg-black border-1 font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
+          className={`${filter === "upComming" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm bg-black border font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
           onClick={() => handleFilter("upComming")}
         >
           Non abordé

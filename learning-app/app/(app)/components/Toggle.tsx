@@ -11,9 +11,9 @@ export default function Toogle() {
   return (
     <div
       onClick={toogle}
-      className={`h-[20px] w-[44px] flex ${stateToogle ? "justify-start" : "justify-end"}  items-center rounded-[10px] p-[1px] bg-white`}
+      className={`h-5 w-11 flex ${stateToogle ? "justify-start" : "justify-end"}  items-center rounded-[10px] p-px bg-white`}
     >
-      <div className="h-[18px] w-[18px] rounded-[9px] bg-black"></div>
+      <div className="h-4.5 w-4.5 rounded-[9px] bg-black"></div>
     </div>
   );
 }

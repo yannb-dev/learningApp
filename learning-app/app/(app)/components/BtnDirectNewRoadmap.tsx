@@ -2,7 +2,11 @@
 
 import { redirect } from "next/navigation";
 
-export default function BtnDirectNewRoadmap({ idProject }) {
+export default function BtnDirectNewRoadmap({
+  idProject,
+}: {
+  idProject: String;
+}) {
   return (
     <div>
       <button

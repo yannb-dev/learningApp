@@ -6,7 +6,6 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 //______________ import components ____________________
-
 import IconApp from "./components/IconApp";
 import Menu from "./components/Menu";
 
@@ -23,12 +22,10 @@ export default async function AppLayout({
     where: { userId: session.user.id },
   });
 
-  console.log("Liste des projets", project);
-
   return (
     <div className="w-screen flex">
       {/* aside */}
-      <div className="h-screen w-[17%] flex flex-col justify-between bg-aside border-r-2 border-gray-500">
+      <div className="h-screen w-[17%] flex flex-col justify-start bg-aside border-r-2 border-gray-500">
         <div className="w-full flex flex-col items-start">
           <div className="w-full flex p-6">
             <IconApp className=" w-16 h-16 text-gray-100" />

@@ -8,7 +8,7 @@ import { FaGithub } from "react-icons/fa";
 
 export default function LoginPage() {
   return (
-    <div className="h-[100vh] w-full flex flex-col items-center justify-center">
+    <div className="h-screen w-full flex flex-col items-center justify-center text-gray-300">
       <h1 className="text-5xl font-mono mb-10">Bienvenu sur Learning App</h1>
 
       <h3>Choisis ta méthode de connexion: </h3>

@@ -1,11 +1,13 @@
 "use client";
 
 import { Prisma } from "@/app/generated/prisma";
-import { log } from "console";
 
 import { useState } from "react";
+
+//________________component ________________
 import CodeBlock from "./CodeBlock";
 
+// _______________ type _________________
 type Memo = Prisma.MemoGetPayload<{
   include: {
     tags: true;
@@ -23,16 +25,19 @@ export default function ListMemo({ memo, array }: Props) {
 
   //____________ Filtre par tag ____________________
   const handleFiltre = (tag: string) => {
-    console.log(tag);
-
     setListMemo(memo.filter((m) => m.tags.find((t) => t.slug === tag)));
   };
+
+  //____________ Tri alphabétique tags ____________
+  const arrayTri = array.sort((a, b) => {
+    return a.slug.localeCompare(b.slug);
+  });
 
   return (
     <div className="w-full h-screen flex flex-col items-center font-mono">
       <div>
         <div className="flex flex-wrap mt-6 mb-6">
-          {array.map((tag) => (
+          {arrayTri.map((tag) => (
             <div
               className={`${stateTag === tag.slug ? "bg-gray-300" : ""}  p-1 text-amber-600 font-bold rounded-sm mr-4 mb-4 hover:cursor-pointer`}
               key={tag.slug}
@@ -81,7 +86,9 @@ export default function ListMemo({ memo, array }: Props) {
             ))}
           </div>
         ) : (
-          <h1>Aucun memo</h1>
+          <div className="w-full flex justify-center text-gray-300 font-mono">
+            <h1>Aucun memo dans cet section !</h1>
+          </div>
         )}
       </div>
     </div>

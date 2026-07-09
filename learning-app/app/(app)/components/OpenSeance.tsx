@@ -1,10 +1,12 @@
 "use client";
 
-import { parse, format, differenceInDays, differenceInMonths } from "date-fns";
+import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 
+//__________________component ________________
 import { Seance } from "@/lib/schema/SeanceApi";
 
+//_________________type _______________________
 type Props = {
   seance: Seance;
 };

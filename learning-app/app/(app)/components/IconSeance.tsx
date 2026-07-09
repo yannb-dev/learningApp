@@ -1,19 +1,3 @@
-import { FaDocker } from "react-icons/fa";
-import { FaGlobe } from "react-icons/fa";
-import { FaGitlab } from "react-icons/fa";
-import { FaInternetExplorer } from "react-icons/fa";
-import { FaJs } from "react-icons/fa";
-import { FaReact } from "react-icons/fa";
-
-import { FaSkyatlas } from "react-icons/fa";
-import { FaSuperpowers } from "react-icons/fa";
-import { GiCandlebright } from "react-icons/gi";
-import { GiDrop } from "react-icons/gi";
-import { GiFlamer } from "react-icons/gi";
-import { GiLightBulb } from "react-icons/gi";
-import { GiMaterialsScience } from "react-icons/gi";
-import { GiRosaShield } from "react-icons/gi";
-
 // Dé en perspective
 import { GiPerspectiveDiceSixFacesFive } from "react-icons/gi";
 import { GiPerspectiveDiceSixFacesFour } from "react-icons/gi";
@@ -70,7 +54,11 @@ export default function IconSeance() {
     <div>
       {
         <div className="w-12 h-12 flex justify-center items-center rounded-[50%] border-2 border-white">
-          <filter.Icon className={filter?.className} />
+          {filter === undefined ? (
+            <GiPerspectiveDiceSixFacesFive />
+          ) : (
+            <filter.Icon className={filter?.className} />
+          )}
         </div>
       }
     </div>

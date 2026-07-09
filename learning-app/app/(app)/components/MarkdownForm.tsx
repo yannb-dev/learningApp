@@ -9,8 +9,9 @@ import { MarkdownSchema } from "@/lib/schema/Markdown";
 import { MarkdownData } from "@/lib/schema/Markdown";
 
 import { useRouter } from "next/navigation";
-import { truncate } from "fs/promises";
-import { stringify } from "querystring";
+
+//_________________ component ______________________
+import TextCopy from "./TextCopy";
 
 //____________ style _________________________________
 const styleInput =
@@ -224,6 +225,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
           <div className="w-[70%] p-6 rounded-xl bg-aside text-justify font-mono mt-8">
             <h3 className="font-bold mb-4">
               Copie ce bloc comme prompt au LLM de ton choix.
+              <TextCopy />
             </h3>
             <p>
               Tu es un expert en pédagogie. À partir des informations du fichier

@@ -7,8 +7,8 @@ import { authOptions } from "@/lib/auth";
 
 import { redirect } from "next/navigation";
 
+// _______________type ___________________
 import ListMemo from "../components/ListMemo";
-
 type SearchParams = Promise<{ [key: string]: string | undefined }>;
 type Memo = Prisma.MemoGetPayload<{
   include: {
@@ -30,13 +30,13 @@ export default async function MemoPage({
   const memo = await prisma.memo.findMany({
     where: { projectId: project, userId: session.user.id },
     include: {
-      tags: true,
+      tags: {
+        orderBy: {
+          slug: "asc",
+        },
+      },
     },
   });
-
-  console.log("Id du projet", project);
-
-  console.log("Memo chargé", memo);
 
   const arrayTag: { slug: string }[] = [];
 

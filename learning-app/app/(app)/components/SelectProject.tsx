@@ -2,7 +2,14 @@
 
 import { useRouter } from "next/navigation";
 
-export default function SelectProject({ projectList }) {
+//____________________type _____________________
+import { Project } from "@/app/generated/prisma";
+
+export default function SelectProject({
+  projectList,
+}: {
+  projectList: Project[];
+}) {
   const router = useRouter();
 
   const handleSelect = (id: string) => {
@@ -17,7 +24,7 @@ export default function SelectProject({ projectList }) {
     <div className="p-2 mt-2">
       {projectList && (
         <select
-          className="w-full bg-gray-100 border-1 border-gray-300 rounded-sm p-2 font-mono text-center "
+          className="w-full bg-gray-100 border border-gray-300 rounded-sm p-2 font-mono text-center "
           onChange={(e) => handleSelect(e.target.value)}
         >
           <option value="">--Mon project--</option>

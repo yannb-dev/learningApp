@@ -2,7 +2,7 @@
 
 import { Prisma } from "@/app/generated/prisma";
 
-import { parse, format, differenceInDays, differenceInMonths } from "date-fns";
+import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { useState } from "react";
 
@@ -55,7 +55,7 @@ export default function TimeLine({ seances, roadmap }: Props) {
   };
 
   return (
-    <div className="w-full flex flex-col items-start mt-20 bg-aside rounded-xl border-1 border-gray-300">
+    <div className="w-full flex flex-col items-start mt-20 bg-aside rounded-xl border border-gray-300">
       <h1 className="m-4 text-gray-100 font-mono">
         Chronologie des sessions :
       </h1>
@@ -94,7 +94,7 @@ export default function TimeLine({ seances, roadmap }: Props) {
                 </p>
               </div>
             </div>
-            <div className="w-[50%] h-[1px] bg-gray-300 rounded-xl mb-6"></div>
+            <div className="w-[50%] h-px bg-gray-300 rounded-xl mb-6"></div>
           </div>
         ))}
         {!seances && (
