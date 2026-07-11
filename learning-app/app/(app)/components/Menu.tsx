@@ -31,8 +31,6 @@ export default function Menu({ project }: Props) {
     }
   };
 
-  console.log(selectProject);
-
   return (
     <div>
       <div>

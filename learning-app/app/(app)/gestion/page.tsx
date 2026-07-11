@@ -9,6 +9,8 @@ import { redirect } from "next/navigation";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 
+import { getTemplateRoadmap, getTemplateSeance } from "@/lib/template";
+
 //__________ import components ___________________
 import MarkdownForm from "../components/MarkdownForm";
 import RoadMapForm from "../components/RoadMapForm";
@@ -49,23 +51,26 @@ export default async function GestionPage({
       </div>
     );
 
-  // _________ import fichier markdownRoadmap _________
-  const filePathRoadMap = path.join(
-    process.cwd(),
-    "public",
-    "template",
-    "markdownRoadMap.md",
-  );
-  const templateRoadmap = fs.promises.readFile(filePathRoadMap, "utf-8");
+  const templateRoadmap = getTemplateRoadmap();
+  const templateSeance = getTemplateSeance();
 
-  // _________ import fichier markdownSeance _________
-  const filePathSeance = path.join(
-    process.cwd(),
-    "public",
-    "template",
-    "markdownSeance.md",
-  );
-  const templateSeance = await fs.promises.readFile(filePathSeance, "utf-8");
+  // // _________ import fichier markdownRoadmap _________
+  // const filePathRoadMap = path.join(
+  //   process.cwd(),
+  //   "public",
+  //   "template",
+  //   "markdownRoadMap.md",
+  // );
+  // const templateRoadmap = fs.promises.readFile(filePathRoadMap, "utf-8");
+
+  // // _________ import fichier markdownSeance _________
+  // const filePathSeance = path.join(
+  //   process.cwd(),
+  //   "public",
+  //   "template",
+  //   "markdownSeance.md",
+  // );
+  // const templateSeance = await fs.promises.readFile(filePathSeance, "utf-8");
 
   // ___________ chargement de la roadmap unique _________
   const roadmap = await prisma.roadmap.findUnique({
