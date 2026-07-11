@@ -50,7 +50,22 @@ export default async function AppPage({
   let arrayUpComming: Objective[] = [];
 
   if (search === "") {
-    console.log("Aucun projet n'est sélectionné");
+    return (
+      <div className="w-[83%] h-screen flex items-center justify-center">
+        <div className="w-full flex flex-col justify-center items-center">
+          <h1 className="text-3xl font-bold font-mono text-gray-100">
+            Choisis ton projet !
+          </h1>
+          <p className="mb-8 text-gray-100">
+            Sélectionne dans le menu un projet
+          </p>
+          <p className="mb-14 text-gray-100">
+            Si tu n'as aucun project en cours clique sur Nouveau dans l'onglet
+            de sélection
+          </p>
+        </div>
+      </div>
+    );
   } else {
     projectOpen = await prisma.project.findUnique({
       where: { id: search, userId: session.user.id },
@@ -60,7 +75,7 @@ export default async function AppPage({
     });
 
     if (!projectOpen) {
-      return <div>Aucun projet sélectionné !</div>;
+      return <div>Aucun projet trouvé en base de donnée</div>;
     }
 
     roadmap = await prisma.roadmap.findUnique({
@@ -82,24 +97,6 @@ export default async function AppPage({
       },
     });
   }
-
-  if (search === "")
-    return (
-      <div className="w-[83%] h-screen flex items-center justify-center">
-        <div className="w-full flex flex-col justify-center items-center">
-          <h1 className="text-3xl font-bold font-mono text-gray-100">
-            Choisis ton projet !
-          </h1>
-          <p className="mb-8 text-gray-100">
-            Sélectionne dans le menu un projet
-          </p>
-          <p className="mb-14 text-gray-100">
-            Si tu n'as aucun project en cours clique sur Nouveau dans l'onglet
-            de sélection
-          </p>
-        </div>
-      </div>
-    );
 
   if (roadmap) {
     roadmap.module.forEach((module) => {

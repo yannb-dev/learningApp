@@ -34,6 +34,9 @@ export async function POST(request: Request) {
 
     return Response.json({ success: true, data: project });
   } catch (err) {
-    return Response.json({ error: "Erreur serveur du POST" }, { status: 500 });
+    return Response.json(
+      { error: "Erreur serveur du POST project", err },
+      { status: 500 },
+    );
   }
 }

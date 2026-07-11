@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     if (!project)
       return Response.json({ error: "Project introuvable" }, { status: 404 });
 
-    const sendData = await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx) => {
       const roadmap = await tx.roadmap.create({
         data: {
           name: result.data.roadmap.name,
@@ -125,6 +125,9 @@ export async function POST(request: Request) {
     return Response.json({ success: true });
   } catch (err) {
     console.error("Erreur POST /api/roadmap", err);
-    return Response.json({ error: "Erreur serveur du POST" }, { status: 500 });
+    return Response.json(
+      { error: "Erreur serveur du POST roadmap", err },
+      { status: 500 },
+    );
   }
 }

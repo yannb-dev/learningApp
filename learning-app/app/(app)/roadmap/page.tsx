@@ -32,20 +32,7 @@ type ModuleWithObjective = Prisma.ModuleGetPayload<{
 import ListModule from "../components/ListModule";
 import { TbPointFilled } from "react-icons/tb";
 
-//______________ function _____________________________
-function stateObjective(state: string) {
-  if (state === "UpComming") {
-    return "bg-red-500";
-  }
-
-  if (state === "InProgress") {
-    return "bg-yellow-500";
-  }
-
-  if (state === "Acquired") {
-    return "bg-green-500";
-  }
-}
+//_______________ function _____________________________
 
 function calculNumObjective(roadmap: RoadmapData) {
   let totalObjective = 0;
@@ -95,7 +82,7 @@ export default async function RoadmapPage({
 
   if (!project || Array.isArray(project)) redirect("/");
 
-  const roadmap = await prisma.roadmap.findFirst({
+  const roadmap = await prisma.roadmap.findUnique({
     where: {
       projectId: project,
       userId: session.user.id,

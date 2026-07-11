@@ -38,7 +38,7 @@ export default function ListMemo({ memo, array }: Props) {
       <div>
         <div className="flex flex-wrap mt-6 mb-6">
           {arrayTri.map((tag) => (
-            <div
+            <button
               className={`${stateTag === tag.slug ? "bg-gray-300" : ""}  p-1 text-amber-600 font-bold rounded-sm mr-4 mb-4 hover:cursor-pointer`}
               key={tag.slug}
               onClick={() => {
@@ -46,17 +46,17 @@ export default function ListMemo({ memo, array }: Props) {
               }}
             >
               #{tag.slug}
-            </div>
+            </button>
           ))}
         </div>
-        <h3
+        <button
           className="hover:cursor-pointer text-center text-amber-600 font-bold mb-4"
           onClick={() => {
             (setStateTag(""), setListMemo(memo));
           }}
         >
           Effacer les filtres
-        </h3>
+        </button>
       </div>
       <div className="w-full h-[70%] overflow-y-scroll">
         {memo.length > 0 ? (

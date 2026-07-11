@@ -19,7 +19,7 @@ const styleInput =
 
 //____________ interface ____________________________
 interface MarkdownFormProps {
-  file: string;
+  file: Promise<string>;
 }
 
 export default function MarkdownForm({ file }: MarkdownFormProps) {

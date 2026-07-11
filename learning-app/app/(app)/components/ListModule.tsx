@@ -35,12 +35,12 @@ export default function ListModule({
 
   return (
     <div className="w-full flex mt-6">
-      <div className="w-[5%] flex justify-center items-center">
+      <button className="w-[5%] flex justify-center items-center">
         <FaChevronLeft
           onClick={() => handleSelectModule("-")}
           className={`hover:scale-105 hover:text-amber-600 ${numViewModule === 1 ? "hidden" : ""}`}
         />
-      </div>
+      </button>
       {viewModule && (
         <div className="w-[90%] flex flex-col h-100 border border-gray-300 bg-aside rounded-xl">
           <div className="flex p-4 justify-between">
@@ -103,12 +103,12 @@ export default function ListModule({
         </div>
       )}
 
-      <div className="w-[5%] flex justify-center items-center">
+      <button className="w-[5%] flex justify-center items-center">
         <FaChevronRight
           onClick={() => handleSelectModule("+")}
           className={`hover:scale-105 hover:text-amber-600 ${numViewModule === module.length ? "hidden" : ""}`}
         />
-      </div>
+      </button>
     </div>
   );
 }

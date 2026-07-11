@@ -32,7 +32,7 @@ export async function POST(request: Request) {
       return Response.json({ error: "Project introuvable" }, { status: 404 });
 
     // ______________ Transaction pour tout ou rien côté BDD _________
-    const sendData = await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx) => {
       const roadmap = await tx.roadmap.update({
         where: {
           userId: session.user.id,
@@ -114,9 +114,12 @@ export async function POST(request: Request) {
       );
     });
 
-    return Response.json({ success: true, data: sendData });
+    return Response.json({ success: true });
   } catch (err) {
     console.error("Erreur POST /api/seance", err);
-    return Response.json({ error: "Erreur serveur du POST" }, { status: 500 });
+    return Response.json(
+      { error: "Erreur serveur du POST seance", err },
+      { status: 500 },
+    );
   }
 }

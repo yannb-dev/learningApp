@@ -13,12 +13,12 @@
 ### Fonctionnalités
 
 - Se connecter via une plateforme tiers GitHub - google (OAuth).
-- Une page de profil pour les préférences et la gestion du compte. **A développer**
+- Une page de profil pour les préférences et la gestion du compte. **Thème clair/sombre à développer**
 - Créer et gérer plusieurs `Projet d'apprentissage`
-- Dashboard de présentation avec une timelime qui retrace les sessions importés et les dates des objectifs atteints `Timeline visuel avec infos bulles`.
-- 3 Blocs de présention sous forme de liste qui correspondent à une session d'apprentissage : [Bloc 1 : `Les dernières compétences aquises`], [Bloc 2 : `Les compétences en cours d'apprentissage`], [Bloc 3 : `Les prochaines compétences immédiates à venir`].
+- Dashboard de présentation avec une timelime qui retrace les sessions importés et les objectifs atteints.
+- 3 Blocs de présention sous forme de liste qui correspondent à une session d'apprentissage : [Bloc 1 : `Les dernières compétences aquises`], [Bloc 2 : `Rappel du projet`], [Bloc 3 : `Le projet en cours`].
 - Possibilité pour l'utilisateur de revenir sur une session d'apprentissage antérieur. Une page regroupe les `Memos techniques` des sessions importés, ils sont filtrables via des tags.
-- Depuis une page gestion déterminer la création d'un projet et génération d'un fichier markdomn à destination des LLM pour standardiser la réponse à la création d'une roadmap en .json.
+- Depuis une page gestion génération d'un fichier markdomn à destination des LLM pour standardiser la réponse à la création d'une roadmap en .json.
 - Import d'un fichier roadmap.json pour enregistrement en BDD.
 - Importer depuis la page gestion un fichier seance.json pour actualiser les compétences aquises de l'utilisateur et enregistrer des mémos.
 - Fournir un fichier session.md au client qu'il utilisera avec le LLM de son choix. Ce fichier aura un format défini avec les valeurs des données de la roadmap pour être importé dans la page gestion.
@@ -36,183 +36,7 @@
 
 ### Modèle de données
 
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-generator client {
-provider = "prisma-client-js"
-output = "../app/generated/prisma"
-}
-
-datasource db {
-provider = "postgresql"
-url = env("DATABASE_URL")
-}
-
-model Account {
-id String @id @default(cuid())
-userId String
-type String
-provider String
-providerAccountId String
-refresh_token String?
-access_token String?
-expires_at Int?
-token_type String?
-scope String?
-id_token String?
-session_state String?
-user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-@@unique([provider, providerAccountId])
-}
-
-model Session {
-id String @id @default(cuid())
-sessionToken String @unique
-userId String
-expires DateTime
-user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model VerificationToken {
-identifier String
-token String @unique
-expires DateTime
-@@unique([identifier, token])
-}
-
-model User {
-id String @id @default(cuid())
-name String?
-email String? @unique
-emailVerified DateTime?
-image String?
-accounts Account[]
-sessions Session[]
-projects Project[]
-seances Seance[]
-memos Memo[]
-roadmaps Roadmap[]
-}
-
-enum CategoryProject {
-school
-tech
-}
-
-model Project {
-id String @id @default(cuid())
-name String
-description String
-category CategoryProject
-userId String
-user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-createdAt DateTime @default(now())
-seances Seance[]
-roadmap Roadmap?
-objectives Objective[]
-memos Memo[]
-}
-
-model Roadmap {
-id String @id @default(cuid())
-name String
-objective String
-echeance DateTime
-dispo Int
-constraint String
-duration Int
-userId String
-projectId String @unique
-user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-createdAt DateTime @default(now())
-module Module[]
-}
-
-model Module {
-id String @id @default(cuid())
-name String
-numModule Int
-duration Int
-prerequisites String
-pointcritical String
-practicalproject String
-roadmapId String
-createdAt DateTime @default(now())
-roadmap Roadmap @relation(fields: [roadmapId], references: [id], onDelete: Cascade)
-criterias Criteria[]
-objectives Objective[]
-}
-
-model Criteria {
-id String @id @default(cuid())
-name String
-index Int
-moduleRef Int
-moduleId String
-createdAt DateTime @default(now())
-module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
-}
-
-enum State {
-Acquired
-InProgress
-UpComming
-}
-
-model Objective {
-id String @id @default(cuid())
-name String
-index Int
-state State
-moduleRef Int
-projectId String
-moduleId String
-project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
-createdAt DateTime @default(now())
-}
-
-model Seance {
-id String @id @default(cuid())
-sujet String
-accomplished String
-skillDone String
-difficulty String
-keyPoint String
-next String
-userId String
-projectId String
-user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-createdAt DateTime @default(now())
-}
-
-model Memo {
-id String @id @default(cuid())
-stack String
-topic String
-snippet String
-notes String
-userId String
-projectId String
-user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-createdAt DateTime @default(now())
-tags Tag[]
-}
-
-model Tag {
-id String @id @default(cuid())
-name String
-slug String
-memoId String
-memo Memo @relation(fields: [memoId], references: [id], onDelete: Cascade)
-}
+fichier schema.prisma
 
 ### Architecture
 
@@ -446,10 +270,9 @@ Ajoutes dans les clés du fichiers .json les éléments pertinants pour continue
 
 }
 
-### Répertoire technique
+### Futurs travaux
 
-#### 1. Import du fichier roadmap.json
-
-Contrôle des valeurs d'entrée avec un schema ZOD pour le fichier JSON entier. Contrôle des valeurs d'entrée sur route API "roadmap" avec les valeurs du project sélectionné. Puis création en cascade des modules avec objectif et critère.
-
-#### 2.
+- Thème clair/sombre
+- Simplification des functions et refactorisation des logiques.
+- Inégration de l'API Claude pour éviter les export import de fichier .md et .json
+- Déploiement Vercel

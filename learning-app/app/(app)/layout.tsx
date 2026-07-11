@@ -9,6 +9,9 @@ import { redirect } from "next/navigation";
 import IconApp from "./components/IconApp";
 import Menu from "./components/Menu";
 
+//_______________ type _______________________________
+type SearchParams = Promise<{ [key: string]: string }>;
+
 export default async function AppLayout({
   children,
 }: Readonly<{

@@ -21,9 +21,9 @@ type SearchParams = Promise<{ [key: string]: string }>;
 function ratioObjective(objectives: Objective[]) {
   const nbrObjective = objectives.length;
 
-  const acquiredObjective = objectives.filter((objective) => {
-    objective.state === "Acquired";
-  });
+  const acquiredObjective = objectives.filter(
+    (objective) => objective.state === "Acquired",
+  );
   return (
     <div>
       <p className="ml-12 font-bold">
@@ -33,7 +33,7 @@ function ratioObjective(objectives: Objective[]) {
   );
 }
 
-export default async function profil({
+export default async function Profil({
   searchParams,
 }: {
   searchParams: SearchParams;
@@ -55,12 +55,12 @@ export default async function profil({
     <div className="w-[83%] h-screen flex flex-col p-12 text-gray-300 font-mono ">
       <h1 className="text-2xl font-bold">Profil utilisateur</h1>
       <div className="w-full flex flex-col items-center">
-        <div className="w-[70%] h-auto flex flex-col bg-aside border-[1px] border-gray-300 rounded-xl p-6 mt-12">
+        <div className="w-[70%] h-auto flex flex-col bg-aside border-px border-gray-300 rounded-xl p-6 mt-12">
           <h3>Utilisateur : {session.user.name}</h3>
           <h3>Adresse Mail : {session.user.email}</h3>
         </div>
 
-        <div className="w-[70%] h-auto flex flex-col bg-aside border-[1px] border-gray-300 rounded-xl p-6 mt-12">
+        <div className="w-[70%] h-auto flex flex-col bg-aside border-px border-gray-300 rounded-xl p-6 mt-12">
           <h3 className="font-bold mb-6">Mes projets :</h3>
           <div className="w-full flex flex-col text-gray-300">
             {project.map((project) => (

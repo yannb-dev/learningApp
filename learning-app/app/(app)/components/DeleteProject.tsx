@@ -42,7 +42,7 @@ export default function DeleteProject({ projectId }: { projectId: string }) {
           <p>Etes vous sûr de vouloir supprimer ?</p>
           <button
             className="p-1 rounded-md bg-green-600"
-            onClick={() => handleDelete}
+            onClick={() => handleDelete()}
           >
             Oui
           </button>

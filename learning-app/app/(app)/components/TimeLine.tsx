@@ -7,13 +7,11 @@ import { fr } from "date-fns/locale";
 import { useState } from "react";
 
 import { Seance } from "@/lib/schema/SeanceApi";
-import { Objective } from "@/app/generated/prisma";
 
 //____________________ Import components ______________________________________
 import IconSeance from "./IconSeance";
 
 //____________________ Import icon ___________________________________________
-import { FaRegHandPointDown } from "react-icons/fa";
 import { FaCircle } from "react-icons/fa6";
 
 type RoadmapData = Prisma.RoadmapGetPayload<{
@@ -33,27 +31,6 @@ type Props = {
 };
 
 export default function TimeLine({ seances, roadmap }: Props) {
-  const [seanceSelect, setSeanceSelect] = useState<Seance | null>();
-
-  //__________________ Ouverture d'une seance _________________________________
-  const handleSelectSeance = (seance: Seance) => {
-    setSeanceSelect(seance);
-  };
-
-  //__________________ Listing des objectives _________________________________
-  const handleListObjective = (tri: Objective[]) => {
-    const tab = tri.map((objective) => (
-      <div key={objective.id} className="flex flex-col font-mono mb-4">
-        <FaRegHandPointDown className="text-red-500 mb-2" />
-        {objective.name}
-      </div>
-    ));
-
-    //_________________handleColorPoint _______________________________________
-
-    return tab;
-  };
-
   return (
     <div className="w-full flex flex-col items-start mt-20 bg-aside rounded-xl border border-gray-300">
       <h1 className="m-4 text-gray-100 font-mono">
@@ -97,7 +74,7 @@ export default function TimeLine({ seances, roadmap }: Props) {
             <div className="w-[50%] h-px bg-gray-300 rounded-xl mb-6"></div>
           </div>
         ))}
-        {!seances && (
+        {!roadmap && (
           <div className="flex flex-col items-center mt-2">
             <p>Aucune Roadmap initialisé rendez vous dans la section Gestion</p>
           </div>

@@ -5,7 +5,7 @@ export const ProjectSchema = z.object({
 
   description: z.string().min(1, "Ajouter votre description"),
 
-  category: z.enum(["school", "tech"]),
+  category: z.enum(["school", "tech", "other"]),
 });
 
 export type ProjectSchema = z.infer<typeof ProjectSchema>;

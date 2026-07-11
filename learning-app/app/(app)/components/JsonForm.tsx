@@ -27,11 +27,11 @@ type Props = {
 export default function JsonForm({ roadmap, templateSeance }: Props) {
   const router = useRouter();
 
-  const [stateViewImport, setStateViewImport] = useState(false);
-  const [stateGeneredJson, setStateGeneredJson] = useState(true);
   const [stateTuto, setStateTuto] = useState(false);
+  const [state, setState] = useState("generate");
   const [downloadUrl, setDownloadUrl] = useState("");
-  const [file, setFile] = useState({});
+  const [file, setFile] = useState<ImportSeance | null>(null);
+  const [errorImportSeance, setErrorImportSeance] = useState(false);
 
   // ____________________________________
   //
@@ -42,8 +42,7 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
 
     const dataUrl = `data:text/markdown;charset=utf-8,${encodeURIComponent(template)}`;
     setDownloadUrl(dataUrl);
-    setStateGeneredJson(false);
-    setStateViewImport(true);
+    setState("idle");
 
     const link = document.createElement("a");
     link.href = dataUrl;
@@ -73,26 +72,25 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
     try {
       const fileCheck = ImportSeance.safeParse(file);
 
-      if (!fileCheck.success)
-        return console.log("Erreur de contrôle du fichier");
-
-      const sendingFile = await fetch("/api/seance", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          seance: fileCheck.data,
-          projectId: roadmap.projectId,
-          roadmapId: roadmap.id,
-        }),
-      });
-
-      if (sendingFile.ok) {
-        setStateTuto(false);
-        setStateViewImport(false);
-        setStateGeneredJson(true);
-        router.refresh();
+      if (!fileCheck.success) {
+        console.log("Erreur de contrôle du fichier");
+        setErrorImportSeance(true);
       } else {
-        console.log("Erreur d'enregistrement en BDD");
+        const sendingFile = await fetch("/api/seance", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            seance: fileCheck.data,
+            projectId: roadmap.projectId,
+            roadmapId: roadmap.id,
+          }),
+        });
+        if (sendingFile.ok) {
+          setState("generate");
+          router.refresh();
+        } else {
+          console.log("Erreur d'enregistrement en BDD");
+        }
       }
 
       return Response.json({ success: true });
@@ -107,17 +105,13 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
   //______________________________________
   //
 
-  const handleStateTuto = () => {
-    setStateTuto(true);
-  };
-
   //______________________________________
   //
 
   return (
     <div className="flex flex-col">
       <div>
-        {stateGeneredJson && (
+        {state === "generate" && (
           <div>
             <LuImport
               onClick={handleGenered}
@@ -125,9 +119,9 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
             />
           </div>
         )}
-        {stateViewImport && (
-          <div className="flex items-center">
-            <div className="ml-6">
+        {state === "idle" && (
+          <div className="flex flex-col items-center">
+            <div className="flex ml-6">
               <input
                 className="bg-gray-100 rounded-sm p-1 hover:cursor-pointer"
                 type="file"
@@ -141,17 +135,28 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
                 Charger la session
               </button>
             </div>
+            {errorImportSeance && (
+              <div className="flex flex-col">
+                <p>Le fichier d'import n'est pas conforme ! </p>
+                <button
+                  onClick={() => setErrorImportSeance(false)}
+                  className="p rounded-sm bg-amber-600"
+                >
+                  Choisir un autre document
+                </button>
+              </div>
+            )}
             <div>
               <button
                 className="font-bold mt-4 ml-6 hover:cursor-pointer"
-                onClick={handleStateTuto}
+                onClick={() => setStateTuto(!stateTuto)}
               >
                 Comment procéder ?
               </button>
               {stateTuto && (
                 <div>
                   <p>
-                    Tu viens de télécharger un fichier{" "}
+                    Après avoir télécharger un fichier{" "}
                     <strong>context.md</strong> ajoutes le à la fin de ta
                     session de travail dans ton LLM préféré. Il va te retourner
                     un fichier seance.json avec les mises à jour. Il te suffit

@@ -36,7 +36,7 @@ export default function ProjectForm() {
     if (response.ok) {
       reset();
       router.refresh();
-      redirect("/accueil");
+      router.push("/accueil");
     }
   };
 

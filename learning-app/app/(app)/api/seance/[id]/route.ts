@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { Prisma } from "@/app/generated/prisma";
 
 import { getServerSession } from "next-auth";
 
@@ -24,6 +25,12 @@ export async function DELETE(
 
     return Response.json({ success: true });
   } catch (err) {
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === "P2025"
+    ) {
+      return Response.json({ error: "Non trouvé" }, { status: 404 });
+    }
     return Response.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
