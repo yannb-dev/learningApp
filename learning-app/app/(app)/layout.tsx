@@ -10,7 +10,6 @@ import IconApp from "./components/IconApp";
 import Menu from "./components/Menu";
 
 //_______________ type _______________________________
-type SearchParams = Promise<{ [key: string]: string }>;
 
 export default async function AppLayout({
   children,
@@ -21,7 +20,7 @@ export default async function AppLayout({
 
   if (!session) redirect("/login");
 
-  const project = await prisma.project.findMany({
+  const listProject = await prisma.project.findMany({
     where: { userId: session.user.id },
   });
 
@@ -43,7 +42,7 @@ export default async function AppLayout({
           </div>
           <div className="h-px w-full bg-gray-600 mb-12"></div>
         </div>
-        <Menu project={project} />
+        <Menu project={listProject} />
       </div>
       {/* main */}
       {children}

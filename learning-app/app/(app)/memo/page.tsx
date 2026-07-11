@@ -27,6 +27,24 @@ export default async function MemoPage({
 
   const { project } = await searchParams;
 
+  const listProject = await prisma.project.findMany({
+    where: {
+      id: project,
+      userId: session.user.id,
+    },
+  });
+
+  if (listProject.length === 0)
+    return (
+      <div className="h-scren w-full flex justify-center items-center font-mono font-bold text-xl text-white">
+        <h1>
+          Oups ! Impossible de charger ton projet. Sélectionne le dans l'onglet
+          "Mon Projet"
+        </h1>
+        ;
+      </div>
+    );
+
   const memo = await prisma.memo.findMany({
     where: { projectId: project, userId: session.user.id },
     include: {

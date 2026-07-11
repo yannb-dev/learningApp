@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 //__________________component ______________
 import BtnLogOut from "./BtnLogOut";
@@ -10,10 +11,16 @@ import NavBtn from "./NavBtn";
 //__________________type _________________
 import { Project } from "@/app/generated/prisma";
 
-export default function Menu({ project }: { project: Project[] }) {
-  const router = useRouter();
+type Props = {
+  project: Project[];
+};
 
-  const [selectProject, setSelectProject] = useState("");
+export default function Menu({ project }: Props) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const query = searchParams.get("project");
+
+  const [selectProject, setSelectProject] = useState(query);
 
   const handleSelect = (id: string) => {
     if (id === "new") {
@@ -23,6 +30,9 @@ export default function Menu({ project }: { project: Project[] }) {
       router.push(`/accueil?project=${id}`);
     }
   };
+
+  console.log(selectProject);
+
   return (
     <div>
       <div>
@@ -34,6 +44,7 @@ export default function Menu({ project }: { project: Project[] }) {
             <select
               className="w-full bg-gray-100 border border-gray-300 rounded-sm p-2 font-mono text-center "
               onChange={(e) => handleSelect(e.target.value)}
+              value={selectProject}
             >
               <option value="">--Mon project--</option>
               {project.map((p) => (
