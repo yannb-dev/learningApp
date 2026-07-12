@@ -73,7 +73,7 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
       const fileCheck = ImportSeance.safeParse(file);
 
       if (!fileCheck.success) {
-        console.log("Erreur de contrôle du fichier");
+        console.error("Erreur de contrôle du fichier");
         setErrorImportSeance(true);
       } else {
         const sendingFile = await fetch("/api/seance", {
@@ -89,7 +89,7 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
           setState("generate");
           router.refresh();
         } else {
-          console.log("Erreur d'enregistrement en BDD");
+          console.error("Erreur d'enregistrement en BDD");
         }
       }
 

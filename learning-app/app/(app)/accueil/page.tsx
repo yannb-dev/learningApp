@@ -43,7 +43,6 @@ export default async function AppPage({
   //____________ Import du Project + séance ______________________
 
   let projectOpen = null;
-  let roadmap = null;
   let practicalProject = null;
   let arrayAcquired: Objective[] = [];
   let arrayInProgress: Objective[] = [];
@@ -70,9 +69,16 @@ export default async function AppPage({
     projectOpen = await prisma.project.findUnique({
       where: { id: search, userId: session.user.id },
       include: {
+        roadmap: {
+          include: {
+            module: { include: { objectives: true, criterias: true } },
+          },
+        },
         seances: true,
       },
     });
+
+    console.log(projectOpen);
 
     if (!projectOpen) {
       return (
@@ -86,28 +92,16 @@ export default async function AppPage({
       );
     }
 
-    roadmap = await prisma.roadmap.findUnique({
-      where: { projectId: projectOpen.id, userId: session.user.id },
-      include: {
-        module: {
-          include: {
-            objectives: true,
-            criterias: true,
-          },
-        },
-      },
-    });
-
     practicalProject = await prisma.practicalproject.findMany({
       where: {
-        roadmapId: roadmap?.id,
-        numModule: roadmap?.practicalProjectInProgress,
+        roadmapId: projectOpen.roadmap?.id,
+        numModule: projectOpen.roadmap?.practicalProjectInProgress,
       },
     });
   }
 
-  if (roadmap) {
-    roadmap.module.forEach((module) => {
+  if (projectOpen.roadmap.module) {
+    projectOpen.roadmap.module.forEach((module) => {
       module.objectives.forEach((objective) => {
         if (objective.state === "Acquired") {
           arrayAcquired.push(objective);
@@ -131,7 +125,7 @@ export default async function AppPage({
     <div className="w-[80%] flex flex-col items-center p-18">
       {projectOpen && (
         <div className="w-full flex flex-col text-gray-300">
-          {!roadmap && (
+          {!projectOpen.roadmap && (
             <div className="w-full h-screen flex flex-col justify-center items-center">
               <h1 className="text-xl font-mono font-bold mb-6">
                 Vous n'avez pas inséré de Roadmap dans votre projet !
@@ -142,21 +136,24 @@ export default async function AppPage({
               </div>
             </div>
           )}
-          {roadmap && (
+          {projectOpen.roadmap && (
             <div className="w-full flex flex-col">
               <h1 className="text-2xl font-mono text-gray-100 font-bold">
                 Vue d'ensemble
               </h1>
               <p className="text-gray-300 font-mono text-xs">{dateToday}</p>
               <div className="w-full flex justify-center items-start">
-                <TimeLine seances={projectOpen.seances} roadmap={roadmap} />
+                <TimeLine
+                  seances={projectOpen.seances}
+                  roadmap={projectOpen.roadmap}
+                />
               </div>
               <div className="w-full flex justify-between mt-10">
                 <ListObjective
                   acquired={arrayAcquired}
                   inProgress={arrayInProgress}
                   upComming={arrayUpComming}
-                  numberModule={roadmap.module.length}
+                  numberModule={projectOpen.roadmap.module.length}
                 />
                 {practicalProject && (
                   <DetailProject project={practicalProject[0]} />

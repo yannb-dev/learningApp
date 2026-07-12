@@ -1,10 +1,11 @@
 "use client";
 
-export default function Error({ reset }) {
+import MessageError from "./components/MessageError";
+
+export default function Error({ error, reset }) {
   return (
     <div>
-      <p>Impossible de charger la page d'accueil.</p>
-      <button onClick={reset}>Réessayer</button>
+      <MessageError error={error} reset={reset} />
     </div>
   );
 }

@@ -87,6 +87,7 @@ export default async function RoadmapPage({
       id: project,
       userId: session.user.id,
     },
+    select: { id: true },
   });
 
   if (listProject.length === 0)

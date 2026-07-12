@@ -32,6 +32,7 @@ export default async function MemoPage({
       id: project,
       userId: session.user.id,
     },
+    select: { id: true },
   });
 
   if (listProject.length === 0)
