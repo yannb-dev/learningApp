@@ -11,7 +11,7 @@ export default async function NewProject() {
   if (!session) return redirect("/login");
 
   return (
-    <div className="w-[83%] text-gray-300">
+    <div className="w-[83%] p-12 text-gray-300">
       <ProjectForm />
     </div>
   );

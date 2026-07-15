@@ -119,11 +119,11 @@ export default async function RoadmapPage({
   });
 
   return (
-    <div className="w-[83%] p-6">
+    <div className="w-[83%] p-12 font-mono">
       {roadmap ? (
-        <main className="w-full flex flex-col font-mono text-gray-300">
+        <main className="w-full flex flex-col text-gray-300">
           <div>
-            <h1 className="text-xl font-bold">Roadmap :</h1>
+            <h1 className="text-xl font-bold">Roadmap</h1>
             <p className="text-xs">
               Crée le {format(roadmap.createdAt, "dd/MM/yyyy", { locale: fr })}
             </p>

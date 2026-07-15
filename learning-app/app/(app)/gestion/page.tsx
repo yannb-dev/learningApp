@@ -77,8 +77,8 @@ export default async function GestionPage({
   });
 
   return (
-    <div className="w-[83%] h-screen p-6 overflow-y-scroll">
-      <div className="">
+    <div className="w-[83%] h-screen p-12 overflow-y-scroll font-mono">
+      <div>
         {!roadmap && (
           <div>
             <MarkdownForm file={templateRoadmap} />
@@ -86,8 +86,8 @@ export default async function GestionPage({
           </div>
         )}
         {roadmap && (
-          <div className="w-full flex flex-col font-mono text-gray-300 p-6">
-            <h3 className="text-2xl font-bold">Ma roadmap :</h3>
+          <div className="w-full flex flex-col text-gray-300">
+            <h3 className="text-xl font-bold">Ma roadmap</h3>
             <section className="w-full h-auto flex flex-col border border-gray-300 bg-aside rounded-xl p-6 mt-6">
               <div className="w-full flex justify-evenly">
                 <div className="w-[50%] flex flex-col">
@@ -120,7 +120,7 @@ export default async function GestionPage({
             </section>
 
             <div className="flex mt-10">
-              <h3 className="font-mono font-bold mb-4">Générer mon modele :</h3>
+              <h3 className=" font-bold mb-4">Générer mon modele :</h3>
               <JsonForm roadmap={roadmap} templateSeance={templateSeance} />
             </div>
 

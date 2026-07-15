@@ -12,7 +12,7 @@ export default function DetailProject({
   project: Practicalproject;
 }) {
   return (
-    <div className="w-[55%] h-80 border border-gray-300 rounded-xl font-mono text-xs text-gray-200 bg-aside">
+    <div className="w-full h-80 border border-gray-300 rounded-xl font-mono text-xs text-gray-200 bg-aside">
       <div className="w-full flex items-center justify-between p-2">
         <h1>Project en cours :</h1>
         <h1 className="p-2 text-md bg-amber-600 rounded-md">{project.state}</h1>

@@ -62,7 +62,7 @@ export default function ListObjective({
     setFilter(filter);
   };
   return (
-    <div className="w-[40%] h-80 border border-gray-300 rounded-xl bg-aside">
+    <div className="w-full h-80 border border-gray-300 rounded-xl bg-aside">
       <div className="h-[15%] flex justify-evenly p-2">
         <button
           className={`${filter === "acquired" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm  bg-black border  font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}

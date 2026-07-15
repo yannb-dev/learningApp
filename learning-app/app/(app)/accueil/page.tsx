@@ -122,12 +122,12 @@ export default async function AppPage({
   const dateToday = format(new Date(), "dd/MM/yyyy", { locale: fr });
 
   return (
-    <div className="w-[80%] flex flex-col items-center p-18">
+    <div className="w-full md:w-[83%] flex flex-col items-center p-4 md:p-12">
       {projectOpen && (
         <div className="w-full flex flex-col text-gray-300">
           {!projectOpen.roadmap && (
             <div className="w-full h-screen flex flex-col justify-center items-center">
-              <h1 className="text-xl font-mono font-bold mb-6">
+              <h1 className="text-xl font-mono font-bold mb-2">
                 Vous n'avez pas inséré de Roadmap dans votre projet !
               </h1>
               <div className="flex items-center">
@@ -138,7 +138,7 @@ export default async function AppPage({
           )}
           {projectOpen.roadmap && (
             <div className="w-full flex flex-col">
-              <h1 className="text-2xl font-mono text-gray-100 font-bold">
+              <h1 className="text-sm md:text-xl font-mono text-gray-100 font-bold">
                 Vue d'ensemble
               </h1>
               <p className="text-gray-300 font-mono text-xs">{dateToday}</p>
@@ -148,7 +148,7 @@ export default async function AppPage({
                   roadmap={projectOpen.roadmap}
                 />
               </div>
-              <div className="w-full flex justify-between mt-10">
+              <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-8 justify-between mt-10">
                 <ListObjective
                   acquired={arrayAcquired}
                   inProgress={arrayInProgress}

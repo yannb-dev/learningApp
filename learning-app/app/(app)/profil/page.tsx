@@ -53,7 +53,7 @@ export default async function Profil({
 
   return (
     <div className="w-[83%] h-screen flex flex-col p-12 text-gray-300 font-mono ">
-      <h1 className="text-2xl font-bold">Profil utilisateur</h1>
+      <h1 className="text-xl font-bold">Profil utilisateur</h1>
       <div className="w-full flex flex-col items-center">
         <div className="w-[70%] h-auto flex flex-col bg-aside border-px border-gray-300 rounded-xl p-6 mt-12">
           <h3>Utilisateur : {session.user.name}</h3>

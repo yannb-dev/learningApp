@@ -51,9 +51,9 @@ export default function IconSeance() {
   const filter = tabIcon.find((icon) => icon.index === number);
 
   return (
-    <div>
+    <div className="w-[10%]">
       {
-        <div className="w-12 h-12 flex justify-center items-center rounded-[50%] border-2 border-white">
+        <div className="w-8 h-8 flex justify-center items-center rounded-[50%] border-2 border-white">
           {filter === undefined ? (
             <GiPerspectiveDiceSixFacesFive />
           ) : (
