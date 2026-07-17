@@ -69,7 +69,7 @@ export default async function MemoPage({
     });
   });
   return (
-    <div className="w-[83%] h-screen p-12 ">
+    <div className="w-full h-screen p-4 md:p-12 ">
       <ListMemo memo={memo} array={arrayTag} />
     </div>
   );

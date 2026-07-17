@@ -78,8 +78,6 @@ export default async function AppPage({
       },
     });
 
-    console.log(projectOpen);
-
     if (!projectOpen) {
       return (
         <div className="h-scren w-full flex justify-center items-center font-mono font-bold text-xl text-white">

@@ -12,6 +12,7 @@ import NavBtn from "./NavBtn";
 import { Project } from "@/app/generated/prisma";
 
 import { IoMenu } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
 
 type Props = {
   project: Project[];
@@ -36,10 +37,18 @@ export default function Menu({ project }: Props) {
 
   return (
     <div>
-      <IoMenu
-        className="text-gray-300 ml-4 mb-4 text-center text-2xl md:hidden hover:scale-105"
-        onClick={() => setStateMenu(!stateMenu)}
-      />
+      {stateMenu ? (
+        <IoClose
+          className="text-gray-300 ml-4 mb-4 text-center text-2xl md:hidden hover:scale-105"
+          onClick={() => setStateMenu(!stateMenu)}
+        />
+      ) : (
+        <IoMenu
+          className="text-gray-300 ml-4 mb-4 text-center text-2xl md:hidden hover:scale-105"
+          onClick={() => setStateMenu(!stateMenu)}
+        />
+      )}
+
       <div
         className={`md:flex md:flex-col ${stateMenu ? "flex flex-col" : "hidden"}`}
       >

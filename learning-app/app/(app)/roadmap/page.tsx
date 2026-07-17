@@ -119,7 +119,7 @@ export default async function RoadmapPage({
   });
 
   return (
-    <div className="w-[83%] p-12 font-mono">
+    <div className="w-full md:w-[83%] p-4 md:p-12 font-mono">
       {roadmap ? (
         <main className="w-full flex flex-col text-gray-300">
           <div>
@@ -128,10 +128,10 @@ export default async function RoadmapPage({
               Crée le {format(roadmap.createdAt, "dd/MM/yyyy", { locale: fr })}
             </p>
           </div>
-          <div className="w-full flex flex-col p-12">
-            <div className="w-full flex ">
-              <div className="w-[5%]"></div>
-              <div className="w-[30%] h-70 border border-gray-300 bg-aside rounded-xl font-mono">
+          <div className="w-full flex flex-col p-2">
+            <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* <div className="w-[5%]"></div> */}
+              <div className="w-full h-70 border border-gray-300 bg-aside rounded-xl font-mono">
                 <h3 className="m-2 font-bold">Evolution par module</h3>
                 <div className="w-full flex justify-evenly">
                   <p className="flex items-center">
@@ -181,7 +181,7 @@ export default async function RoadmapPage({
                   </div>
                 </div>
               </div>
-              <div className="w-[60%] h-70 border border-gray-300 bg-aside rounded-xl ml-5">
+              <div className="w-full h-70 border border-gray-300 bg-aside rounded-xl">
                 <h3 className="m-2 font-bold">Description</h3>
                 <div className="h-px w-full bg-gray-300"></div>
                 <div className="p-4 w-full flex flex-col">

@@ -34,23 +34,23 @@ export default function ListModule({
   );
 
   return (
-    <div className="w-full flex mt-6">
-      <button className="w-[5%] flex justify-center items-center">
+    <div className="w-full flex mt-4">
+      <button className="w-[10%] flex justify-center items-center">
         <FaChevronLeft
           onClick={() => handleSelectModule("-")}
           className={`hover:scale-105 hover:text-amber-600 ${numViewModule === 1 ? "hidden" : ""}`}
         />
       </button>
       {viewModule && (
-        <div className="w-[90%] flex flex-col h-100 border border-gray-300 bg-aside rounded-xl">
+        <div className="w-[80%] flex flex-col h-100 border border-gray-300 bg-aside rounded-xl">
           <div className="flex p-4 justify-between">
             <h3 className="font-bold">Module N°{viewModule.numModule}</h3>
             <h3 className="p-1 bg-amber-600 rounded-sm">
               {viewModule.duration} heures
             </h3>
           </div>
-          <div className="w-full overflow-y-scroll flex p-4">
-            <div className="w-[50%] flex flex-col p-2">
+          <div className="w-full overflow-y-scroll flex flex-col md:flex-row p-2">
+            <div className="w-full flex flex-col p-2">
               <h3>Pré-requis :</h3>
               <p className="text-xs text-gray-400 mt-2 mb-4">
                 {viewModule.prerequisites}
@@ -71,7 +71,7 @@ export default function ListModule({
                 </div>
               )}
             </div>
-            <div className="w-[50%] flex flex-col p-2">
+            <div className="w-full flex flex-col p-2">
               <h3>Compétences :</h3>
               <ul className="mt-2 mb-4">
                 {viewModule.objectives.map((objective) => (
@@ -103,7 +103,7 @@ export default function ListModule({
         </div>
       )}
 
-      <button className="w-[5%] flex justify-center items-center">
+      <button className="w-[10%] flex justify-center items-center">
         <FaChevronRight
           onClick={() => handleSelectModule("+")}
           className={`hover:scale-105 hover:text-amber-600 ${numViewModule === module.length ? "hidden" : ""}`}
