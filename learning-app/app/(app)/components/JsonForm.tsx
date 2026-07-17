@@ -9,6 +9,7 @@ import { ImportSeance } from "@/lib/schema/ImportSeance";
 
 // ____________ icon __________________________
 import { LuImport } from "react-icons/lu";
+import { error } from "console";
 
 //_____________ type ___________________________
 type RoadmapData = Prisma.RoadmapGetPayload<{
@@ -32,6 +33,7 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
   const [downloadUrl, setDownloadUrl] = useState("");
   const [file, setFile] = useState<ImportSeance | null>(null);
   const [errorImportSeance, setErrorImportSeance] = useState(false);
+  const [errorFetch, setErrorFetch] = useState(false);
 
   // ____________________________________
   //
@@ -95,10 +97,10 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
 
       return Response.json({ success: true });
     } catch (err) {
-      return Response.json(
-        { error: "Erreur du fetch API/SEANCE" },
-        { status: 500 },
-      );
+      setErrorFetch(true);
+      setTimeout(() => setErrorFetch(false), 3000);
+
+      return Response.json({ error: "Erreur server", err }, { status: 500 });
     }
   };
 
@@ -135,6 +137,7 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
                 Charger la session
               </button>
             </div>
+            {errorFetch && <p>Oups, une erreur c'est produite !</p>}
             {errorImportSeance && (
               <div className="flex flex-col">
                 <p>Le fichier d'import n'est pas conforme ! </p>

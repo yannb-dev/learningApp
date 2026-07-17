@@ -15,6 +15,7 @@ export default function RoadMapForm({
 
   const [file, setFile] = useState<Importroadmap | null>(null);
   const [errorImportRoadmap, setErrorImportRoadmap] = useState(false);
+  const [errorFetch, setErrorFetch] = useState(false);
 
   const handleUploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -56,10 +57,10 @@ export default function RoadMapForm({
 
       return Response.json({ success: true, data: global });
     } catch (err) {
-      return Response.json(
-        { error: "Erreur du Fetch Roadmap" },
-        { status: 500 },
-      );
+      setErrorFetch(true);
+      setTimeout(() => setErrorFetch(false), 3000);
+
+      return Response.json({ error: "Erreur server", err }, { status: 500 });
     }
   };
 
@@ -85,6 +86,7 @@ export default function RoadMapForm({
           </button>
         )}
       </div>
+      {errorFetch && <p>Oups une erreur c'est produite !</p>}
       {errorImportRoadmap && (
         <div className="flex flex-col">
           <p>Le fichier d'import n'est pas conforme ! </p>

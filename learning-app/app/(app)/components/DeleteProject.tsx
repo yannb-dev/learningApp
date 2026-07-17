@@ -10,6 +10,7 @@ export default function DeleteProject({ projectId }: { projectId: string }) {
   const router = useRouter();
 
   const [viewConfirm, setViewConfirm] = useState(false);
+  const [errorFetch, setErrorFetch] = useState(false);
 
   const handleConfirm = () => {
     setViewConfirm(true);
@@ -23,20 +24,21 @@ export default function DeleteProject({ projectId }: { projectId: string }) {
 
       if (response.ok) {
         router.refresh();
-        redirect("/newproject");
+        router.push("/newproject");
       }
 
       return Response.json({ success: true, data: response });
     } catch (err) {
-      return Response.json(
-        { error: "Erreur du fetch Detele" },
-        { status: 500 },
-      );
+      setErrorFetch(true);
+      setTimeout(() => setErrorFetch(false), 3000);
+
+      return Response.json({ error: "Erreur server", err }, { status: 500 });
     }
   };
 
   return (
     <div>
+      {errorFetch && <p>Oups une erreur c'est produite !</p>}
       {viewConfirm ? (
         <div>
           <p>Etes vous sûr de vouloir supprimer ?</p>
