@@ -2,7 +2,7 @@
 
 export default function MessageError({ error, reset }) {
   return (
-    <div className="h-screen w-full flex flex-col items center justify-center font-mono text-gray-300">
+    <div className="h-screen w-full flex flex-col items center justify-center">
       <h1 className="font-bold text-xl">
         Oups... Erreur lors du chargement {error} !
       </h1>

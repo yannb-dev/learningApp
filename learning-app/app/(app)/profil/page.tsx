@@ -70,7 +70,7 @@ export default async function Profil({
           children={
             <div>
               <h3 className="font-bold mb-6">Mes projets :</h3>
-              <div className="w-full flex flex-col text-gray-300">
+              <div className="w-full flex flex-col">
                 {project.map((project) => (
                   <div
                     className="w-full flex flex-col md:flex-row items-center justify-between p-2 md:p-6 border-t-2 border-gray-300"

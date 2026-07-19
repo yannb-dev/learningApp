@@ -41,12 +41,10 @@ export default function ListObjective({
 
         return (
           <div className="mt-6" key={index}>
-            <h3 className="text-amber-600 font-mono font-bold mb-4">
-              Module N°{index}
-            </h3>
+            <h3 className="text-amber-600 font-bold mb-4">Module N°{index}</h3>
             {tri.map((objective) => (
               <div
-                className="flex mb-2 items-center font-mono text-xs"
+                className="flex mb-2 items-center text-xs"
                 key={objective.id}
               >
                 <RiMailForbidFill className="mr-4 text-sm" />
@@ -69,25 +67,25 @@ export default function ListObjective({
         <div className=" h-80">
           <div className="h-[15%] flex justify-evenly p-2">
             <button
-              className={`${filter === "acquired" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm  bg-black border  font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
+              className={`${filter === "acquired" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm  bg-black border text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
               onClick={() => handleFilter("acquired")}
             >
               Acquis
             </button>
             <button
-              className={`${filter === "inProgress" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm  bg-black border font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
+              className={`${filter === "inProgress" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm  bg-black border text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
               onClick={() => handleFilter("inProgress")}
             >
               En cours
             </button>
             <button
-              className={`${filter === "upComming" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm bg-black border font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
+              className={`${filter === "upComming" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm bg-black border text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
               onClick={() => handleFilter("upComming")}
             >
               Non abordé
             </button>
           </div>
-          <div className="h-px w-full bg-gray-300"></div>
+          <div className="h-px w-full"></div>
           <div className="h-[75%] overflow-x-scroll p-4 text-gray-400">
             <div>
               {filter === "acquired" && <div>{handleListModule(acquired)}</div>}

@@ -93,7 +93,7 @@ export default async function RoadmapPage({
 
   if (listProject.length === 0)
     return (
-      <div className="h-scren w-full flex justify-center items-center font-mono font-bold text-xl text-white">
+      <div className="h-scren w-full flex justify-center items-center  font-bold text-xl ">
         <h1>
           Oups ! Impossible de charger ton projet. Sélectionne le dans l'onglet
           "Mon Projet"
@@ -122,7 +122,7 @@ export default async function RoadmapPage({
   return (
     <div className="page md:w-[83%] md:p-12">
       {roadmap ? (
-        <main className="w-full flex flex-col text-gray-300">
+        <main className="w-full flex flex-col">
           <div>
             <h1 className="text-xl font-bold">Roadmap</h1>
             <p className="text-xs">
@@ -211,9 +211,7 @@ export default async function RoadmapPage({
         </main>
       ) : (
         <div className="w-full flex flex-col justify-center items-center ">
-          <h1 className="text-xl font-mono font-bold mt-20">
-            Aucune Roadmap !
-          </h1>
+          <h1 className="text-xl font-bold mt-20">Aucune Roadmap !</h1>
           <p>
             Rendez vous dans la section "Gestion" pour créer votre roadmap
             personnalisé.

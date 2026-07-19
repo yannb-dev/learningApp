@@ -36,7 +36,7 @@ export default function ListMemo({ memo, array }: Props) {
   });
 
   return (
-    <div className="w-full h-screen flex flex-col items-center font-mono">
+    <div className="w-full h-screen flex flex-col items-center">
       <div>
         <h3>Liste des Tags :</h3>
         <div className="flex flex-wrap mt-6 mb-6">
@@ -70,8 +70,8 @@ export default function ListMemo({ memo, array }: Props) {
                 key={memo.id}
                 children={
                   <div>
-                    <h1 className="font-mono font-bold">Mémo :</h1>
-                    <h3 className="text-sm font-mono">{memo.topic}</h3>
+                    <h1 className=" font-bold">Mémo :</h1>
+                    <h3 className="text-sm">{memo.topic}</h3>
                     <div className="flex mt-2">
                       {memo.tags.map((tag) => (
                         <DivAmber
@@ -91,7 +91,7 @@ export default function ListMemo({ memo, array }: Props) {
             ))}
           </div>
         ) : (
-          <div className="w-full flex justify-center text-gray-300 font-mono">
+          <div className="w-full flex justify-center">
             <h1>Aucun memo dans cet section !</h1>
           </div>
         )}

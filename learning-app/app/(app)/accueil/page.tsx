@@ -52,13 +52,9 @@ export default async function AppPage({
     return (
       <div className="w-[83%] h-screen flex items-center justify-center">
         <div className="w-full flex flex-col justify-center items-center">
-          <h1 className="text-3xl font-bold font-mono text-gray-100">
-            Choisis ton projet !
-          </h1>
-          <p className="mb-8 text-gray-100">
-            Sélectionne dans le menu un projet
-          </p>
-          <p className="mb-14 text-gray-100">
+          <h1 className="text-3xl">Choisis ton projet !</h1>
+          <p className="mb-8">Sélectionne dans le menu un projet</p>
+          <p className="mb-14">
             Si tu n'as aucun project en cours clique sur Nouveau dans l'onglet
             de sélection
           </p>
@@ -80,7 +76,7 @@ export default async function AppPage({
 
     if (!projectOpen) {
       return (
-        <div className="h-scren w-full flex justify-center items-center font-mono font-bold text-xl text-white">
+        <div className="h-scren w-full flex justify-center items-center font-bold text-xl">
           <h1>
             Oups ! Impossible de charger ton projet. Sélectionne le dans
             l'onglet "Mon Projet"
@@ -122,10 +118,10 @@ export default async function AppPage({
   return (
     <div className="page md:w-[83%] md:p-12">
       {projectOpen && (
-        <div className="w-full flex flex-col text-gray-300">
+        <div className="w-full flex flex-col">
           {!projectOpen.roadmap && (
             <div className="w-full h-screen flex flex-col justify-center items-center">
-              <h1 className="text-xl font-mono font-bold mb-2">
+              <h1 className="text-xl font-bold mb-2">
                 Vous n'avez pas inséré de Roadmap dans votre projet !
               </h1>
               <div className="flex items-center">
@@ -136,10 +132,8 @@ export default async function AppPage({
           )}
           {projectOpen.roadmap && (
             <div className="w-full flex flex-col">
-              <h1 className="text-sm md:text-xl font-mono text-gray-100 font-bold">
-                Vue d'ensemble
-              </h1>
-              <p className="text-gray-300 font-mono text-xs">{dateToday}</p>
+              <h1 className="text-sm md:text-xl font-bold">Vue d'ensemble</h1>
+              <p className="text-xs">{dateToday}</p>
               <div className="w-full flex justify-center items-start">
                 <TimeLine
                   seances={projectOpen.seances}

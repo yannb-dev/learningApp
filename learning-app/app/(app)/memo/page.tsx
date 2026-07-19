@@ -37,7 +37,7 @@ export default async function MemoPage({
 
   if (listProject.length === 0)
     return (
-      <div className="h-scren w-full flex justify-center items-center font-mono font-bold text-xl text-white">
+      <div className="h-scren w-full flex justify-center items-center font-bold text-xl">
         <h1>
           Oups ! Impossible de charger ton projet. Sélectionne le dans l'onglet
           "Mon Projet"

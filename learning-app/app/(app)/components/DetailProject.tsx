@@ -24,30 +24,30 @@ export default function DetailProject({
           </div>
 
           <div className="h-px w-full bg-gray-300"></div>
-          <div className="h-60 overflow-y-scroll overflow-hidden p-4">
+          <div className="h-60 overflow-y-scroll overflow-hidden p-4 text-xs">
             <h3 className="font-bold mb-2">Titre : {project.name}</h3>
             <h3 className="font-bold mt-2 mb-2 flex items-center">
-              <FiTool className="text-sm text-amber-600 mr-4" />
+              <FiTool className=" text-amber-600 mr-4" />
               Techniques :
             </h3>
-            <p className="text-gray-300">{project.stack}</p>
+            <p className="text-gray-400">{project.stack}</p>
             <h3 className="font-bold mt-2 mb-2 flex items-center">
               <FaSearch className="text-sm text-amber-600 mr-4" />
               Détail :
             </h3>
-            <p className="text-justify text-gray-300">{project.detail}</p>
+            <p className="text-justify text-gray-400">{project.detail}</p>
             <h3 className="font-bold mt-2 mb-2 flex items-center">
               <IoIosWarning className="text-sm text-amber-600 mr-4" />
               Points d'intentions :
             </h3>
-            <p className="text-gray-300">{project.warning}</p>
+            <p className="text-gray-400">{project.warning}</p>
             <div className="mb-4 mt-4 p-4 bg-aside rounded-xl border border-gray-200 font-mono">
               <h3 className="mb-4 font-bold mt-2">Conseil :</h3>
               <ul>
                 {project.stepHelp.map((list) => (
                   <li key={list} className="flex items-center mb-2">
                     <FaChevronCircleRight />
-                    <p className="ml-4">{list}</p>
+                    <p className="ml-4 text-gray-400">{list}</p>
                   </li>
                 ))}
               </ul>
@@ -56,7 +56,7 @@ export default function DetailProject({
               <FiPenTool className="text-sm text-amber-600 mr-4" />
               Note de progression
             </h3>
-            <p className="text-gray-300">{project.noteInProgress}</p>
+            <p className="text-gray-400">{project.noteInProgress}</p>
           </div>
         </div>
       }

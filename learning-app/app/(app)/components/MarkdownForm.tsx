@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 
 //_________________ component ______________________
 import TextCopy from "./TextCopy";
+import Card from "./ui/Card";
 
 //____________ style _________________________________
 const styleInput =
@@ -65,147 +66,158 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
   return (
     <div className="w-full p-4">
       {viewForm && (
-        <section className="h-auto  flex flex-col p-6 border border-gray-300 bg-aside rounded-xl font-mono text-gray-300 ">
-          <h1 className="text-xl mb-4">Créer ma RoadMap :</h1>
-          <form
-            className="flex justify-evenly"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <div className="w-[45%] flex flex-col justify-evenly items-start">
-              <label htmlFor="objective">Mon objectif :</label>
-              <input
-                className={styleInput}
-                id="objective"
-                {...register("objective")}
-              />
-              {errors.objective && (
-                <p className="text-red-500 text-xs">
-                  {errors.objective.message}
-                </p>
-              )}
-              <label htmlFor="competence">
-                Mes compétences, mes savoir faires :
-              </label>
-              <input
-                className={styleInput}
-                id="competence"
-                {...register("competence")}
-              />
-              {errors.competence && (
-                <p className="text-red-500 text-xs">
-                  {errors.competence.message}
-                </p>
-              )}
-              <label htmlFor="dispo">
-                Ma disponibilité par jour en heure :
-              </label>
-              <input
-                type="number"
-                className={styleInput}
-                id="dispo"
-                {...register("dispo")}
-              />
-              {errors.dispo && (
-                <p className="text-red-500 text-xs">{errors.dispo.message}</p>
-              )}
-              <label htmlFor="learningMode">
-                Quel est ton mode d'apprentissage préféré :
-              </label>
-              <input
-                className={styleInput}
-                id="learningMode"
-                {...register("learningMode")}
-              />
-              {errors.learningMode && (
-                <p className="text-red-500 text-xs">
-                  {errors.learningMode.message}
-                </p>
-              )}
-              <label htmlFor="formation">
-                Souhaites tu inclure des formations payantes :
-              </label>
-              <select
-                className={styleInput}
-                id="formation"
-                {...register("formation")}
+        <Card
+          className="h-auto"
+          children={
+            <section>
+              <h1 className="text-xl mb-4">Créer ma RoadMap :</h1>
+              <form
+                className="flex justify-evenly"
+                onSubmit={handleSubmit(onSubmit)}
               >
-                <option value="yes">Oui</option>
-                <option value="no">Non</option>
-              </select>
-              {errors.formation && (
-                <p className="text-red-500 text-xs">
-                  {errors.formation.message}
-                </p>
-              )}
-            </div>
-            <div className="w-[45%] flex flex-col justify-evenly items-start">
-              <label htmlFor="pointBad">
-                Quels sont tes points bloquants ?
-              </label>
-              <input
-                className={styleInput}
-                id="pointBad"
-                {...register("pointBad")}
-              />
-              {errors.pointBad && (
-                <p className="text-red-500 text-xs">
-                  {errors.pointBad.message}
-                </p>
-              )}
-              <label htmlFor="whyLearn">Pourquoi veux tu apprendre ça :</label>
-              <input
-                className={styleInput}
-                id="whyLearn"
-                {...register("whyLearn")}
-              />
-              {errors.whyLearn && (
-                <p className="text-red-500 text-xs">
-                  {errors.whyLearn.message}
-                </p>
-              )}
-              <label htmlFor="echeance">As tu une échéance à respecter :</label>
-              <input
-                className={styleInput}
-                type="date"
-                id="echeance"
-                {...register("echeance")}
-              />
-              {errors.echeance && (
-                <p className="text-red-500 text-xs">
-                  {errors.echeance.message}
-                </p>
-              )}
-              <label htmlFor="motivation">
-                Quel est ton degré de motivation :
-              </label>
-              <select
-                className={styleInput}
-                id="motivation"
-                {...register("motivation")}
-              >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-              {errors.motivation && (
-                <p className="text-red-500 text-xs">
-                  {errors.motivation.message}
-                </p>
-              )}
-              <button
-                className="w-30 p-1 rounded-sm bg-amber-600 font-mono font-bold text-white mt-4"
-                type="submit"
-              >
-                Ajouter
-              </button>
-            </div>
-          </form>
-        </section>
+                <div className="w-[45%] flex flex-col justify-evenly items-start">
+                  <label htmlFor="objective">Mon objectif :</label>
+                  <input
+                    className={styleInput}
+                    id="objective"
+                    {...register("objective")}
+                  />
+                  {errors.objective && (
+                    <p className="text-red-500 text-xs">
+                      {errors.objective.message}
+                    </p>
+                  )}
+                  <label htmlFor="competence">
+                    Mes compétences, mes savoir faires :
+                  </label>
+                  <input
+                    className={styleInput}
+                    id="competence"
+                    {...register("competence")}
+                  />
+                  {errors.competence && (
+                    <p className="text-red-500 text-xs">
+                      {errors.competence.message}
+                    </p>
+                  )}
+                  <label htmlFor="dispo">
+                    Ma disponibilité par jour en heure :
+                  </label>
+                  <input
+                    type="number"
+                    className={styleInput}
+                    id="dispo"
+                    {...register("dispo")}
+                  />
+                  {errors.dispo && (
+                    <p className="text-red-500 text-xs">
+                      {errors.dispo.message}
+                    </p>
+                  )}
+                  <label htmlFor="learningMode">
+                    Quel est ton mode d'apprentissage préféré :
+                  </label>
+                  <input
+                    className={styleInput}
+                    id="learningMode"
+                    {...register("learningMode")}
+                  />
+                  {errors.learningMode && (
+                    <p className="text-red-500 text-xs">
+                      {errors.learningMode.message}
+                    </p>
+                  )}
+                  <label htmlFor="formation">
+                    Souhaites tu inclure des formations payantes :
+                  </label>
+                  <select
+                    className={styleInput}
+                    id="formation"
+                    {...register("formation")}
+                  >
+                    <option value="yes">Oui</option>
+                    <option value="no">Non</option>
+                  </select>
+                  {errors.formation && (
+                    <p className="text-red-500 text-xs">
+                      {errors.formation.message}
+                    </p>
+                  )}
+                </div>
+                <div className="w-[45%] flex flex-col justify-evenly items-start">
+                  <label htmlFor="pointBad">
+                    Quels sont tes points bloquants ?
+                  </label>
+                  <input
+                    className={styleInput}
+                    id="pointBad"
+                    {...register("pointBad")}
+                  />
+                  {errors.pointBad && (
+                    <p className="text-red-500 text-xs">
+                      {errors.pointBad.message}
+                    </p>
+                  )}
+                  <label htmlFor="whyLearn">
+                    Pourquoi veux tu apprendre ça :
+                  </label>
+                  <input
+                    className={styleInput}
+                    id="whyLearn"
+                    {...register("whyLearn")}
+                  />
+                  {errors.whyLearn && (
+                    <p className="text-red-500 text-xs">
+                      {errors.whyLearn.message}
+                    </p>
+                  )}
+                  <label htmlFor="echeance">
+                    As tu une échéance à respecter :
+                  </label>
+                  <input
+                    className={styleInput}
+                    type="date"
+                    id="echeance"
+                    {...register("echeance")}
+                  />
+                  {errors.echeance && (
+                    <p className="text-red-500 text-xs">
+                      {errors.echeance.message}
+                    </p>
+                  )}
+                  <label htmlFor="motivation">
+                    Quel est ton degré de motivation :
+                  </label>
+                  <select
+                    className={styleInput}
+                    id="motivation"
+                    {...register("motivation")}
+                  >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                  {errors.motivation && (
+                    <p className="text-red-500 text-xs">
+                      {errors.motivation.message}
+                    </p>
+                  )}
+                  <button
+                    className="w-30 p-1 rounded-sm bg-amber-600 font-bold mt-4"
+                    type="submit"
+                  >
+                    Ajouter
+                  </button>
+                </div>
+              </form>
+            </section>
+          }
+        />
       )}
       {downloadUrl && (
-        <div className="mt-10 font-mono text-gray-300">
+        <div className="mt-10">
           <h1 className="text-2xl font-bold mb-12">Etape 1 :</h1>
           <h1 className="text-xl font-bold mb-4">Consigne :</h1>
           <p
@@ -218,11 +230,11 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
           <a
             href={downloadUrl}
             download={"mon-fichier.md"}
-            className="p-2 bg-amber-600 text-gray-300 font-mono font-bold rounded-sm"
+            className="p-2 bg-amber-600 font-bold rounded-sm"
           >
             Télécharger le fichier.md
           </a>
-          <div className="w-[70%] p-6 rounded-xl bg-aside text-justify font-mono mt-8">
+          <div className="w-[70%] p-6 rounded-xl bg-aside text-justify mt-8">
             <h3 className="font-bold mb-4">
               Copie ce bloc comme prompt au LLM de ton choix.
               <TextCopy />

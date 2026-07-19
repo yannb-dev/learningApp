@@ -54,13 +54,11 @@ export default function Menu({ project }: Props) {
       >
         {selectProject && <NavBtn idProject={selectProject} />}
         <div className="h-px w-full bg-gray-600"></div>
-        <h3 className="font-mono text-gray-100 text-xs md:text-sm mt-2 ml-2">
-          Mon projet :
-        </h3>
+        <h3 className="text-xs md:text-sm mt-2 ml-2">Mon projet :</h3>
         <div className="p-2 mt-2">
           {project && (
             <select
-              className="w-full bg-gray-100 border border-gray-300 rounded-sm p-1 text-xs md:text-sm font-mono text-center text-black"
+              className="w-full bg-gray-100 border border-gray-300 rounded-sm p-1 text-xs md:text-sm  text-center text-black"
               onChange={(e) => handleSelect(e.target.value)}
               defaultValue={selectProject}
             >

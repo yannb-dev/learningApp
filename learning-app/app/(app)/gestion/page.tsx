@@ -44,7 +44,7 @@ export default async function GestionPage({
 
   if (listProject.length === 0)
     return (
-      <div className="h-scren w-full flex justify-center items-center font-mono font-bold text-xl text-white">
+      <div className="h-scren w-full flex justify-center items-center  font-bold text-xl ">
         <h1>
           Oups ! Impossible de charger ton projet. Sélectionne le dans l'onglet
           "Mon Projet"
@@ -88,7 +88,7 @@ export default async function GestionPage({
           </div>
         )}
         {roadmap && (
-          <div className="w-full flex flex-col text-gray-300">
+          <div className="w-full flex flex-col ">
             <h3 className="text-xl font-bold">Ma roadmap</h3>
             <Card
               className="h-auto p-6"

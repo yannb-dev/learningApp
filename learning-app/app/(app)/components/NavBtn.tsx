@@ -29,28 +29,28 @@ export default function NavBtn({ idProject }: { idProject: string }) {
   return (
     <div className="w-full flex flex-col items-start mb-2 p-2">
       <div>
-        <h3 className="text-gray-400 font-mono text-sm md:text-lg ml-6 mt-6 mb-2 ">
+        <h3 className="text-gray-400 text-sm md:text-lg ml-6 mt-6 mb-2 ">
           Application
         </h3>
         {titleBtnApp.map((btn) => (
           <div className="w-full h-10 flex group " key={btn.name}>
             <div className="w-1 rounded-2xl group-hover:bg-amber-600 group-hover:animate-expand"></div>
             <button
-              className={`w-full text-start rounded-sm font-mono text-xs md:text-sm p-1  ${stateBtn === btn.slug ? "bg-gray-300 text-black" : "text-white"}`}
+              className={`w-full text-start rounded-sm text-xs md:text-sm p-1  ${stateBtn === btn.slug ? "bg-gray-300 text-black" : "text-white"}`}
               onClick={() => handleNavigation(btn.slug)}
             >
               {btn.name}
             </button>
           </div>
         ))}
-        <h3 className="text-gray-400 font-mono text-sm md:text-lg ml-6 mb-2 mt-4">
+        <h3 className="text-gray-400 text-sm md:text-lg ml-6 mb-2 mt-4">
           Compte
         </h3>
         {titleBtnCompte.map((btn) => (
           <div className="w-full h-12 flex group " key={btn.name}>
             <div className="w-1 rounded-2xl group-hover:bg-amber-600 group-hover:animate-expand"></div>
             <button
-              className={`w-full text-start rounded-sm font-mono text-xs md:text-sm mb-2 p-1 ${stateBtn === btn.slug ? "bg-gray-300" : "text-white"}`}
+              className={`w-full text-start rounded-sm text-xs md:text-sm mb-2 p-1 ${stateBtn === btn.slug ? "bg-gray-300" : "text-white"}`}
               onClick={() => handleNavigation(btn.slug)}
             >
               {btn.name}

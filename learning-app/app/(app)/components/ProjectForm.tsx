@@ -42,9 +42,7 @@ export default function ProjectForm() {
 
   return (
     <div className="pt-20 pl-20">
-      <h1 className="text-2xl font-mono font-bold">
-        Création d'un nouveau project :
-      </h1>
+      <h1 className="text-2xl font-bold">Création d'un nouveau project :</h1>
       <form className="flex flex-col pt-8" onSubmit={handleSubmit(onSubmit)}>
         <input
           className="w-60 border-b border-gray-200 mb-4 outline-none focus:ring-gray-300 focus:ring-1"

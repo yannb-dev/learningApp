@@ -35,10 +35,10 @@ export default async function AppLayout({
             </div>
 
             <div className="w-[75%] flex flex-col">
-              <h1 className="font-mono font-bold text-lg md:text-xl ml-4 text-gray-100">
+              <h1 className=" font-bold text-lg md:text-xl ml-4 ">
                 Learning APP
               </h1>
-              <p className=" font-mono text-xs md:flex  ml-4 text-gray-300">
+              <p className="text-xs md:flex  ml-4 text-gray-300">
                 Version 0.0.1
               </p>
             </div>

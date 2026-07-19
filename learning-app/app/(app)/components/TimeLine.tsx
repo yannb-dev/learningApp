@@ -37,9 +37,7 @@ export default function TimeLine({ seances, roadmap }: Props) {
     <Card
       children={
         <div>
-          <h1 className="m-2 text-gray-100 text-sm font-mono">
-            Chronologie des sessions :
-          </h1>
+          <h1 className="m-2 text-sm">Chronologie des sessions :</h1>
           <div className="h-px w-full bg-gray-300"></div>
           <div className="h-60 md:h-80 w-full overflow-y-scroll box-border flex flex-col justify-start p-2 ">
             {seances.map((s) => (
@@ -53,12 +51,10 @@ export default function TimeLine({ seances, roadmap }: Props) {
                       <IconSeance />
                       <div className="w-[95%] flex flex-col ml-4">
                         <div className="flex flex-col md:flex-row justify-between">
-                          <h1 className="font-mono text-white text-xs">
-                            {s.sujet}{" "}
-                          </h1>
+                          <h1 className=" text-xs">{s.sujet} </h1>
                           <div className="w-auto flex h-min items-center">
                             <FaCircle className="text-amber-600 text-sm" />
-                            <p className="font-mono text-white ml-4">
+                            <p className=" ml-4">
                               {format(s.createdAt, "dd/MM", { locale: fr })}
                             </p>
                           </div>
@@ -73,7 +69,7 @@ export default function TimeLine({ seances, roadmap }: Props) {
                             />
                           ))}
                         </div>
-                        <p className="w-auto font-mono text-gray-400 text-xs text-justify mt-4">
+                        <p className="w-auto text-gray-400 text-xs text-justify mt-4">
                           {s.accomplished}
                         </p>
                       </div>

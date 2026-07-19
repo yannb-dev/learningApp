@@ -61,10 +61,10 @@ export default function RoadMapForm({
   };
 
   return (
-    <div className="mt-10 text-gray-300">
+    <div className="mt-10 ">
       <div className="flex flex-col">
         <h1 className="text-2xl font-bold mb-12">Etape 2 :</h1>
-        <h3 className="font-mono font-bold mb-8">
+        <h3 className="font-bold mb-8">
           Ajoutes ton fichier markdown pour incrémenter ton projet :
         </h3>
         <input
