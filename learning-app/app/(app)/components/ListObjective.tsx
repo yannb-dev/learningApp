@@ -7,6 +7,7 @@ import { RiMailForbidFill } from "react-icons/ri";
 
 //_______________type __________________
 import { Objective } from "@/app/generated/prisma";
+import Card from "./ui/Card";
 
 export default function ListObjective({
   acquired,
@@ -62,35 +63,44 @@ export default function ListObjective({
     setFilter(filter);
   };
   return (
-    <div className="w-full h-80 border border-gray-300 rounded-xl bg-aside">
-      <div className="h-[15%] flex justify-evenly p-2">
-        <button
-          className={`${filter === "acquired" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm  bg-black border  font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
-          onClick={() => handleFilter("acquired")}
-        >
-          Acquis
-        </button>
-        <button
-          className={`${filter === "inProgress" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm  bg-black border font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
-          onClick={() => handleFilter("inProgress")}
-        >
-          En cours
-        </button>
-        <button
-          className={`${filter === "upComming" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm bg-black border font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
-          onClick={() => handleFilter("upComming")}
-        >
-          Non abordé
-        </button>
-      </div>
-      <div className="h-px w-full bg-gray-300"></div>
-      <div className="h-[75%] overflow-x-scroll p-4 text-gray-400">
-        <div>
-          {filter === "acquired" && <div>{handleListModule(acquired)}</div>}
-          {filter === "inProgress" && <div>{handleListModule(inProgress)}</div>}
-          {filter === "upComming" && <div>{handleListModule(upComming)}</div>}
+    <Card
+      className="h-80"
+      children={
+        <div className=" h-80">
+          <div className="h-[15%] flex justify-evenly p-2">
+            <button
+              className={`${filter === "acquired" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm  bg-black border  font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
+              onClick={() => handleFilter("acquired")}
+            >
+              Acquis
+            </button>
+            <button
+              className={`${filter === "inProgress" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm  bg-black border font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
+              onClick={() => handleFilter("inProgress")}
+            >
+              En cours
+            </button>
+            <button
+              className={`${filter === "upComming" ? "border-amber-600 text-amber-600" : "border-gray-500 text-gray-300"} p-1 rounded-sm bg-black border font-mono text-xs hover:cursor-pointer hover:text-amber-600 hover:border-amber-600`}
+              onClick={() => handleFilter("upComming")}
+            >
+              Non abordé
+            </button>
+          </div>
+          <div className="h-px w-full bg-gray-300"></div>
+          <div className="h-[75%] overflow-x-scroll p-4 text-gray-400">
+            <div>
+              {filter === "acquired" && <div>{handleListModule(acquired)}</div>}
+              {filter === "inProgress" && (
+                <div>{handleListModule(inProgress)}</div>
+              )}
+              {filter === "upComming" && (
+                <div>{handleListModule(upComming)}</div>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      }
+    />
   );
 }

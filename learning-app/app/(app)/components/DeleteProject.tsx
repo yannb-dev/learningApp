@@ -1,6 +1,6 @@
 "use client";
 
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 //___________ import Icon ___________________________
@@ -26,13 +26,9 @@ export default function DeleteProject({ projectId }: { projectId: string }) {
         router.refresh();
         router.push("/newproject");
       }
-
-      return Response.json({ success: true, data: response });
     } catch (err) {
       setErrorFetch(true);
       setTimeout(() => setErrorFetch(false), 3000);
-
-      return Response.json({ error: "Erreur server", err }, { status: 500 });
     }
   };
 

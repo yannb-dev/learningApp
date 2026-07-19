@@ -31,6 +31,7 @@ type ModuleWithObjective = Prisma.ModuleGetPayload<{
 //______________ import icon __________________________
 import ListModule from "../components/ListModule";
 import { TbPointFilled } from "react-icons/tb";
+import Card from "../components/ui/Card";
 
 //_______________ function _____________________________
 
@@ -119,7 +120,7 @@ export default async function RoadmapPage({
   });
 
   return (
-    <div className="w-full md:w-[83%] p-4 md:p-12 font-mono">
+    <div className="page md:w-[83%] md:p-12">
       {roadmap ? (
         <main className="w-full flex flex-col text-gray-300">
           <div>
@@ -130,72 +131,80 @@ export default async function RoadmapPage({
           </div>
           <div className="w-full flex flex-col p-2">
             <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* <div className="w-[5%]"></div> */}
-              <div className="w-full h-70 border border-gray-300 bg-aside rounded-xl font-mono">
-                <h3 className="m-2 font-bold">Evolution par module</h3>
-                <div className="w-full flex justify-evenly">
-                  <p className="flex items-center">
-                    <TbPointFilled className="text-green-600" /> aquis
-                  </p>
-                  <p className="flex items-center">
-                    <TbPointFilled className="text-amber-600" />
-                    en cours
-                  </p>
-                  <p className="flex items-center">
-                    <TbPointFilled className="text-red-500" />
-                    non abordé
-                  </p>
-                </div>
-                <div className="h-1px w-full bg-gray-300"></div>
-                <div className="w-full h-full flex p-2">
-                  <div className="w-[10%] h-45 flex flex-col justify-between">
-                    <p>100%</p>
-                    <p>0%</p>
-                  </div>
-                  <div className="w-[90%] h-full flex justify-evenly">
-                    {roadmap.module.map((module) => (
-                      <div className="h-45 flex flex-col" key={module.id}>
-                        <div className="h-full w-3 flex flex-col rounded-tr-xl rounded-tl-xl overflow-hidden">
-                          <div
-                            style={{
-                              height: `${handleTypeObjective("UpComming", module)}%`,
-                            }}
-                            className=" bg-red-500"
-                          ></div>
-                          <div
-                            style={{
-                              height: `${handleTypeObjective("InProgress", module)}%`,
-                            }}
-                            className=" bg-amber-500"
-                          ></div>
-                          <div
-                            style={{
-                              height: `${handleTypeObjective("Acquired", module)}%`,
-                            }}
-                            className=" bg-green-500"
-                          ></div>
-                        </div>
-                        <p>{module.numModule}</p>
+              <Card
+                className="h-70"
+                children={
+                  <div>
+                    <h3 className="m-2 font-bold">Evolution par module</h3>
+                    <div className="w-full flex justify-evenly">
+                      <p className="flex items-center">
+                        <TbPointFilled className="text-green-600" /> aquis
+                      </p>
+                      <p className="flex items-center">
+                        <TbPointFilled className="text-amber-600" />
+                        en cours
+                      </p>
+                      <p className="flex items-center">
+                        <TbPointFilled className="text-red-500" />
+                        non abordé
+                      </p>
+                    </div>
+                    <div className="h-1px w-full bg-gray-300"></div>
+                    <div className="w-full h-full flex p-2">
+                      <div className="w-[10%] h-45 flex flex-col justify-between">
+                        <p>100%</p>
+                        <p>0%</p>
                       </div>
-                    ))}
+                      <div className="w-[90%] h-full flex justify-evenly">
+                        {roadmap.module.map((module) => (
+                          <div className="h-45 flex flex-col" key={module.id}>
+                            <div className="h-full w-3 flex flex-col rounded-tr-xl rounded-tl-xl overflow-hidden">
+                              <div
+                                style={{
+                                  height: `${handleTypeObjective("UpComming", module)}%`,
+                                }}
+                                className=" bg-red-500"
+                              ></div>
+                              <div
+                                style={{
+                                  height: `${handleTypeObjective("InProgress", module)}%`,
+                                }}
+                                className=" bg-amber-500"
+                              ></div>
+                              <div
+                                style={{
+                                  height: `${handleTypeObjective("Acquired", module)}%`,
+                                }}
+                                className=" bg-green-500"
+                              ></div>
+                            </div>
+                            <p>{module.numModule}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div className="w-full h-70 border border-gray-300 bg-aside rounded-xl">
-                <h3 className="m-2 font-bold">Description</h3>
-                <div className="h-px w-full bg-gray-300"></div>
-                <div className="p-4 w-full flex flex-col">
-                  <h3>Mon projet :</h3>
-                  <p className="text-xs text-gray-400 mb-4 mt-2">
-                    {roadmap.name}
-                  </p>
-                  <h3>Mon objectif :</h3>
-                  <p className="text-xs text-gray-400 text-justify mt-2">
-                    {roadmap.objective}
-                  </p>
-                </div>
-              </div>
-              <div className="w-[5%]"></div>
+                }
+              />
+              <Card
+                className="h-70"
+                children={
+                  <div>
+                    <h3 className="m-2 font-bold">Description</h3>
+                    <div className="h-px w-full bg-gray-300"></div>
+                    <div className="p-4 w-full flex flex-col">
+                      <h3>Mon projet :</h3>
+                      <p className="text-xs text-gray-400 mb-4 mt-2">
+                        {roadmap.name}
+                      </p>
+                      <h3>Mon objectif :</h3>
+                      <p className="text-xs text-gray-400 text-justify mt-2">
+                        {roadmap.objective}
+                      </p>
+                    </div>
+                  </div>
+                }
+              />
             </div>
             <ListModule module={roadmap?.module} />
           </div>

@@ -94,13 +94,9 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
           console.error("Erreur d'enregistrement en BDD");
         }
       }
-
-      return Response.json({ success: true });
     } catch (err) {
       setErrorFetch(true);
       setTimeout(() => setErrorFetch(false), 3000);
-
-      return Response.json({ error: "Erreur server", err }, { status: 500 });
     }
   };
 

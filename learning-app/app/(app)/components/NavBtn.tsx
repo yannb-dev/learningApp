@@ -36,7 +36,7 @@ export default function NavBtn({ idProject }: { idProject: string }) {
           <div className="w-full h-10 flex group " key={btn.name}>
             <div className="w-1 rounded-2xl group-hover:bg-amber-600 group-hover:animate-expand"></div>
             <button
-              className={`w-full text-start rounded-sm font-mono text-xs md:text-sm p-1  ${stateBtn === btn.slug ? "bg-gray-300" : "text-white"}`}
+              className={`w-full text-start rounded-sm font-mono text-xs md:text-sm p-1  ${stateBtn === btn.slug ? "bg-gray-300 text-black" : "text-white"}`}
               onClick={() => handleNavigation(btn.slug)}
             >
               {btn.name}

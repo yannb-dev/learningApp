@@ -6,6 +6,8 @@ import { useState } from "react";
 
 //________________component ________________
 import CodeBlock from "./CodeBlock";
+import Card from "./ui/Card";
+import DivAmber from "./ui/DivAmber";
 
 // _______________ type _________________
 type Memo = Prisma.MemoGetPayload<{
@@ -36,6 +38,7 @@ export default function ListMemo({ memo, array }: Props) {
   return (
     <div className="w-full h-screen flex flex-col items-center font-mono">
       <div>
+        <h3>Liste des Tags :</h3>
         <div className="flex flex-wrap mt-6 mb-6">
           {arrayTri.map((tag) => (
             <button
@@ -62,27 +65,29 @@ export default function ListMemo({ memo, array }: Props) {
         {memo.length > 0 ? (
           <div className=" w-full grid grid-cols-1 md:grid-cols-3 gap-4">
             {listMemo.map((memo) => (
-              <div
-                className="h-80 overflow-y-scroll rounded-xl border-2 border-gray-400 bg-aside text-gray-300 p-4"
+              <Card
+                className="h-80 overflow-y-scroll  text-gray-300 p-4"
                 key={memo.id}
-              >
-                <h1 className="font-mono font-bold">Mémo :</h1>
-                <h3 className="text-sm font-mono">{memo.topic}</h3>
-                <div className="flex mt-2">
-                  {memo.tags.map((tag) => (
-                    <div
-                      className="w-auto p-1 bg-amber-600 text-white text-xs rounded-xl mr-2 flex flex-wrap"
-                      key={tag.slug}
-                    >
-                      #{tag.slug}
+                children={
+                  <div>
+                    <h1 className="font-mono font-bold">Mémo :</h1>
+                    <h3 className="text-sm font-mono">{memo.topic}</h3>
+                    <div className="flex mt-2">
+                      {memo.tags.map((tag) => (
+                        <DivAmber
+                          key={tag.slug}
+                          className="w-auto text-xs flex flex-wrap ml-2"
+                          children={<div>#{tag.slug}</div>}
+                        />
+                      ))}
                     </div>
-                  ))}
-                </div>
-                <h3 className="mt-4 mb-2">Snippet :</h3>
-                <CodeBlock code={memo.snippet} />
-                <h3 className=" text-xs mt-4 mb-2">Notes :</h3>
-                <p className="text-justify mt-6 text-xs">{memo.notes}</p>
-              </div>
+                    <h3 className="mt-4 mb-2">Snippet :</h3>
+                    <CodeBlock code={memo.snippet} />
+                    <h3 className=" text-xs mt-4 mb-2">Notes :</h3>
+                    <p className="text-justify mt-6 text-xs">{memo.notes}</p>
+                  </div>
+                }
+              />
             ))}
           </div>
         ) : (

@@ -54,13 +54,9 @@ export default function RoadMapForm({
 
         return global;
       }
-
-      return Response.json({ success: true, data: global });
     } catch (err) {
       setErrorFetch(true);
       setTimeout(() => setErrorFetch(false), 3000);
-
-      return Response.json({ error: "Erreur server", err }, { status: 500 });
     }
   };
 

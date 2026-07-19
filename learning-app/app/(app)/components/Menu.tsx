@@ -60,7 +60,7 @@ export default function Menu({ project }: Props) {
         <div className="p-2 mt-2">
           {project && (
             <select
-              className="w-full bg-gray-100 border border-gray-300 rounded-sm p-1 text-xs md:text-sm font-mono text-center "
+              className="w-full bg-gray-100 border border-gray-300 rounded-sm p-1 text-xs md:text-sm font-mono text-center text-black"
               onChange={(e) => handleSelect(e.target.value)}
               defaultValue={selectProject}
             >
