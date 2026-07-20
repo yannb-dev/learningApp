@@ -28,10 +28,6 @@ export default function Menu({ project }: Props) {
   );
   const [stateMenu, setStateMenu] = useState(false);
 
-  // if (query) {
-  //   setSelectProject(query);
-  // }
-
   const handleSelect = (id: string) => {
     if (id === "new") {
       router.push("/newproject");

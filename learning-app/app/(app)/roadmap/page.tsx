@@ -28,34 +28,12 @@ type ModuleWithObjective = Prisma.ModuleGetPayload<{
   };
 }>;
 
-//______________ import icon __________________________
-import ListModule from "../components/ListModule";
-import { TbPointFilled } from "react-icons/tb";
+//______________Component ___________________________
 import Card from "../components/ui/Card";
+import ListModule from "../components/ListModule";
 
-//_______________ function _____________________________
-
-function calculNumObjective(roadmap: RoadmapData) {
-  let totalObjective = 0;
-
-  roadmap.module.forEach((module) => {
-    totalObjective = totalObjective + module.objectives.length;
-  });
-
-  return totalObjective;
-}
-
-function calculUpComming(roadmap: RoadmapData) {
-  let totalUpComming = 0;
-  roadmap.module.forEach((module) => {
-    module.objectives.forEach((objective) => {
-      if (objective.state === "UpComming") {
-        totalUpComming = totalUpComming + 1;
-      }
-    });
-  });
-  return totalUpComming;
-}
+//______________ import icon __________________________
+import { TbPointFilled } from "react-icons/tb";
 
 //___________ handleTypeObjective _______________
 
