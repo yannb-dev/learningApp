@@ -14,7 +14,7 @@ export default async function Home() {
   if (!session) redirect("/login");
 
   return (
-    <div className="h-[100vh] w-full flex flex-col justify-center items-center">
+    <div className="h-screen w-full flex flex-col justify-center items-center">
       <h1 className="text-4xl text-gray-300 font-mono font-bold mb-18">
         Learning App
       </h1>

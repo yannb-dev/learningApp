@@ -23,8 +23,14 @@ export default function Menu({ project }: Props) {
   const searchParams = useSearchParams();
   const query = searchParams.get("project");
 
-  const [selectProject, setSelectProject] = useState(query);
+  const [selectProject, setSelectProject] = useState<string | undefined>(
+    query ?? undefined,
+  );
   const [stateMenu, setStateMenu] = useState(false);
+
+  // if (query) {
+  //   setSelectProject(query);
+  // }
 
   const handleSelect = (id: string) => {
     if (id === "new") {

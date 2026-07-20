@@ -74,6 +74,24 @@ export default async function AppPage({
       },
     });
 
+    if (projectOpen?.roadmap) {
+      projectOpen.roadmap.module.forEach((module) => {
+        module.objectives.forEach((objective) => {
+          if (objective.state === "Acquired") {
+            arrayAcquired.push(objective);
+          }
+
+          if (objective.state === "InProgress") {
+            arrayInProgress.push(objective);
+          }
+
+          if (objective.state === "UpComming") {
+            arrayUpComming.push(objective);
+          }
+        });
+      });
+    }
+
     if (!projectOpen) {
       return (
         <div className="h-scren w-full flex justify-center items-center font-bold text-xl">
@@ -91,24 +109,6 @@ export default async function AppPage({
         roadmapId: projectOpen.roadmap?.id,
         numModule: projectOpen.roadmap?.practicalProjectInProgress,
       },
-    });
-  }
-
-  if (projectOpen.roadmap.module) {
-    projectOpen.roadmap.module.forEach((module) => {
-      module.objectives.forEach((objective) => {
-        if (objective.state === "Acquired") {
-          arrayAcquired.push(objective);
-        }
-
-        if (objective.state === "InProgress") {
-          arrayInProgress.push(objective);
-        }
-
-        if (objective.state === "UpComming") {
-          arrayUpComming.push(objective);
-        }
-      });
     });
   }
 

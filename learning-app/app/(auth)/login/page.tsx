@@ -29,18 +29,9 @@ export default function LoginPage() {
             Bienvenu sur Learning App
           </h1>
 
-          <h3>Choisis ta méthode de connexion: </h3>
+          <h3>Connectes toi avec GitHub : </h3>
 
           <section className="flex flex-col">
-            <button
-              className="w-80 h-20 rounded-xl flex items-center justify-evenly p-4 border-black border-2 mb-10 mt-4 hover:bg-gray-200 hover:cursor-pointer"
-              onClick={() => handleSignIn("google")}
-            >
-              <h3 className="text-xl font-bold">Google</h3>
-
-              <FaGoogle />
-            </button>
-
             <button
               className="w-80 h-20 rounded-xl flex items-center justify-evenly p-4 border-black border-2 mb-10 mt-4 hover:bg-gray-200 hover:cursor-pointer"
               onClick={() => handleSignIn("github")}

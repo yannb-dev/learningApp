@@ -1,6 +1,12 @@
 "use client";
 
-export default function MessageError({ error, reset }) {
+export default function MessageError({
+  error,
+  reset,
+}: {
+  error: React.ReactNode;
+  reset: () => void;
+}) {
   return (
     <div className="h-screen w-full flex flex-col items center justify-center">
       <h1 className="font-bold text-xl">

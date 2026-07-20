@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import prisma from "@/lib/prisma";
 
 import { getServerSession } from "next-auth";
@@ -16,12 +14,13 @@ import MarkdownForm from "../components/MarkdownForm";
 import RoadMapForm from "../components/RoadMapForm";
 import DeleteRoadmap from "../components/DeleteRoadmap";
 import JsonForm from "../components/JsonForm";
+import Card from "../components/ui/Card";
+import DivAmber from "../components/ui/DivAmber";
 
 //___________ type _______________________________
 
 import { Seance } from "@/app/generated/prisma";
-import Card from "../components/ui/Card";
-import DivAmber from "../components/ui/DivAmber";
+
 type SearchParams = Promise<{ [key: string]: string | undefined }>;
 
 export default async function GestionPage({

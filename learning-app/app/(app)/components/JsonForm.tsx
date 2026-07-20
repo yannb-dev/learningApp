@@ -22,11 +22,14 @@ type RoadmapData = Prisma.RoadmapGetPayload<{
 
 type Props = {
   roadmap: RoadmapData;
-  templateSeance: String;
+  templateSeance: string | undefined;
 };
 
 export default function JsonForm({ roadmap, templateSeance }: Props) {
   const router = useRouter();
+
+  if (templateSeance === undefined)
+    return <p>Erreur du chargement du Template</p>;
 
   const [stateTuto, setStateTuto] = useState(false);
   const [state, setState] = useState("generate");

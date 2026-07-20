@@ -20,13 +20,17 @@ const styleInput =
 
 //____________ interface ____________________________
 interface MarkdownFormProps {
-  file: string;
+  file: string | undefined;
 }
 
 export default function MarkdownForm({ file }: MarkdownFormProps) {
   const router = useRouter();
   const [downloadUrl, setDownloadUrl] = useState("");
   const [viewForm, setViewForm] = useState(true);
+
+  if (file === undefined) return <p>Erreur</p>;
+
+  const safeFile = file;
 
   const {
     register,
@@ -43,7 +47,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
 
   const onSubmit = (data: MarkdownData) => {
     function generer(data: MarkdownData) {
-      const markdown = file
+      const markdown = safeFile
         .replace("{{objective}}", data.objective)
         .replace("{{competence}}", data.competence)
         .replace("{{dispo}}", data.dispo)
