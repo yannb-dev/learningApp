@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { Prisma } from "@/lib/generated/prisma";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -16,7 +17,12 @@ import BtnDirectNewRoadmap from "../components/BtnDirectNewRoadmap";
 
 //___________ type ________________________________
 
-import { Objective } from "@/app/generated/prisma";
+import { Objective } from "@/lib/generated/prisma";
+
+type ModuleWithObjective = Prisma.ModuleGetPayload<{
+  include: { objectives: true };
+}>;
+
 type SearchParams = Promise<{ [key: string]: string }>;
 
 export default async function AppPage({
@@ -75,8 +81,8 @@ export default async function AppPage({
     });
 
     if (projectOpen?.roadmap) {
-      projectOpen.roadmap.module.forEach((module) => {
-        module.objectives.forEach((objective) => {
+      projectOpen.roadmap.module.forEach((module: ModuleWithObjective) => {
+        module.objectives.forEach((objective: Objective) => {
           if (objective.state === "Acquired") {
             arrayAcquired.push(objective);
           }

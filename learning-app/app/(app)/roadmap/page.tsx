@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { Prisma } from "@/app/generated/prisma";
+import { Prisma } from "@/lib/generated/prisma";
 
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
@@ -134,7 +134,7 @@ export default async function RoadmapPage({
                         <p>0%</p>
                       </div>
                       <div className="w-[90%] h-full flex justify-evenly">
-                        {roadmap.module.map((module) => (
+                        {roadmap.module.map((module: ModuleWithObjective) => (
                           <div className="h-45 flex flex-col" key={module.id}>
                             <div className="h-full w-3 flex flex-col rounded-tr-xl rounded-tl-xl overflow-hidden">
                               <div

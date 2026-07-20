@@ -9,7 +9,7 @@ import BtnLogOut from "./BtnLogOut";
 import NavBtn from "./NavBtn";
 
 //__________________type _________________
-import { Project } from "@/app/generated/prisma";
+import { Project } from "@/lib/generated/prisma";
 
 import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";

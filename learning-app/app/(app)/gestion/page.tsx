@@ -19,7 +19,7 @@ import DivAmber from "../components/ui/DivAmber";
 
 //___________ type _______________________________
 
-import { Seance } from "@/app/generated/prisma";
+import { Seance } from "@/lib/generated/prisma";
 
 type SearchParams = Promise<{ [key: string]: string | undefined }>;
 

@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { Prisma } from "@/lib/generated/prisma";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -10,14 +11,19 @@ import { fr } from "date-fns/locale";
 // ___________ component ______________________
 import Toogle from "../components/Toggle";
 import DeleteProject from "../components/DeleteProject";
+import Card from "../components/ui/Card";
 
 //___________ icon ____________________________
 import { FaFlag } from "react-icons/fa";
 
 //___________ type ________________________________
-import { Objective } from "@/app/generated/prisma";
-import Card from "../components/ui/Card";
+import { Objective } from "@/lib/generated/prisma";
+import { Project } from "@/lib/generated/prisma";
+
 type SearchParams = Promise<{ [key: string]: string }>;
+type ProjectWithObjective = Prisma.ProjectGetPayload<{
+  include: { objectives: true };
+}>;
 
 function ratioObjective(objectives: Objective[]) {
   const nbrObjective = objectives.length;
@@ -43,7 +49,7 @@ export default async function Profil({
 
   if (!session) redirect("/login");
 
-  const project = await prisma.project.findMany({
+  const project: ProjectWithObjective[] = await prisma.project.findMany({
     where: {
       userId: session.user.id,
     },
@@ -71,7 +77,7 @@ export default async function Profil({
             <div>
               <h3 className="font-bold mb-6">Mes projets :</h3>
               <div className="w-full flex flex-col">
-                {project.map((project) => (
+                {project.map((project: ProjectWithObjective) => (
                   <div
                     className="w-full flex flex-col md:flex-row items-center justify-between p-2 md:p-6 border-t-2 border-gray-300"
                     key={project.id}

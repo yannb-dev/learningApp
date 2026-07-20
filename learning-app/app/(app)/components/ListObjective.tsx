@@ -6,7 +6,7 @@ import { useState } from "react";
 import { RiMailForbidFill } from "react-icons/ri";
 
 //_______________type __________________
-import { Objective } from "@/app/generated/prisma";
+import { Objective } from "@/lib/generated/prisma";
 import Card from "./ui/Card";
 
 export default function ListObjective({

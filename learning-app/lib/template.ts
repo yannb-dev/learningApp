@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
 
-let templateRoadmap = null;
-let templateSeance = null;
+let templateRoadmap: string | null = null;
+let templateSeance: string | null = null;
 
 export function getTemplateRoadmap() {
   if (!templateRoadmap) {

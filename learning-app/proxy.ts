@@ -1,8 +1,8 @@
 import { getToken } from "next-auth/jwt";
 
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
-export async function proxy(request) {
+export async function proxy(request: NextRequest) {
   const token = await getToken({
     req: request,
 

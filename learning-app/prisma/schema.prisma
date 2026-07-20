@@ -7,7 +7,7 @@
 
 generator client {
 provider = "prisma-client-js"
-output   = "../app/generated/prisma"
+output   = "..lib/generated/prisma"
 }
 
 datasource db {
@@ -64,6 +64,7 @@ roadmaps Roadmap[]
 enum CategoryProject {
 school
 tech
+other
 }
 
 model Project {

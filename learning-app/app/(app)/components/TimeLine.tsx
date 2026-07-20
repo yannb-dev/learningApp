@@ -1,6 +1,6 @@
 "use client";
 
-import { Prisma } from "@/app/generated/prisma";
+import { Prisma } from "@/lib/generated/prisma";
 
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";

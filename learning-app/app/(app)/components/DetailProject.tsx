@@ -4,7 +4,7 @@ import { FiPenTool } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
 import { IoIosWarning } from "react-icons/io";
 
-import { Practicalproject } from "@/app/generated/prisma";
+import { Practicalproject } from "@/lib/generated/prisma";
 import Card from "./ui/Card";
 import DivAmber from "./ui/DivAmber";
 
