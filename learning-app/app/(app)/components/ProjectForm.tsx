@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 // _____________ import schema ZOD ___________________
@@ -35,8 +35,8 @@ export default function ProjectForm() {
 
     if (response.ok) {
       reset();
-      router.refresh();
       router.push("/accueil");
+      router.refresh();
     }
   };
 
@@ -48,12 +48,14 @@ export default function ProjectForm() {
           className="w-60 border-b border-gray-200 mb-4 outline-none focus:ring-gray-300 focus:ring-1"
           {...register("name")}
           placeholder="Nom du projet"
+          autoComplete="off"
         />
         {errors.name && <p>{errors.name.message}</p>}
         <input
           className="w-120 border-b border-gray-200 mb-4 outline-none focus:ring-gray-300 focus:ring-1"
           {...register("description")}
           placeholder="Décris ton projet en deux mots"
+          autoComplete="off"
         />
         {errors.description && <p>{errors.description.message}</p>}
         <select
@@ -65,7 +67,7 @@ export default function ProjectForm() {
           <option value="other">Autre</option>
         </select>
         <button
-          className="w-30 pl-2 pt-1 pr-2 pb-1 rounded-md bg-amber-600  hover:bg-gray-200 hover:cursor-pointer"
+          className="w-30 pl-2 pt-1 pr-2 pb-1 rounded-md bg-gray-200 text-black hover:bg-amber-600 hover:text-white hover:cursor-pointer"
           type="submit"
         >
           Ajouter

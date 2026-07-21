@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { ProjectSchema } from "@/lib/schema/FormNewProject";
 
 import { authOptions } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
 
 //______________________POST ___________
 
@@ -32,10 +33,13 @@ export async function POST(request: Request) {
       },
     });
 
+    revalidatePath("/accueil");
+
     return Response.json({ success: true, data: project });
   } catch (err) {
+    console.error("Erreur POST project", err);
     return Response.json(
-      { error: "Erreur serveur du POST project", err },
+      { message: "Erreur serveur du POST project" },
       { status: 500 },
     );
   }

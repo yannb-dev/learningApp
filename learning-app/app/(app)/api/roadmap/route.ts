@@ -124,7 +124,7 @@ export async function POST(request: Request) {
 
     return Response.json({ success: true });
   } catch (err) {
-    console.error("Erreur POST /api/roadmap", err);
+    console.error("Erreur POST roadmap", err);
     return Response.json(
       { error: "Erreur serveur du POST roadmap", err },
       { status: 500 },

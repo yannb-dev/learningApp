@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { Prisma } from "@/app/generated/prisma";
+import { Prisma } from "@prisma/client";
 
 import { getServerSession } from "next-auth";
 
@@ -25,6 +25,7 @@ export async function DELETE(
 
     return Response.json({ success: true });
   } catch (err) {
+    console.error("Erreur DELETE seance", err);
     if (
       err instanceof Prisma.PrismaClientKnownRequestError &&
       err.code === "P2025"

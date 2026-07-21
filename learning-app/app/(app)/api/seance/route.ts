@@ -116,7 +116,7 @@ export async function POST(request: Request) {
 
     return Response.json({ success: true });
   } catch (err) {
-    console.error("Erreur POST /api/seance", err);
+    console.error("Erreur POST seance", err);
     return Response.json(
       { error: "Erreur serveur du POST seance", err },
       { status: 500 },

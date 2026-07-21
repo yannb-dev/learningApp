@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { Prisma } from "@/lib/generated/prisma";
+import { Prisma } from "@prisma/client";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -17,8 +17,7 @@ import Card from "../components/ui/Card";
 import { FaFlag } from "react-icons/fa";
 
 //___________ type ________________________________
-import { Objective } from "@/lib/generated/prisma";
-import { Project } from "@/lib/generated/prisma";
+import { Objective } from "@prisma/client";
 
 type SearchParams = Promise<{ [key: string]: string }>;
 type ProjectWithObjective = Prisma.ProjectGetPayload<{

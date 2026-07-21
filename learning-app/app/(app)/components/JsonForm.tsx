@@ -1,5 +1,5 @@
 "use client";
-import { Prisma } from "@/lib/generated/prisma";
+import { Prisma } from "@prisma/client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";

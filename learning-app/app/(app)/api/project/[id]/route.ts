@@ -1,9 +1,10 @@
 import prisma from "@/lib/prisma";
-import { Prisma } from "@/app/generated/prisma";
+import { Prisma } from "@prisma/client";
 
 import { getServerSession } from "next-auth";
 
 import { authOptions } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
 
 //___________________ DELETE ____________
 
@@ -23,8 +24,11 @@ export async function DELETE(
       where: { id: id, userId: session.user.id },
     });
 
+    revalidatePath("/newproject");
+
     return Response.json({ success: true });
   } catch (err) {
+    console.error("Erreur DELETE project", err);
     if (
       err instanceof Prisma.PrismaClientKnownRequestError &&
       err.code === "P2025"

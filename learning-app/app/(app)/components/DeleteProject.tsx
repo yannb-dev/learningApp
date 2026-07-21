@@ -23,8 +23,8 @@ export default function DeleteProject({ projectId }: { projectId: string }) {
       });
 
       if (response.ok) {
-        router.refresh();
         router.push("/newproject");
+        router.refresh();
       }
     } catch (err) {
       setErrorFetch(true);

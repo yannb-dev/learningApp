@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 //__________________component ______________
@@ -9,7 +9,7 @@ import BtnLogOut from "./BtnLogOut";
 import NavBtn from "./NavBtn";
 
 //__________________type _________________
-import { Project } from "@/lib/generated/prisma";
+import { Project } from "@prisma/client";
 
 import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
@@ -23,10 +23,19 @@ export default function Menu({ project }: Props) {
   const searchParams = useSearchParams();
   const query = searchParams.get("project");
 
+  const [projectData, setProjectData] = useState(project);
   const [selectProject, setSelectProject] = useState<string | undefined>(
     query ?? undefined,
   );
   const [stateMenu, setStateMenu] = useState(false);
+
+  useEffect(() => {
+    setProjectData(project);
+
+    if (project.length === 0) {
+      setSelectProject(undefined);
+    }
+  }, [project]);
 
   const handleSelect = (id: string) => {
     if (id === "new") {
@@ -58,14 +67,14 @@ export default function Menu({ project }: Props) {
         <div className="h-px w-full bg-gray-600"></div>
         <h3 className="text-xs md:text-sm mt-2 ml-2">Mon projet :</h3>
         <div className="p-2 mt-2">
-          {project && (
+          {projectData && (
             <select
               className="w-full bg-gray-100 border border-gray-300 rounded-sm p-1 text-xs md:text-sm  text-center text-black"
               onChange={(e) => handleSelect(e.target.value)}
               defaultValue={selectProject}
             >
               <option value="">--Mon project--</option>
-              {project.map((p) => (
+              {projectData.map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.name}
                 </option>

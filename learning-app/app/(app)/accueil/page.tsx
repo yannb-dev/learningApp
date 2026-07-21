@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { Prisma } from "@/lib/generated/prisma";
+import { Prisma } from "@prisma/client";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -17,7 +17,7 @@ import BtnDirectNewRoadmap from "../components/BtnDirectNewRoadmap";
 
 //___________ type ________________________________
 
-import { Objective } from "@/lib/generated/prisma";
+import { Objective } from "@prisma/client";
 
 type ModuleWithObjective = Prisma.ModuleGetPayload<{
   include: { objectives: true };
@@ -122,7 +122,7 @@ export default async function AppPage({
   const dateToday = format(new Date(), "dd/MM/yyyy", { locale: fr });
 
   return (
-    <div className="page md:w-[83%] md:p-12">
+    <div className="page md:w-[83%] md:h-screen md:p-12">
       {projectOpen && (
         <div className="w-full flex flex-col">
           {!projectOpen.roadmap && (
@@ -131,7 +131,7 @@ export default async function AppPage({
                 Vous n'avez pas inséré de Roadmap dans votre projet !
               </h1>
               <div className="flex items-center">
-                <p className="font-mono mr-10">Rendez vous dans la section</p>
+                <p className="font-mono mr-4">Rendez vous dans la section</p>
                 <BtnDirectNewRoadmap idProject={search} />
               </div>
             </div>
@@ -140,13 +140,13 @@ export default async function AppPage({
             <div className="w-full flex flex-col">
               <h1 className="text-sm md:text-xl font-bold">Vue d'ensemble</h1>
               <p className="text-xs">{dateToday}</p>
-              <div className="w-full flex justify-center items-start">
+              <div className="h-1/2 w-full flex justify-center items-start">
                 <TimeLine
                   seances={projectOpen.seances}
                   roadmap={projectOpen.roadmap}
                 />
               </div>
-              <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-8 justify-between mt-10">
+              <div className="h-1/2 w-full grid grid-cols-1 sm:grid-cols-2 gap-8 justify-between mt-10">
                 <ListObjective
                   acquired={arrayAcquired}
                   inProgress={arrayInProgress}

@@ -45,7 +45,7 @@ export default function DeleteRoadmap({ roadmapId }: { roadmapId: string }) {
             <p>Es tu sûr de vouloir supprimer ?</p>
             <button
               className="p-1 rounded-md bg-green-700 ml-10"
-              onClick={() => handleConfirme}
+              onClick={() => handleConfirme()}
             >
               Oui
             </button>

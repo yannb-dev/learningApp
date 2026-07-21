@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { Prisma } from "@/lib/generated/prisma";
+import { Prisma } from "@prisma/client";
 
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
@@ -10,17 +10,6 @@ import { fr } from "date-fns/locale";
 
 //___________ type _______________________________
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
-type RoadmapData = Prisma.RoadmapGetPayload<{
-  include: {
-    module: {
-      include: {
-        criterias: true;
-        objectives: true;
-        practicalproject: true;
-      };
-    };
-  };
-}>;
 
 type ModuleWithObjective = Prisma.ModuleGetPayload<{
   include: {
@@ -31,6 +20,7 @@ type ModuleWithObjective = Prisma.ModuleGetPayload<{
 //______________Component ___________________________
 import Card from "../components/ui/Card";
 import ListModule from "../components/ListModule";
+import BtnDirectNewRoadmap from "../components/BtnDirectNewRoadmap";
 
 //______________ import icon __________________________
 import { TbPointFilled } from "react-icons/tb";
@@ -188,12 +178,14 @@ export default async function RoadmapPage({
           </div>
         </main>
       ) : (
-        <div className="w-full flex flex-col justify-center items-center ">
-          <h1 className="text-xl font-bold mt-20">Aucune Roadmap !</h1>
-          <p>
-            Rendez vous dans la section "Gestion" pour créer votre roadmap
-            personnalisé.
-          </p>
+        <div className="w-full h-screen flex flex-col justify-center items-center">
+          <h1 className="text-xl font-bold mb-2">
+            Vous n'avez pas inséré de Roadmap dans votre projet !
+          </h1>
+          <div className="flex items-center">
+            <p className="font-mono mr-4">Rendez vous dans la section</p>
+            <BtnDirectNewRoadmap idProject={project} />
+          </div>
         </div>
       )}
     </div>

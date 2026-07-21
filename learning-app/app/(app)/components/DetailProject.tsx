@@ -4,7 +4,7 @@ import { FiPenTool } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
 import { IoIosWarning } from "react-icons/io";
 
-import { Practicalproject } from "@/lib/generated/prisma";
+import { Practicalproject } from "@prisma/client";
 import Card from "./ui/Card";
 import DivAmber from "./ui/DivAmber";
 
@@ -15,7 +15,7 @@ export default function DetailProject({
 }) {
   return (
     <Card
-      className="h-80"
+      className="h-full"
       children={
         <div>
           <div className="w-full flex items-center justify-between p-2">

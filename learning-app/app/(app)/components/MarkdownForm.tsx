@@ -71,7 +71,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
     <div className="w-full p-4">
       {viewForm && (
         <Card
-          className="h-auto"
+          className="h-auto p-6"
           children={
             <section>
               <h1 className="text-xl mb-4">Créer ma RoadMap :</h1>
@@ -85,6 +85,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
                     className={styleInput}
                     id="objective"
                     {...register("objective")}
+                    autoComplete="off"
                   />
                   {errors.objective && (
                     <p className="text-red-500 text-xs">
@@ -98,6 +99,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
                     className={styleInput}
                     id="competence"
                     {...register("competence")}
+                    autoComplete="off"
                   />
                   {errors.competence && (
                     <p className="text-red-500 text-xs">
@@ -108,10 +110,17 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
                     Ma disponibilité par jour en heure :
                   </label>
                   <input
-                    type="number"
+                    type="text"
+                    inputMode="numeric"
                     className={styleInput}
                     id="dispo"
-                    {...register("dispo")}
+                    {...register("dispo", {
+                      onChange: (e) => {
+                        const filtré = e.target.value.replace(/\D/g, ""); // enlève tout sauf les chiffres
+                        e.target.value = filtré;
+                      },
+                    })}
+                    autoComplete="off"
                   />
                   {errors.dispo && (
                     <p className="text-red-500 text-xs">
@@ -125,6 +134,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
                     className={styleInput}
                     id="learningMode"
                     {...register("learningMode")}
+                    autoComplete="off"
                   />
                   {errors.learningMode && (
                     <p className="text-red-500 text-xs">
@@ -156,6 +166,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
                     className={styleInput}
                     id="pointBad"
                     {...register("pointBad")}
+                    autoComplete="off"
                   />
                   {errors.pointBad && (
                     <p className="text-red-500 text-xs">
@@ -169,6 +180,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
                     className={styleInput}
                     id="whyLearn"
                     {...register("whyLearn")}
+                    autoComplete="off"
                   />
                   {errors.whyLearn && (
                     <p className="text-red-500 text-xs">
@@ -212,7 +224,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
                     className="w-30 p-1 rounded-sm bg-amber-600 font-bold mt-4"
                     type="submit"
                   >
-                    Ajouter
+                    Générer
                   </button>
                 </div>
               </form>
@@ -222,8 +234,8 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
       )}
       {downloadUrl && (
         <div className="mt-10">
-          <h1 className="text-2xl font-bold mb-12">Etape 1 :</h1>
-          <h1 className="text-xl font-bold mb-4">Consigne :</h1>
+          <h1 className="text-xl text-amber-600 font-bold mb-12">Etape 1 :</h1>
+          <h1 className="text-lg font-bold mb-4">Consigne :</h1>
           <p
             className="
           mt-8 mb-8"
@@ -238,11 +250,14 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
           >
             Télécharger le fichier.md
           </a>
-          <div className="w-[70%] p-6 rounded-xl bg-aside text-justify mt-8">
-            <h3 className="font-bold mb-4">
-              Copie ce bloc comme prompt au LLM de ton choix.
+          <div className="w-[70%] flex flex-col p-6 rounded-xl bg-aside text-justify mt-8">
+            <div className="w-full flex justify-between">
+              <h3 className="font-bold mb-4">
+                Copie ce bloc comme prompt au LLM de ton choix.
+              </h3>
               <TextCopy />
-            </h3>
+            </div>
+
             <p>
               Tu es un expert en pédagogie. À partir des informations du fichier
               importé, génère une roadmap d'apprentissage personnalisée dans un

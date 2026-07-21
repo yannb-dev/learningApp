@@ -9,7 +9,10 @@ export default function BtnDirectNewRoadmap({
 }) {
   return (
     <div>
-      <button onClick={() => redirect(`/gestion?project=${idProject}`)}>
+      <button
+        className="p-1 rounded-sm bg-amber-600 text-white"
+        onClick={() => redirect(`/gestion?project=${idProject}`)}
+      >
         Gestion
       </button>
     </div>

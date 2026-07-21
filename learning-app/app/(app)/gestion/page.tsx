@@ -19,7 +19,7 @@ import DivAmber from "../components/ui/DivAmber";
 
 //___________ type _______________________________
 
-import { Seance } from "@/lib/generated/prisma";
+import { Seance } from "@prisma/client";
 
 type SearchParams = Promise<{ [key: string]: string | undefined }>;
 
@@ -79,9 +79,9 @@ export default async function GestionPage({
 
   return (
     <div className="page md:w-[83%] md:h-screen md:p-12 overflow-y-scroll">
-      <div>
+      <div className="w-full">
         {!roadmap && (
-          <div>
+          <div className="w-full">
             <MarkdownForm file={templateRoadmap} />
             <RoadMapForm idProject={project} />
           </div>

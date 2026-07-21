@@ -6,7 +6,7 @@ import { useState } from "react";
 import { RiMailForbidFill } from "react-icons/ri";
 
 //_______________type __________________
-import { Objective } from "@/lib/generated/prisma";
+import { Objective } from "@prisma/client";
 import Card from "./ui/Card";
 
 export default function ListObjective({
@@ -25,7 +25,7 @@ export default function ListObjective({
   const handleListModule = (value: Objective[]) => {
     if (value.length === 0) {
       return (
-        <div>
+        <div className="h-full w-full flex justify-center items-center">
           <h3>Aucune compétences dans la section !</h3>
         </div>
       );
@@ -62,7 +62,7 @@ export default function ListObjective({
   };
   return (
     <Card
-      className="h-80"
+      className="h-full"
       children={
         <div className=" h-80">
           <div className="h-[15%] flex justify-evenly p-2">
