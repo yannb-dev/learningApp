@@ -101,8 +101,8 @@ export default async function GestionPage({
                           locale: fr,
                         })}
                       </p>
-                      <div className="w-full flex mt-6 text-sm">
-                        <p>Objectif :</p>
+                      <div className="w-full flex flex-col md-flex-row mt-6 text-sm">
+                        <p className="mb-4 md:mb-0">Objectif :</p>
                         <div className="w-[70%] ml-2 text-justify">
                           {roadmap.objective}
                         </div>
@@ -134,46 +134,52 @@ export default async function GestionPage({
               <h3 className=" font-bold mb-4">Générer mon modele :</h3>
               <JsonForm roadmap={roadmap} templateSeance={templateSeance} />
             </div>
-
-            <Card
-              className="h-auto overflow-x-scroll md:overscroll-none justify-evenly  p-6 text-xs"
-              children={
-                <div>
-                  <div className="w-300">
-                    <div className="mb-8">
-                      <div className="flex justify-evenly text-gray-500">
-                        <div className="w-16 md:w-[15%]">Date</div>
-                        <div className="w-40 md:w-[25%]">Détail</div>
-                        <div className="w-96 md:w-[30%]">Accompli</div>
-                        <div className="w-96 md:w-[25%]">Prochaines étapes</div>
-                      </div>
-                    </div>
-                    {seance &&
-                      seance.map((seance: Seance) => (
-                        <div key={seance.id} className="flex flex-col">
-                          <div className="flex justify-evenly" key={seance.id}>
-                            <div className="h-auto w-16 md:w-[15%]">
-                              {format(seance.createdAt, "dd/MM/yyyy", {
-                                locale: fr,
-                              })}
-                            </div>
-                            <div className="h-auto w-40 md:w-[25%] text-justify">
-                              {seance.sujet}
-                            </div>
-                            <div className="h-auto w-100 md:w-[30%] text-justify">
-                              {seance.accomplished}
-                            </div>
-                            <div className="h-auto w-100 md:w-[25%] text-justify">
-                              {seance.next}
-                            </div>
+            {seance.length !== 0 && (
+              <Card
+                className="h-auto overflow-x-scroll md:overscroll-none justify-evenly  p-6 text-xs"
+                children={
+                  <div>
+                    <div className="w-300">
+                      <div className="mb-8">
+                        <div className="flex justify-evenly text-gray-500">
+                          <div className="w-16 md:w-[15%]">Date</div>
+                          <div className="w-40 md:w-[25%]">Détail</div>
+                          <div className="w-96 md:w-[30%]">Accompli</div>
+                          <div className="w-96 md:w-[25%]">
+                            Prochaines étapes
                           </div>
-                          <div className="h-px w-full rounded-sm bg-gray-400 mt-10 mb-12"></div>
                         </div>
-                      ))}
+                      </div>
+                      {seance &&
+                        seance.map((seance: Seance) => (
+                          <div key={seance.id} className="flex flex-col">
+                            <div
+                              className="flex justify-evenly"
+                              key={seance.id}
+                            >
+                              <div className="h-auto w-16 md:w-[15%]">
+                                {format(seance.createdAt, "dd/MM/yyyy", {
+                                  locale: fr,
+                                })}
+                              </div>
+                              <div className="h-auto w-40 md:w-[25%] text-justify">
+                                {seance.sujet}
+                              </div>
+                              <div className="h-auto w-100 md:w-[30%] text-justify">
+                                {seance.accomplished}
+                              </div>
+                              <div className="h-auto w-100 md:w-[25%] text-justify">
+                                {seance.next}
+                              </div>
+                            </div>
+                            <div className="h-px w-full rounded-sm bg-gray-400 mt-10 mb-12"></div>
+                          </div>
+                        ))}
+                    </div>
                   </div>
-                </div>
-              }
-            />
+                }
+              />
+            )}
           </div>
         )}
       </div>

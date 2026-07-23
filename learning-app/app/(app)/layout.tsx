@@ -26,7 +26,7 @@ export default async function AppLayout({
   return (
     <div className="w-full flex flex-col md:flex-row">
       {/* aside */}
-      <div className="h-screen md:min-w-65 md:w-1/6 lg:w-1/8 flex flex-col justify-start bg-aside border-r-2 border-gray-500">
+      <div className=" md:min-w-65 md:w-1/6 lg:w-1/8 flex flex-col justify-start bg-aside border-r-2 border-gray-500">
         <div className="w-full flex flex-col items-start">
           <div className="w-full flex justify-center items-center p-4">
             <div className="w-[10%] h-auto">

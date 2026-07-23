@@ -54,7 +54,12 @@ export default function NavBtn({
                 {btn.name}
               </button>
             </div>
-            {<btn.Icon className="text-3xl md:hidden" />}
+            {
+              <btn.Icon
+                className="text-3xl md:hidden hover:text-amber-600"
+                onClick={() => handleNavigation(btn.slug)}
+              />
+            }
           </div>
         ))}
         <h3 className="hidden md:flex text-gray-400 text-sm md:text-lg ml-6 mb-2 mt-4">
@@ -71,7 +76,12 @@ export default function NavBtn({
                 {btn.name}
               </button>
             </div>
-            {<btn.Icon className="text-3xl md:hidden" />}
+            {
+              <btn.Icon
+                className="text-3xl md:hidden hover:text-amber-600"
+                onClick={() => handleNavigation(btn.slug)}
+              />
+            }
           </div>
         ))}
       </div>

@@ -36,13 +36,21 @@ export default function ListModule({
   );
 
   return (
-    <div className="w-full flex mt-4">
-      <button className="w-[10%] flex justify-center items-center">
-        <FaChevronLeft
-          onClick={() => handleSelectModule("-")}
-          className={`hover:scale-105 hover:text-amber-600 ${numViewModule === 1 ? "hidden" : ""}`}
-        />
-      </button>
+    <div className="w-full flex flex-col mt-10">
+      <div className="w-full flex justify-center">
+        <button className="w-[20%] flex justify-center items-center">
+          <FaChevronLeft
+            onClick={() => handleSelectModule("-")}
+            className={`hover:scale-105 text-2xl mr-6 hover:text-amber-600 ${numViewModule === 1 ? "hidden" : ""}`}
+          />
+        </button>
+        <button className="w-[20%] flex justify-center items-center">
+          <FaChevronRight
+            onClick={() => handleSelectModule("+")}
+            className={`hover:scale-105 text-2xl ml-6 hover:text-amber-600 ${numViewModule === module.length ? "hidden" : ""}`}
+          />
+        </button>
+      </div>
       {viewModule && (
         <Card
           className="w-[80%"
@@ -110,13 +118,6 @@ export default function ListModule({
           }
         />
       )}
-
-      <button className="w-[10%] flex justify-center items-center">
-        <FaChevronRight
-          onClick={() => handleSelectModule("+")}
-          className={`hover:scale-105 hover:text-amber-600 ${numViewModule === module.length ? "hidden" : ""}`}
-        />
-      </button>
     </div>
   );
 }

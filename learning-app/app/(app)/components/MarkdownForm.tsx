@@ -76,7 +76,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
             <section>
               <h1 className="text-xl mb-4">Créer ma RoadMap :</h1>
               <form
-                className="flex justify-evenly"
+                className="flex flex-col md:flex-row justify-evenly"
                 onSubmit={handleSubmit(onSubmit)}
               >
                 <div className="w-[45%] flex flex-col justify-evenly items-start">

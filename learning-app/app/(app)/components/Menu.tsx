@@ -53,7 +53,7 @@ export default function Menu({ project }: Props) {
       <h3 className="hidden md:flex text-xs md:text-sm mt-2 ml-2">
         Mon projet :
       </h3>
-      <div className="hidden md:flex p-2 mt-2">
+      <div className="flex p-2 mt-2">
         {projectData && (
           <select
             className="w-full bg-gray-100 border border-gray-300 rounded-sm p-1 text-xs md:text-sm  text-center text-black"
