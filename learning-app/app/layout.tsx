@@ -16,7 +16,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <head></head>
       <body className="h-screen w-screen flex bg-page">{children}</body>
     </html>
   );

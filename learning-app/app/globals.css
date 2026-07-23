@@ -19,7 +19,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
+  padding: 16px 16px 40px 16px;
 }
 /* Animation  */
 

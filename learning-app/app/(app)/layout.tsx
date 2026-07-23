@@ -37,7 +37,7 @@ export default async function AppLayout({
               <h1 className=" font-bold text-lg md:text-xl ml-4 ">
                 Learning APP
               </h1>
-              <p className="text-xs md:flex  ml-4 text-gray-300">
+              <p className="text-xs md:flex ml-4 text-gray-300">
                 Version 0.0.1
               </p>
             </div>

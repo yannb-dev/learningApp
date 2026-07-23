@@ -122,7 +122,7 @@ export default async function AppPage({
   const dateToday = format(new Date(), "dd/MM/yyyy", { locale: fr });
 
   return (
-    <div className="page md:w-[83%] md:h-screen md:p-12">
+    <div className="page w-screen md:w-[83%] md:h-screen md:p-12">
       {projectOpen && (
         <div className="w-full flex flex-col">
           {!projectOpen.roadmap && (
