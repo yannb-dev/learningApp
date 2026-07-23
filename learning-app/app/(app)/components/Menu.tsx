@@ -11,9 +11,6 @@ import NavBtn from "./NavBtn";
 //__________________type _________________
 import { Project } from "@prisma/client";
 
-import { IoMenu } from "react-icons/io5";
-import { IoClose } from "react-icons/io5";
-
 type Props = {
   project: Project[];
 };
@@ -27,7 +24,6 @@ export default function Menu({ project }: Props) {
   const [selectProject, setSelectProject] = useState<string | undefined>(
     query ?? undefined,
   );
-  const [stateMenu, setStateMenu] = useState(false);
 
   useEffect(() => {
     setProjectData(project);

@@ -12,7 +12,7 @@ export function getTemplateRoadmap() {
       "template",
       "markdownRoadMap.md",
     );
-    const templateRoadmap = fs.readFileSync(filePathRoadMap, "utf-8");
+    templateRoadmap = fs.readFileSync(filePathRoadMap, "utf-8");
 
     return templateRoadmap;
   }
@@ -26,7 +26,7 @@ export function getTemplateSeance() {
       "template",
       "markdownSeance.md",
     );
-    const templateSeance = fs.readFileSync(filePathSeance, "utf-8");
+    templateSeance = fs.readFileSync(filePathSeance, "utf-8");
 
     return templateSeance;
   }

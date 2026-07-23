@@ -34,6 +34,8 @@ export default async function GestionPage({
 
   const { project } = await searchParams;
 
+  if (!project || Array.isArray(project)) redirect("/");
+
   const listProject = await prisma.project.findMany({
     where: {
       id: project,
@@ -45,8 +47,8 @@ export default async function GestionPage({
     return (
       <div className="h-scren w-full flex justify-center items-center  font-bold text-xl ">
         <h1>
-          Oups ! Impossible de charger ton projet. Sélectionne le dans l'onglet
-          "Mon Projet"
+          Oups ! Impossible de charger ton projet. Sélectionne le dans
+          l&apos;onglet &quot;Mon Projet&quot;
         </h1>
         ;
       </div>
@@ -120,7 +122,7 @@ export default async function GestionPage({
                         />
                       </div>
                       <p>
-                        Format d'apprentissage : {roadmap.dispo} heures par
+                        Format d&apos;apprentissage : {roadmap.dispo} heures par
                         semaine
                       </p>
                     </div>

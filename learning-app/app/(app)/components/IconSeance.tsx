@@ -45,9 +45,9 @@ const tabIcon = [
   },
 ];
 
-export default function IconSeance() {
-  const number = Math.floor(Math.random() * 6) + 1;
+const number = Math.floor(Math.random() * 6) + 1;
 
+export default function IconSeance() {
   const filter = tabIcon.find((icon) => icon.index === number);
 
   return (

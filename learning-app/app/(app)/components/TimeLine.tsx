@@ -4,7 +4,6 @@ import { Prisma } from "@prisma/client";
 
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { useState } from "react";
 
 import { Seance } from "@/lib/schema/SeanceApi";
 
@@ -42,7 +41,7 @@ export default function TimeLine({ seances, roadmap }: Props) {
           <div className="h-60 md:h-full w-full overflow-y-scroll box-border flex flex-col justify-start p-2 ">
             {seances.length === 0 && (
               <p className="mt-20 mb-20 text-center">
-                Aucune sessions pour l'instant !
+                Aucune sessions pour l&apos;instant !
               </p>
             )}
             {seances.map((s) => (

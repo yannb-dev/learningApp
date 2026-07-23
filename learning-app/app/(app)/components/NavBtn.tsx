@@ -35,6 +35,7 @@ export default function NavBtn({
 
   useEffect(() => {
     setStateBtn("accueil");
+    router.push(`/accueil/project=${idProject}`);
   }, [idProject]);
 
   return (

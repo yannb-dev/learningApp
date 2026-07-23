@@ -27,6 +27,7 @@ export default function DeleteProject({ projectId }: { projectId: string }) {
         router.refresh();
       }
     } catch (err) {
+      console.error("Erreur du Delete project", err);
       setErrorFetch(true);
       setTimeout(() => setErrorFetch(false), 3000);
     }
@@ -34,7 +35,7 @@ export default function DeleteProject({ projectId }: { projectId: string }) {
 
   return (
     <div>
-      {errorFetch && <p>Oups une erreur c'est produite !</p>}
+      {errorFetch && <p>Oups une erreur c&apos;est produite !</p>}
       {viewConfirm ? (
         <div>
           <p>Etes vous sûr de vouloir supprimer ?</p>

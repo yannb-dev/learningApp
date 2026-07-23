@@ -20,6 +20,7 @@ export default function DeleteSeance({ seanceId }: { seanceId: string }) {
 
       return Response.json({ success: true, data: response });
     } catch (err) {
+      console.error("Erreur DELETE seance", err);
       return Response.json(
         { error: "Erreur du fetch Detele" },
         { status: 500 },

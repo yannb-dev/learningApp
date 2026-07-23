@@ -8,8 +8,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MarkdownSchema } from "@/lib/schema/Markdown";
 import { MarkdownData } from "@/lib/schema/Markdown";
 
-import { useRouter } from "next/navigation";
-
 //_________________ component ______________________
 import TextCopy from "./TextCopy";
 import Card from "./ui/Card";
@@ -24,7 +22,6 @@ interface MarkdownFormProps {
 }
 
 export default function MarkdownForm({ file }: MarkdownFormProps) {
-  const router = useRouter();
   const [downloadUrl, setDownloadUrl] = useState("");
   const [viewForm, setViewForm] = useState(true);
 
@@ -128,7 +125,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
                     </p>
                   )}
                   <label htmlFor="learningMode">
-                    Quel est ton mode d'apprentissage préféré :
+                    Quel est ton mode d&apos;apprentissage préféré :
                   </label>
                   <input
                     className={styleInput}
@@ -263,13 +260,13 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
               importé, génère une roadmap d'apprentissage personnalisée dans un
               fichier roadmap.json. Contraintes : - Adapte le rythme à ma
               disponibilité hebdomadaire - Commence par consolider les bases
-              avant d'introduire de nouveaux concepts - Chaque étape doit
+              avant d&apos;introduire de nouveaux concepts - Chaque étape doit
               déboucher sur quelque chose de concret et fonctionnel - Indique
-              clairement les prérequis de chaque module - - Si je n'ai pas de
-              stack cible définie, propose-en une cohérente avec mon objectif -
-              Utilise strictement le format définie dans la section ##### 8.
-              N'ajoutes rien d'autre. Format de roadmap souhaité dans un fichier
-              roadmap.json
+              clairement les prérequis de chaque module - - Si je n&apos;ai pas
+              de stack cible définie, propose-en une cohérente avec mon objectif
+              - Utilise strictement le format définie dans la section ##### 8.
+              N&apos;ajoutes rien d'autre. Format de roadmap souhaité dans un
+              fichier roadmap.json
             </p>
           </div>
         </div>

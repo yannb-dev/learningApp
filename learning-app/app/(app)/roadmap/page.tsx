@@ -63,8 +63,8 @@ export default async function RoadmapPage({
     return (
       <div className="h-scren w-full flex justify-center items-center  font-bold text-xl ">
         <h1>
-          Oups ! Impossible de charger ton projet. Sélectionne le dans l'onglet
-          "Mon Projet"
+          Oups ! Impossible de charger ton projet. Sélectionne le dans
+          l&apos;onglet &quot;Mon Projet&quot;
         </h1>
         ;
       </div>
@@ -180,7 +180,7 @@ export default async function RoadmapPage({
       ) : (
         <div className="w-full h-screen flex flex-col justify-center items-center">
           <h1 className="text-xl font-bold mb-2">
-            Vous n'avez pas inséré de Roadmap dans votre projet !
+            Vous n&quot;avez pas inséré de Roadmap dans votre projet !
           </h1>
           <div className="flex items-center">
             <p className="font-mono mr-4">Rendez vous dans la section</p>

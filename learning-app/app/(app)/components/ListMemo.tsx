@@ -27,9 +27,14 @@ export default function ListMemo({ memo, array }: Props) {
 
   //____________ Filtre par tag ____________________
   const handleFiltre = (tag: string) => {
+    setStateTag(tag);
     setListMemo(memo.filter((m) => m.tags.find((t) => t.slug === tag)));
   };
 
+  //_____________Effacer filtre _____________________
+  const handleClean = (memo: Memo[]) => {
+    (setStateTag(""), setListMemo(memo));
+  };
   //____________ Tri alphabétique tags ____________
   const arrayTri = array.sort((a, b) => {
     return a.slug.localeCompare(b.slug);
@@ -45,7 +50,7 @@ export default function ListMemo({ memo, array }: Props) {
               className={`${stateTag === tag.slug ? "bg-gray-300" : ""} text-xs p-1 text-amber-600 font-bold rounded-sm mr-4 mb-4 hover:cursor-pointer`}
               key={tag.slug}
               onClick={() => {
-                (setStateTag(tag.slug), handleFiltre(tag.slug));
+                handleFiltre(tag.slug);
               }}
             >
               #{tag.slug}
@@ -54,9 +59,7 @@ export default function ListMemo({ memo, array }: Props) {
         </div>
         <button
           className="text-xs hover:cursor-pointer text-center text-amber-600 font-bold mb-4"
-          onClick={() => {
-            (setStateTag(""), setListMemo(memo));
-          }}
+          onClick={() => handleClean(memo)}
         >
           Effacer les filtres
         </button>

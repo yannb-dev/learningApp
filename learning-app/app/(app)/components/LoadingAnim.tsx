@@ -2,8 +2,6 @@
 
 import IconApp from "./IconApp";
 
-const stylePoint = "";
-
 export default function LoadingAnim() {
   return (
     <div className="h-50 w-50 relative flex items-center justify-center">

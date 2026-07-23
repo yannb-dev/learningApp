@@ -38,7 +38,7 @@ export default function DetailProject({
             <p className="text-justify text-gray-400">{project.detail}</p>
             <h3 className="font-bold mt-2 mb-2 flex items-center">
               <IoIosWarning className="text-sm text-amber-600 mr-4" />
-              Points d'intentions :
+              Points d&apos;intentions :
             </h3>
             <p className="text-gray-400">{project.warning}</p>
             <div className="mb-4 mt-4 p-4 bg-aside rounded-xl border border-gray-200 font-mono">

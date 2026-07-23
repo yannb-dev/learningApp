@@ -19,7 +19,6 @@ import { FaFlag } from "react-icons/fa";
 //___________ type ________________________________
 import { Objective } from "@prisma/client";
 
-type SearchParams = Promise<{ [key: string]: string }>;
 type ProjectWithObjective = Prisma.ProjectGetPayload<{
   include: { objectives: true };
 }>;
@@ -39,11 +38,7 @@ function ratioObjective(objectives: Objective[]) {
   );
 }
 
-export default async function Profil({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
+export default async function Profil() {
   const session = await getServerSession(authOptions);
 
   if (!session) redirect("/login");
@@ -100,7 +95,7 @@ export default async function Profil({
               </div>
               <h3 className="font-bold mt-12 mb-4">Mes préférences :</h3>
               <div className="flex items-center justify-between">
-                <h3>Thème de l'application </h3>
+                <h3>Thème de l&apos;application </h3>
                 <Toogle />
               </div>
             </div>

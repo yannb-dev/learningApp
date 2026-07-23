@@ -50,9 +50,9 @@ export default async function AppPage({
 
   let projectOpen = null;
   let practicalProject = null;
-  let arrayAcquired: Objective[] = [];
-  let arrayInProgress: Objective[] = [];
-  let arrayUpComming: Objective[] = [];
+  const arrayAcquired: Objective[] = [];
+  const arrayInProgress: Objective[] = [];
+  const arrayUpComming: Objective[] = [];
 
   if (search === "") {
     return (
@@ -61,8 +61,8 @@ export default async function AppPage({
           <h1 className="text-3xl">Choisis ton projet !</h1>
           <p className="mb-8">Sélectionne dans le menu un projet</p>
           <p className="mb-14">
-            Si tu n'as aucun project en cours clique sur Nouveau dans l'onglet
-            de sélection
+            Si tu n&apos;as aucun project en cours clique sur Nouveau dans
+            l&apos;onglet de sélection
           </p>
         </div>
       </div>
@@ -103,7 +103,7 @@ export default async function AppPage({
         <div className="h-scren w-full flex justify-center items-center font-bold text-xl">
           <h1>
             Oups ! Impossible de charger ton projet. Sélectionne le dans
-            l'onglet "Mon Projet"
+            l&apos;onglet &quot;Mon Projet&quot;
           </h1>
           ;
         </div>
@@ -128,7 +128,7 @@ export default async function AppPage({
           {!projectOpen.roadmap && (
             <div className="w-full h-screen flex flex-col justify-center items-center">
               <h1 className="text-xl font-bold mb-2">
-                Vous n'avez pas inséré de Roadmap dans votre projet !
+                Vous n&apos;avez pas inséré de Roadmap dans votre projet !
               </h1>
               <div className="flex items-center">
                 <p className="font-mono mr-4">Rendez vous dans la section</p>
@@ -138,7 +138,9 @@ export default async function AppPage({
           )}
           {projectOpen.roadmap && (
             <div className="w-full flex flex-col">
-              <h1 className="text-sm md:text-xl font-bold">Vue d'ensemble</h1>
+              <h1 className="text-sm md:text-xl font-bold">
+                Vue d&apos;nsemble
+              </h1>
               <p className="text-xs">{dateToday}</p>
               <div className="h-1/2 w-full flex justify-center items-start">
                 <TimeLine

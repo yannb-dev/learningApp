@@ -27,6 +27,7 @@ export default function DeleteRoadmap({ roadmapId }: { roadmapId: string }) {
 
       return Response.json({ success: true, data: response });
     } catch (err) {
+      console.error("Erreur DELETE project", err);
       return Response.json(
         { error: "Erreur du fetch Detele" },
         { status: 500 },

@@ -64,6 +64,7 @@ export default function RoadMapForm({
         }
       }
     } catch (err) {
+      console.error("Erreur POST Roadmap", err);
       setErrorFetch(true);
       setTimeout(() => setErrorFetch(false), 3000);
     }
@@ -108,10 +109,10 @@ export default function RoadMapForm({
         )}
       </div>
 
-      {errorFetch && <p>Oups une erreur c'est produite !</p>}
+      {errorFetch && <p>Oups une erreur c&apos;est produite !</p>}
       {errorImportRoadmap && (
         <div className="flex flex-col">
-          <p>Le fichier d'import n'est pas conforme ! </p>
+          <p>Le fichier d&apos;import n&apos;est pas conforme ! </p>
           <button
             onClick={() => setErrorImportRoadmap(false)}
             className="p rounded-sm bg-amber-600"

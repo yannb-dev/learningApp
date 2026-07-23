@@ -9,7 +9,6 @@ import { ImportSeance } from "@/lib/schema/ImportSeance";
 
 // ____________ icon __________________________
 import { LuImport } from "react-icons/lu";
-import { error } from "console";
 
 //_____________ type ___________________________
 type RoadmapData = Prisma.RoadmapGetPayload<{
@@ -28,15 +27,14 @@ type Props = {
 export default function JsonForm({ roadmap, templateSeance }: Props) {
   const router = useRouter();
 
-  if (templateSeance === undefined)
-    return <p>Erreur du chargement du Template</p>;
-
   const [stateTuto, setStateTuto] = useState(false);
   const [state, setState] = useState("generate");
-  const [downloadUrl, setDownloadUrl] = useState("");
   const [file, setFile] = useState<ImportSeance | null>(null);
   const [errorImportSeance, setErrorImportSeance] = useState(false);
   const [errorFetch, setErrorFetch] = useState(false);
+
+  if (templateSeance === undefined)
+    return <p>Erreur du chargement du Template</p>;
 
   // ____________________________________
   //
@@ -46,7 +44,6 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
     const template = templateSeance.replace("{{roadmapJson}}", file);
 
     const dataUrl = `data:text/markdown;charset=utf-8,${encodeURIComponent(template)}`;
-    setDownloadUrl(dataUrl);
     setState("idle");
 
     const link = document.createElement("a");
@@ -98,6 +95,7 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
         }
       }
     } catch (err) {
+      console.error("Erreur POST seance", err);
       setErrorFetch(true);
       setTimeout(() => setErrorFetch(false), 3000);
     }
@@ -136,10 +134,10 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
                 Charger la session
               </button>
             </div>
-            {errorFetch && <p>Oups, une erreur c'est produite !</p>}
+            {errorFetch && <p>Oups, une erreur c&apos;est produite !</p>}
             {errorImportSeance && (
               <div className="flex flex-col">
-                <p>Le fichier d'import n'est pas conforme ! </p>
+                <p>Le fichier d&apos;import n&apos;est pas conforme ! </p>
                 <button
                   onClick={() => setErrorImportSeance(false)}
                   className="p rounded-sm bg-amber-600"
@@ -162,7 +160,7 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
                     <strong>context.md</strong> ajoutes le à la fin de ta
                     session de travail dans ton LLM préféré. Il va te retourner
                     un fichier seance.json avec les mises à jour. Il te suffit
-                    de l'importer et de cliquer sur{" "}
+                    de l&apos;importer et de cliquer sur{" "}
                     <strong>Charger la session</strong>
                   </p>
                 </div>
