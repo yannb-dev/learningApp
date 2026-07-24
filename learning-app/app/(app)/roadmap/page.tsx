@@ -174,7 +174,7 @@ export default async function RoadmapPage({
       ) : (
         <div className="w-full h-screen flex flex-col justify-center items-center">
           <h1 className="text-xl font-bold mb-2">
-            Vous n&quot;avez pas inséré de Roadmap dans votre projet !
+            Vous n&apos;avez pas inséré de Roadmap dans votre projet !
           </h1>
           <div className="flex items-center">
             <p className="font-mono mr-4">Rendez vous dans la section</p>

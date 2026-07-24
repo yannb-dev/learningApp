@@ -1,10 +1,9 @@
 import fs from "fs";
 import path from "path";
 
-let templateRoadmap: string | null = null;
-let templateSeance: string | null = null;
-
 export function getTemplateRoadmap() {
+  let templateRoadmap: string | null = null;
+
   if (!templateRoadmap) {
     const filePathRoadMap = path.join(
       process.cwd(),
@@ -13,12 +12,14 @@ export function getTemplateRoadmap() {
       "markdownRoadMap.md",
     );
     templateRoadmap = fs.readFileSync(filePathRoadMap, "utf-8");
-
-    return templateRoadmap;
   }
+
+  return templateRoadmap;
 }
 
 export function getTemplateSeance() {
+  let templateSeance: string | null = null;
+
   if (!templateSeance) {
     const filePathSeance = path.join(
       process.cwd(),
@@ -27,7 +28,6 @@ export function getTemplateSeance() {
       "markdownSeance.md",
     );
     templateSeance = fs.readFileSync(filePathSeance, "utf-8");
-
-    return templateSeance;
   }
+  return templateSeance;
 }

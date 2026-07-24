@@ -9,6 +9,7 @@ import { ImportSeance } from "@/lib/schema/ImportSeance";
 
 // ____________ icon __________________________
 import { LuImport } from "react-icons/lu";
+import { FaTrash } from "react-icons/fa";
 
 //_____________ type ___________________________
 type RoadmapData = Prisma.RoadmapGetPayload<{
@@ -146,16 +147,16 @@ export default function JsonForm({ roadmap, templateSeance }: Props) {
                 </button>
               </div>
             )}
-            <div>
+            <div className="w-full md:w-1/4">
               <button
-                className="font-bold mt-4 ml-6 hover:cursor-pointer"
+                className="font-bold mt-4 mb-4 ml-6 hover:cursor-pointer"
                 onClick={() => setStateTuto(!stateTuto)}
               >
                 Comment procéder ?
               </button>
               {stateTuto && (
                 <div>
-                  <p>
+                  <p className="text-justify bg-aside p-4 rounded-sm">
                     Après avoir télécharger un fichier{" "}
                     <strong>context.md</strong> ajoutes le à la fin de ta
                     session de travail dans ton LLM préféré. Il va te retourner

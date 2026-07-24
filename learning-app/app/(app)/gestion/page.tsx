@@ -127,7 +127,7 @@ export default async function GestionPage({
               </section>
             </Card>
 
-            <div className="flex mt-10">
+            <div className="flex flex-col mt-10">
               <h3 className=" font-bold mb-4">Générer mon modele :</h3>
               <JsonForm roadmap={roadmap} templateSeance={templateSeance} />
             </div>

@@ -25,6 +25,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
   const [downloadUrl, setDownloadUrl] = useState("");
   const [viewForm, setViewForm] = useState(true);
 
+  if (file === undefined) return <p>Erreur</p>;
   const safeFile = file;
 
   const {
@@ -61,8 +62,6 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
     setViewForm(false);
     reset();
   };
-
-  if (file === undefined) return <p>Erreur</p>;
 
   return (
     <div className="w-full p-4">
