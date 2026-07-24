@@ -155,7 +155,7 @@ export default async function AppPage({
                   upComming={arrayUpComming}
                   numberModule={projectOpen.roadmap.module.length}
                 />
-                {practicalProject && (
+                {practicalProject.length > 0 && (
                   <DetailProject project={practicalProject[0]} />
                 )}
               </div>
