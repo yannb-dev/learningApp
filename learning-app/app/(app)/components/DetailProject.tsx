@@ -14,15 +14,15 @@ export default function DetailProject({
   project: Practicalproject;
 }) {
   return (
-    <Card
-      className="h-full"
-      children={
+    <div>
+      <Card>
         <div>
           <div className="w-full flex items-center justify-between p-2">
             <h1>Project en cours :</h1>
-            <DivAmber className="text-xs" children={<h1>{project.state}</h1>} />
+            <DivAmber className="text-xs">
+              <h1>{project.state}</h1>
+            </DivAmber>
           </div>
-
           <div className="h-px w-full bg-gray-300"></div>
           <div className="h-60 overflow-y-scroll overflow-hidden p-4 text-xs">
             <h3 className="font-bold mb-2">Titre : {project.name}</h3>
@@ -59,7 +59,7 @@ export default function DetailProject({
             <p className="text-gray-400">{project.noteInProgress}</p>
           </div>
         </div>
-      }
-    />
+      </Card>
+    </div>
   );
 }

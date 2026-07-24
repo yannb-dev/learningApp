@@ -56,51 +56,45 @@ export default async function Profil() {
     <div className="page md:w-[83%] h-screen">
       <h1 className="text-xl font-bold">Profil utilisateur</h1>
       <div className="w-full flex flex-col items-center">
-        <Card
-          className="md:w-[70%] h-auto p-6"
-          children={
-            <div>
-              <h3>Utilisateur : {session.user.name}</h3>
-              <h3>Adresse Mail : {session.user.email}</h3>
-            </div>
-          }
-        />
-        <Card
-          className="md:w-[70%] h-auto p-6"
-          children={
-            <div>
-              <h3 className="font-bold mb-6">Mes projets :</h3>
-              <div className="w-full flex flex-col">
-                {project.map((project: ProjectWithObjective) => (
-                  <div
-                    className="w-full flex flex-col md:flex-row items-center justify-between p-2 md:p-6 border-t-2 border-gray-300"
-                    key={project.id}
-                  >
-                    <div className="w-full md:w-[45%] flex flex-col :md:flex-row ">
-                      <FaFlag className="text-amber-600" />
-                      <h1 className="font-mono ml-6">{project.name}</h1>
-                      {ratioObjective(project.objectives)}
-                    </div>
-                    <div className="w-full md:w-[45%] flex flex-col md:flex-row mt-6 md:mt-0">
-                      <p className="mb-6 md:mb-0">
-                        Créé le{" "}
-                        {format(project.createdAt, "dd/MM/yyyy", {
-                          locale: fr,
-                        })}
-                      </p>
-                      <DeleteProject projectId={project.id} />
-                    </div>
+        <Card className="md:w-[70%] h-auto p-6">
+          <div>
+            <h3>Utilisateur : {session.user.name}</h3>
+            <h3>Adresse Mail : {session.user.email}</h3>
+          </div>
+        </Card>
+        <Card className="md:w-[70%] h-auto p-6">
+          <div>
+            <h3 className="font-bold mb-6">Mes projets :</h3>
+            <div className="w-full flex flex-col">
+              {project.map((project: ProjectWithObjective) => (
+                <div
+                  className="w-full flex flex-col md:flex-row items-center justify-between p-2 md:p-6 border-t-2 border-gray-300"
+                  key={project.id}
+                >
+                  <div className="w-full md:w-[45%] flex flex-col :md:flex-row ">
+                    <FaFlag className="text-amber-600" />
+                    <h1 className="font-mono ml-6">{project.name}</h1>
+                    {ratioObjective(project.objectives)}
                   </div>
-                ))}
-              </div>
-              <h3 className="font-bold mt-12 mb-4">Mes préférences :</h3>
-              <div className="flex items-center justify-between">
-                <h3>Thème de l&apos;application </h3>
-                <Toogle />
-              </div>
+                  <div className="w-full md:w-[45%] flex flex-col md:flex-row mt-6 md:mt-0">
+                    <p className="mb-6 md:mb-0">
+                      Créé le{" "}
+                      {format(project.createdAt, "dd/MM/yyyy", {
+                        locale: fr,
+                      })}
+                    </p>
+                    <DeleteProject projectId={project.id} />
+                  </div>
+                </div>
+              ))}
             </div>
-          }
-        />
+            <h3 className="font-bold mt-12 mb-4">Mes préférences :</h3>
+            <div className="flex items-center justify-between">
+              <h3>Thème de l&apos;application </h3>
+              <Toogle />
+            </div>
+          </div>
+        </Card>
       </div>
     </div>
   );

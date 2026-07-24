@@ -33,7 +33,8 @@ export default function ListMemo({ memo, array }: Props) {
 
   //_____________Effacer filtre _____________________
   const handleClean = (memo: Memo[]) => {
-    (setStateTag(""), setListMemo(memo));
+    setStateTag("");
+    setListMemo(memo);
   };
   //____________ Tri alphabétique tags ____________
   const arrayTri = array.sort((a, b) => {
@@ -71,26 +72,26 @@ export default function ListMemo({ memo, array }: Props) {
               <Card
                 className="h-80 overflow-y-scroll  text-gray-300 p-4"
                 key={memo.id}
-                children={
-                  <div>
-                    <h1 className=" font-bold">Mémo :</h1>
-                    <h3 className="text-sm">{memo.topic}</h3>
-                    <div className="flex mt-2">
-                      {memo.tags.map((tag) => (
-                        <DivAmber
-                          key={tag.slug}
-                          className="w-auto text-xs flex flex-wrap ml-2"
-                          children={<div>#{tag.slug}</div>}
-                        />
-                      ))}
-                    </div>
-                    <h3 className="mt-4 mb-2">Snippet :</h3>
-                    <CodeBlock code={memo.snippet} />
-                    <h3 className=" text-xs mt-4 mb-2">Notes :</h3>
-                    <p className="text-justify mt-6 text-xs">{memo.notes}</p>
+              >
+                <div>
+                  <h1 className=" font-bold">Mémo :</h1>
+                  <h3 className="text-sm">{memo.topic}</h3>
+                  <div className="flex mt-2">
+                    {memo.tags.map((tag) => (
+                      <DivAmber
+                        key={tag.slug}
+                        className="w-auto text-xs flex flex-wrap ml-2"
+                      >
+                        <div>#{tag.slug}</div>
+                      </DivAmber>
+                    ))}
                   </div>
-                }
-              />
+                  <h3 className="mt-4 mb-2">Snippet :</h3>
+                  <CodeBlock code={memo.snippet} />
+                  <h3 className=" text-xs mt-4 mb-2">Notes :</h3>
+                  <p className="text-justify mt-6 text-xs">{memo.notes}</p>
+                </div>
+              </Card>
             ))}
           </div>
         ) : (

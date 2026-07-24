@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 //______________ Icon _______________________
 import { FaEye } from "react-icons/fa";
@@ -16,6 +16,8 @@ export default function NavBtn({
   idProject: string | undefined;
 }) {
   const router = useRouter();
+  const pathName = usePathname();
+  const stateBtn = pathName.split("/")[1];
 
   const titleBtnApp = [
     { name: "Vue d'ensemble", slug: "accueil", Icon: FaEye },
@@ -26,17 +28,9 @@ export default function NavBtn({
 
   const titleBtnCompte = [{ name: "Profil", slug: "profil", Icon: FaUser }];
 
-  const [stateBtn, setStateBtn] = useState("");
-
   const handleNavigation = (page: string) => {
-    setStateBtn(page);
     router.push(`/${page}?project=${idProject}`);
   };
-
-  useEffect(() => {
-    setStateBtn("accueil");
-    router.push(`/accueil/project=${idProject}`);
-  }, [idProject]);
 
   return (
     <div className="w-full flex flex-col items-start mb-2 p-2">

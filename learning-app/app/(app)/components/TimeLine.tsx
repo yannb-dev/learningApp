@@ -33,9 +33,9 @@ type Props = {
 
 export default function TimeLine({ seances, roadmap }: Props) {
   return (
-    <Card
-      children={
-        <div>
+    <div className="w-full">
+      <Card>
+        <div className="w-full">
           <h1 className="m-2 text-sm">Chronologie des sessions :</h1>
           <div className="h-px w-full bg-gray-300"></div>
           <div className="h-60 md:h-full w-full overflow-y-scroll box-border flex flex-col justify-start p-2 ">
@@ -66,11 +66,9 @@ export default function TimeLine({ seances, roadmap }: Props) {
 
                         <div className="w-[95%] flex flex-wrap gap-2 mt-2">
                           {s.tags.map((tag) => (
-                            <DivAmber
-                              key={tag}
-                              className="ml-2 text-xs"
-                              children={<p>{tag}</p>}
-                            />
+                            <DivAmber key={tag} className="ml-2 text-xs">
+                              <p>{tag}</p>
+                            </DivAmber>
                           ))}
                         </div>
                         <p className="w-auto text-gray-400 text-xs text-justify mt-4">
@@ -93,7 +91,7 @@ export default function TimeLine({ seances, roadmap }: Props) {
             )}
           </div>
         </div>
-      }
-    />
+      </Card>
+    </div>
   );
 }

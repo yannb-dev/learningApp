@@ -55,7 +55,7 @@ export async function POST(request: Request) {
 
       await Promise.all(
         moduleList.map(async (liste) => {
-          const module = await tx.module.create({
+          const moduleData = await tx.module.create({
             data: {
               name: liste.name,
               numModule: liste.numModule,
@@ -67,14 +67,14 @@ export async function POST(request: Request) {
           });
 
           const newTabCompetence = competenceList.filter(
-            (e) => e.moduleRef === module.numModule,
+            (e) => e.moduleRef === moduleData.numModule,
           );
           const newTabCriteria = criteriaList.filter(
-            (e) => e.moduleRef === module.numModule,
+            (e) => e.moduleRef === moduleData.numModule,
           );
 
           const newTabPracticalProject = projectList.filter(
-            (e) => e.numModule === module.numModule,
+            (e) => e.numModule === moduleData.numModule,
           );
           await Promise.all([
             ...newTabCompetence.map((liste) => {

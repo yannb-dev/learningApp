@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 //__________________component ______________
@@ -20,25 +20,16 @@ export default function Menu({ project }: Props) {
   const searchParams = useSearchParams();
   const query = searchParams.get("project");
 
-  const [projectData, setProjectData] = useState(project);
   const [selectProject, setSelectProject] = useState<string | undefined>(
     query ?? undefined,
   );
 
-  useEffect(() => {
-    setProjectData(project);
-
-    if (project.length === 0) {
-      setSelectProject(undefined);
-    }
-  }, [project]);
-
-  const handleSelect = (id: string) => {
+  const handleSelect = async (id: string) => {
     if (id === "new") {
       router.push("/newproject");
     } else {
-      setSelectProject(id);
       router.push(`/accueil?project=${id}`);
+      setSelectProject(id);
     }
   };
 
@@ -50,14 +41,14 @@ export default function Menu({ project }: Props) {
         Mon projet :
       </h3>
       <div className="flex p-2 mt-2">
-        {projectData && (
+        {project && (
           <select
             className="w-full bg-gray-100 border border-gray-300 rounded-sm p-1 text-xs md:text-sm  text-center text-black"
             onChange={(e) => handleSelect(e.target.value)}
             defaultValue={selectProject}
           >
             <option value="">--Mon project--</option>
-            {projectData.map((p) => (
+            {project.map((p) => (
               <option key={p.id} value={p.id}>
                 {p.name}
               </option>

@@ -61,9 +61,8 @@ export default function ListObjective({
     setFilter(filter);
   };
   return (
-    <Card
-      className="h-full"
-      children={
+    <div>
+      <Card>
         <div className=" h-80">
           <div className="h-[15%] flex justify-evenly p-2">
             <button
@@ -98,7 +97,7 @@ export default function ListObjective({
             </div>
           </div>
         </div>
-      }
-    />
+      </Card>
+    </div>
   );
 }

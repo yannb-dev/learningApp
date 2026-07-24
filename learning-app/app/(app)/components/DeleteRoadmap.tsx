@@ -10,6 +10,7 @@ export default function DeleteRoadmap({ roadmapId }: { roadmapId: string }) {
   const router = useRouter();
 
   const [confirm, setConfirm] = useState(false);
+  const [errorFetch, setErrorFetch] = useState(false);
 
   const handleDelete = () => {
     setConfirm(true);
@@ -28,10 +29,8 @@ export default function DeleteRoadmap({ roadmapId }: { roadmapId: string }) {
       return Response.json({ success: true, data: response });
     } catch (err) {
       console.error("Erreur DELETE project", err);
-      return Response.json(
-        { error: "Erreur du fetch Detele" },
-        { status: 500 },
-      );
+      setErrorFetch(true);
+      setTimeout(() => setErrorFetch(false), 3000);
     }
   };
 
@@ -59,6 +58,7 @@ export default function DeleteRoadmap({ roadmapId }: { roadmapId: string }) {
           </div>
         </div>
       )}
+      {errorFetch && <p>Oups une erreur c&apos;est produite</p>}
     </div>
   );
 }
