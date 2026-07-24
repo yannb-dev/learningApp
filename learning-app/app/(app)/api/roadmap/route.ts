@@ -84,7 +84,7 @@ export async function POST(request: Request) {
                   index: liste.index,
                   state: "UpComming",
                   moduleRef: liste.moduleRef,
-                  moduleId: module.id,
+                  moduleId: moduleData.id,
                   projectId: result.data.projectId,
                 },
               });
@@ -96,7 +96,7 @@ export async function POST(request: Request) {
                   name: liste.name,
                   index: liste.index,
                   moduleRef: liste.moduleRef,
-                  moduleId: module.id,
+                  moduleId: moduleData.id,
                 },
               });
             }),
@@ -108,7 +108,7 @@ export async function POST(request: Request) {
                   stack: liste.stack,
                   detail: liste.detail,
                   warning: liste.warning,
-                  moduleId: module.id,
+                  moduleId: moduleData.id,
                   roadmapId: roadmap.id,
                   numModule: liste.numModule,
                   state: "NoStart",
