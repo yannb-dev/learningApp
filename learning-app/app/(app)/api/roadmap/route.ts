@@ -53,73 +53,84 @@ export async function POST(request: Request) {
         },
       });
 
-      await Promise.all(
-        moduleList.map(async (liste) => {
-          const moduleData = await tx.module.create({
-            data: {
-              name: liste.name,
-              numModule: liste.numModule,
-              duration: liste.duration,
-              prerequisites: liste.prerequisites,
-              pointcritical: liste.pointcritical,
-              roadmapId: roadmap.id,
-            },
-          });
+      const createdModules = await tx.module.createManyAndReturn({
+        data: moduleList.map((liste) => ({
+          name: liste.name,
+          numModule: liste.numModule,
+          duration: liste.duration,
+          prerequisites: liste.prerequisites,
+          pointcritical: liste.pointcritical,
+          roadmapId: roadmap.id,
+        })),
+      });
 
-          const newTabCompetence = competenceList.filter(
-            (e) => e.moduleRef === moduleData.numModule,
-          );
-          const newTabCriteria = criteriaList.filter(
-            (e) => e.moduleRef === moduleData.numModule,
-          );
-
-          const newTabPracticalProject = projectList.filter(
-            (e) => e.numModule === moduleData.numModule,
-          );
-          await Promise.all([
-            ...newTabCompetence.map((liste) => {
-              return tx.objective.create({
-                data: {
-                  name: liste.name,
-                  index: liste.index,
-                  state: "UpComming",
-                  moduleRef: liste.moduleRef,
-                  moduleId: moduleData.id,
-                  projectId: result.data.projectId,
-                },
-              });
-            }),
-
-            ...newTabCriteria.map((liste) => {
-              return tx.criteria.create({
-                data: {
-                  name: liste.name,
-                  index: liste.index,
-                  moduleRef: liste.moduleRef,
-                  moduleId: moduleData.id,
-                },
-              });
-            }),
-
-            ...newTabPracticalProject.map((liste) => {
-              return tx.practicalproject.create({
-                data: {
-                  name: liste.name,
-                  stack: liste.stack,
-                  detail: liste.detail,
-                  warning: liste.warning,
-                  moduleId: moduleData.id,
-                  roadmapId: roadmap.id,
-                  numModule: liste.numModule,
-                  state: "NoStart",
-                  noteInProgress: "Aucune note.",
-                  stepHelp: liste.stepHelp,
-                },
-              });
-            }),
-          ]);
-        }),
+      // Table de correspondance numModule -> id généré
+      const moduleIdByNum = new Map(
+        createdModules.map((m) => [m.numModule, m.id]),
       );
+
+      // PHASE 2 — On construit les tableaux complets, puis 1 seul createMany chacun
+      await tx.objective.createMany({
+        data: competenceList.map((liste) => {
+          const moduleId = moduleIdByNum.get(liste.moduleRef);
+
+          if (!moduleId) {
+            throw new Error(
+              `Module introuvable pour moduleRef=${liste.moduleRef} (objective: ${liste.name})`,
+            );
+          }
+          return {
+            name: liste.name,
+            index: liste.index,
+            state: "UpComming",
+            moduleRef: liste.moduleRef,
+            moduleId,
+            projectId: result.data.projectId,
+          };
+        }),
+      });
+
+      await tx.criteria.createMany({
+        data: criteriaList.map((liste) => {
+          const moduleId = moduleIdByNum.get(liste.moduleRef);
+
+          if (!moduleId) {
+            throw new Error(
+              `Module introuvable pour moduleRef=${liste.moduleRef} (criteria: ${liste.name})`,
+            );
+          }
+          return {
+            name: liste.name,
+            index: liste.index,
+            moduleRef: liste.moduleRef,
+            moduleId,
+          };
+        }),
+      });
+
+      await tx.practicalproject.createMany({
+        data: projectList.map((liste) => {
+          const moduleId = moduleIdByNum.get(liste.numModule);
+
+          if (!moduleId) {
+            throw new Error(
+              `Module introuvable pour moduleRef=${liste.numModule} (practicalProject: ${liste.name})`,
+            );
+          }
+          return {
+            name: liste.name,
+            stack: liste.stack,
+            detail: liste.detail,
+            warning: liste.warning,
+            moduleId,
+            roadmapId: roadmap.id,
+            numModule: liste.numModule,
+            state: "NoStart",
+            noteInProgress: "Aucune note.",
+            stepHelp: liste.stepHelp,
+          };
+        }),
+      });
     });
 
     return Response.json({ success: true });
