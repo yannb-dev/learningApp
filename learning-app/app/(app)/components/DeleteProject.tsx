@@ -8,7 +8,6 @@ import { FaTrashAlt } from "react-icons/fa";
 
 export default function DeleteProject({ projectId }: { projectId: string }) {
   const router = useRouter();
-
   const [viewConfirm, setViewConfirm] = useState(false);
   const [errorFetch, setErrorFetch] = useState(false);
 

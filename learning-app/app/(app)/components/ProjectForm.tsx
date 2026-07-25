@@ -4,11 +4,14 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { useState } from "react";
+
 // _____________ import schema ZOD ___________________
 import { ProjectSchema } from "@/lib/schema/FormNewProject";
 
 export default function ProjectForm() {
   const router = useRouter();
+  const [stateError, setStateError] = useState(false);
 
   const {
     register,
@@ -25,18 +28,25 @@ export default function ProjectForm() {
   });
 
   const onSubmit = async (data: ProjectSchema) => {
-    const response = await fetch("/api/project", {
-      method: "POST",
+    try {
+      const response = await fetch("/api/project", {
+        method: "POST",
 
-      headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
 
-      body: JSON.stringify(data),
-    });
+        body: JSON.stringify(data),
+      });
 
-    if (response.ok) {
+      if (!response.ok) {
+        throw new Error("Erreur lors de l'envoi du formulaire");
+      }
       reset();
       router.push("/accueil");
       router.refresh();
+    } catch (err) {
+      console.error("Erreur POST project", err);
+      setStateError(true);
+      setTimeout(() => setStateError(false), 3000);
     }
   };
 
@@ -75,6 +85,7 @@ export default function ProjectForm() {
           Ajouter
         </button>
       </form>
+      {stateError && <p>Oups une erreur c'est produite !</p>}
     </div>
   );
 }
