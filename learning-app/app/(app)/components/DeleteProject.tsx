@@ -5,11 +5,13 @@ import { useState } from "react";
 
 //___________ import Icon ___________________________
 import { FaTrashAlt } from "react-icons/fa";
+import { AiOutlineLoading } from "react-icons/ai";
 
 export default function DeleteProject({ projectId }: { projectId: string }) {
   const router = useRouter();
   const [viewConfirm, setViewConfirm] = useState(false);
   const [errorFetch, setErrorFetch] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleConfirm = () => {
     setViewConfirm(true);
@@ -17,6 +19,8 @@ export default function DeleteProject({ projectId }: { projectId: string }) {
 
   const handleDelete = async () => {
     try {
+      setLoading(true);
+
       const response = await fetch(`/api/project/${projectId}`, {
         method: "DELETE",
       });
@@ -26,6 +30,7 @@ export default function DeleteProject({ projectId }: { projectId: string }) {
         router.refresh();
       }
     } catch (err) {
+      setLoading(false);
       console.error("Erreur du Delete project", err);
       setErrorFetch(true);
       setTimeout(() => setErrorFetch(false), 3000);
@@ -56,6 +61,11 @@ export default function DeleteProject({ projectId }: { projectId: string }) {
           className="text-xl text-amber-600 hover:scale-110 ml-6"
           onClick={handleConfirm}
         />
+      )}
+      {loading && (
+        <div>
+          <AiOutlineLoading className="animate-spin text-3xl text-amber-600 ml-10" />
+        </div>
       )}
     </div>
   );

@@ -12,7 +12,6 @@ export default function LoginPage() {
   const handleSignIn = async (type: string) => {
     setLoading(true);
     await signIn(type, { callbackUrl: "/accueil" });
-    setLoading(false);
   };
 
   return (

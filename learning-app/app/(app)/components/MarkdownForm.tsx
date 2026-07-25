@@ -73,7 +73,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
               className="flex flex-col md:flex-row justify-evenly"
               onSubmit={handleSubmit(onSubmit)}
             >
-              <div className="w-[45%] flex flex-col justify-evenly items-start">
+              <div className="w-full md:w-[45%] flex flex-col justify-evenly items-start">
                 <label htmlFor="objective">Mon objectif :</label>
                 <input
                   className={styleInput}
@@ -150,7 +150,7 @@ export default function MarkdownForm({ file }: MarkdownFormProps) {
                   </p>
                 )}
               </div>
-              <div className="w-[45%] flex flex-col justify-evenly items-start">
+              <div className="w-full md:w-[45%] flex flex-col justify-evenly items-start">
                 <label htmlFor="pointBad">
                   Quels sont tes points bloquants ?
                 </label>
