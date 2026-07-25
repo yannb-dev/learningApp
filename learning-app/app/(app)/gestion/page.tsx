@@ -36,14 +36,26 @@ export default async function GestionPage({
 
   if (!project || Array.isArray(project)) redirect("/");
 
-  const listProject = await prisma.project.findMany({
+  const projectUpdate = await prisma.project.findUnique({
     where: {
       id: project,
       userId: session.user.id,
     },
+    include: {
+      roadmap: {
+        include: {
+          module: {
+            include: {
+              objectives: true,
+            },
+          },
+        },
+      },
+      seances: true,
+    },
   });
 
-  if (listProject.length === 0)
+  if (!projectUpdate)
     return (
       <div className="h-scren w-full flex justify-center items-center  font-bold text-xl ">
         <h1>
@@ -57,81 +69,62 @@ export default async function GestionPage({
   const templateRoadmap = getTemplateRoadmap();
   const templateSeance = getTemplateSeance();
 
-  // ___________ chargement de la roadmap unique _________
-  const roadmap = await prisma.roadmap.findUnique({
-    where: {
-      projectId: project,
-      userId: session.user.id,
-    },
-    include: {
-      module: {
-        include: { objectives: true },
-      },
-    },
-  });
-
-  // __________ chargement des seances ____________________
-
-  const seance = await prisma.seance.findMany({
-    where: {
-      projectId: project,
-      userId: session.user.id,
-    },
-  });
-
   return (
     <div className="page md:w-[83%] md:h-screen md:p-12 overflow-y-scroll">
       <div className="w-full">
-        {!roadmap && (
-          <div className="w-full">
-            <MarkdownForm file={templateRoadmap} />
-            <RoadMapForm idProject={project} />
-          </div>
-        )}
-        {roadmap && (
+        <div className="w-full">
+          <MarkdownForm file={templateRoadmap} />
+          <RoadMapForm idProject={project} />
+        </div>
+        {projectUpdate.roadmap && (
           <div className="w-full flex flex-col ">
             <h3 className="text-xl font-bold">Ma roadmap</h3>
             <Card className="h-auto p-6">
               <section>
                 <div className="w-full flex flex-col md:flex-row justify-evenly">
                   <div className="w-full md:w-[50%] flex flex-col">
-                    <h1 className="text-2xl font-bold">{roadmap.name}</h1>
+                    <h1 className="text-2xl font-bold">
+                      {projectUpdate.roadmap.name}
+                    </h1>
                     <p className="text-xs">
-                      {format(roadmap.createdAt, "dd/MM/yyyy", {
+                      {format(projectUpdate.roadmap.createdAt, "dd/MM/yyyy", {
                         locale: fr,
                       })}
                     </p>
                     <div className="w-full flex flex-col md-flex-row mt-6 text-sm">
                       <p className="mb-4 md:mb-0">Objectif :</p>
                       <div className="w-[70%] ml-2 text-justify">
-                        {roadmap.objective}
+                        {projectUpdate.roadmap.objective}
                       </div>
                     </div>
                   </div>
                   <div className="w-full md:w-[50%] flex flex-col">
                     <div className="flex justify-evenly mt-6 md:mt-0 mb-6">
                       <DivAmber>
-                        <p>{roadmap.duration} heures</p>
+                        <p>{projectUpdate.roadmap.duration} heures</p>
                       </DivAmber>
                       <DivAmber>
-                        <p>{roadmap.module.length} Module</p>
+                        <p>{projectUpdate.roadmap.module.length} Module</p>
                       </DivAmber>
                     </div>
                     <p>
-                      Format d&apos;apprentissage : {roadmap.dispo} heures par
-                      semaine
+                      Format d&apos;apprentissage :{" "}
+                      {projectUpdate.roadmap.dispo} heures par semaine
                     </p>
                   </div>
                 </div>
-                <DeleteRoadmap roadmapId={roadmap.id} />
+                <DeleteRoadmap roadmapId={projectUpdate.roadmap.id} />
               </section>
             </Card>
 
             <div className="flex flex-col mt-10">
               <h3 className=" font-bold mb-4">Générer mon modele :</h3>
-              <JsonForm roadmap={roadmap} templateSeance={templateSeance} />
+              <JsonForm
+                roadmap={projectUpdate.roadmap}
+                templateSeance={templateSeance}
+              />
             </div>
-            {seance.length !== 0 && (
+            {projectUpdate.seances.length !== 0 && (
               <Card className="h-auto overflow-x-scroll md:overscroll-none justify-evenly  p-6 text-xs">
                 <div>
                   <div className="w-300">
@@ -143,8 +136,8 @@ export default async function GestionPage({
                         <div className="w-96 md:w-[25%]">Prochaines étapes</div>
                       </div>
                     </div>
-                    {seance &&
-                      seance.map((seance: Seance) => (
+                    {projectUpdate.seances &&
+                      projectUpdate.seances.map((seance: Seance) => (
                         <div key={seance.id} className="flex flex-col">
                           <div className="flex justify-evenly" key={seance.id}>
                             <div className="h-auto w-16 md:w-[15%]">

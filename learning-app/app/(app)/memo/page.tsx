@@ -29,15 +29,26 @@ export default async function MemoPage({
 
   if (!project || Array.isArray(project)) redirect("/");
 
-  const listProject = await prisma.project.findMany({
+  const projectUpdate = await prisma.project.findUnique({
     where: {
       id: project,
       userId: session.user.id,
     },
-    select: { id: true },
+    select: {
+      id: true,
+      memos: {
+        include: {
+          tags: {
+            orderBy: {
+              slug: "asc",
+            },
+          },
+        },
+      },
+    },
   });
 
-  if (listProject.length === 0)
+  if (!projectUpdate)
     return (
       <div className="h-scren w-full flex justify-center items-center font-bold text-xl">
         <h1>
@@ -47,20 +58,9 @@ export default async function MemoPage({
       </div>
     );
 
-  const memo = await prisma.memo.findMany({
-    where: { projectId: project, userId: session.user.id },
-    include: {
-      tags: {
-        orderBy: {
-          slug: "asc",
-        },
-      },
-    },
-  });
-
   const arrayTag: { slug: string }[] = [];
 
-  memo.forEach((memo: Memo) => {
+  projectUpdate.memos.forEach((memo: Memo) => {
     memo.tags.forEach((tag) => {
       const includeArray = arrayTag.some((a) => a.slug === tag.slug);
 
@@ -71,7 +71,7 @@ export default async function MemoPage({
   });
   return (
     <div className="page h-screen md:p-12 ">
-      <ListMemo memo={memo} array={arrayTag} />
+      <ListMemo memo={projectUpdate.memos} array={arrayTag} />
     </div>
   );
 }

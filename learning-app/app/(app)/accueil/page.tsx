@@ -16,15 +16,14 @@ import DetailProject from "../components/DetailProject";
 import BtnDirectNewRoadmap from "../components/BtnDirectNewRoadmap";
 
 //___________ type ________________________________
-
 import { Objective } from "@prisma/client";
 
 type ModuleWithObjective = Prisma.ModuleGetPayload<{
   include: { objectives: true };
 }>;
-
 type SearchParams = Promise<{ [key: string]: string }>;
 
+//_______________________________________________________________
 export default async function AppPage({
   searchParams,
 }: {

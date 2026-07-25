@@ -51,15 +51,29 @@ export default async function RoadmapPage({
 
   if (!project || Array.isArray(project)) redirect("/");
 
-  const listProject = await prisma.project.findMany({
+  const projectUpdate = await prisma.project.findUnique({
     where: {
       id: project,
       userId: session.user.id,
     },
-    select: { id: true },
+    select: {
+      id: true,
+      roadmap: {
+        include: {
+          module: {
+            include: {
+              criterias: true,
+              objectives: true,
+              practicalproject: true,
+            },
+            orderBy: { numModule: "asc" },
+          },
+        },
+      },
+    },
   });
 
-  if (listProject.length === 0)
+  if (!projectUpdate)
     return (
       <div className="h-scren w-full flex justify-center items-center  font-bold text-xl ">
         <h1>
@@ -70,31 +84,17 @@ export default async function RoadmapPage({
       </div>
     );
 
-  const roadmap = await prisma.roadmap.findUnique({
-    where: {
-      projectId: project,
-      userId: session.user.id,
-    },
-    include: {
-      module: {
-        include: {
-          criterias: true,
-          objectives: true,
-          practicalproject: true,
-        },
-        orderBy: { numModule: "asc" },
-      },
-    },
-  });
-
   return (
     <div className="page md:w-[83%] md:p-12">
-      {roadmap ? (
+      {projectUpdate.roadmap ? (
         <main className="w-full flex flex-col">
           <div>
             <h1 className="text-xl font-bold">Roadmap</h1>
             <p className="text-xs">
-              Crée le {format(roadmap.createdAt, "dd/MM/yyyy", { locale: fr })}
+              Crée le{" "}
+              {format(projectUpdate.roadmap.createdAt, "dd/MM/yyyy", {
+                locale: fr,
+              })}
             </p>
           </div>
           <div className="w-full flex flex-col p-2">
@@ -122,31 +122,33 @@ export default async function RoadmapPage({
                       <p>0%</p>
                     </div>
                     <div className="w-[90%] h-full flex justify-evenly">
-                      {roadmap.module.map((module: ModuleWithObjective) => (
-                        <div className="h-45 flex flex-col" key={module.id}>
-                          <div className="h-full w-3 flex flex-col rounded-tr-xl rounded-tl-xl overflow-hidden">
-                            <div
-                              style={{
-                                height: `${handleTypeObjective("UpComming", module)}%`,
-                              }}
-                              className=" bg-red-500"
-                            ></div>
-                            <div
-                              style={{
-                                height: `${handleTypeObjective("InProgress", module)}%`,
-                              }}
-                              className=" bg-amber-500"
-                            ></div>
-                            <div
-                              style={{
-                                height: `${handleTypeObjective("Acquired", module)}%`,
-                              }}
-                              className=" bg-green-500"
-                            ></div>
+                      {projectUpdate.roadmap.module.map(
+                        (module: ModuleWithObjective) => (
+                          <div className="h-45 flex flex-col" key={module.id}>
+                            <div className="h-full w-3 flex flex-col rounded-tr-xl rounded-tl-xl overflow-hidden">
+                              <div
+                                style={{
+                                  height: `${handleTypeObjective("UpComming", module)}%`,
+                                }}
+                                className=" bg-red-500"
+                              ></div>
+                              <div
+                                style={{
+                                  height: `${handleTypeObjective("InProgress", module)}%`,
+                                }}
+                                className=" bg-amber-500"
+                              ></div>
+                              <div
+                                style={{
+                                  height: `${handleTypeObjective("Acquired", module)}%`,
+                                }}
+                                className=" bg-green-500"
+                              ></div>
+                            </div>
+                            <p>{module.numModule}</p>
                           </div>
-                          <p>{module.numModule}</p>
-                        </div>
-                      ))}
+                        ),
+                      )}
                     </div>
                   </div>
                 </div>
@@ -158,17 +160,17 @@ export default async function RoadmapPage({
                   <div className="p-4 w-full flex flex-col">
                     <h3>Mon projet :</h3>
                     <p className="text-xs text-gray-400 mb-4 mt-2">
-                      {roadmap.name}
+                      {projectUpdate.roadmap.name}
                     </p>
                     <h3>Mon objectif :</h3>
                     <p className="text-xs text-gray-400 text-justify mt-2">
-                      {roadmap.objective}
+                      {projectUpdate.roadmap.objective}
                     </p>
                   </div>
                 </div>
               </Card>
             </div>
-            <ListModule module={roadmap?.module} />
+            <ListModule module={projectUpdate.roadmap?.module} />
           </div>
         </main>
       ) : (
