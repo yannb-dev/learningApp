@@ -1,9 +1,8 @@
 import fs from "fs";
 import path from "path";
 
+let templateRoadmap: string | null = null;
 export function getTemplateRoadmap() {
-  let templateRoadmap: string | null = null;
-
   if (!templateRoadmap) {
     const filePathRoadMap = path.join(
       process.cwd(),
@@ -16,10 +15,8 @@ export function getTemplateRoadmap() {
 
   return templateRoadmap;
 }
-
+let templateSeance: string | null = null;
 export function getTemplateSeance() {
-  let templateSeance: string | null = null;
-
   if (!templateSeance) {
     const filePathSeance = path.join(
       process.cwd(),

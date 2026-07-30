@@ -42,19 +42,23 @@ export default function Menu({ project }: Props) {
       </h3>
       <div className="flex p-2 mt-2">
         {project && (
-          <select
-            className="w-full bg-gray-100 border border-gray-300 rounded-sm p-1 text-xs md:text-sm  text-center text-black"
-            onChange={(e) => handleSelect(e.target.value)}
-            defaultValue={selectProject}
-          >
-            <option value="">--Mon project--</option>
-            {project.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.name}
-              </option>
-            ))}
-            <option value="new">Nouveau projet...</option>
-          </select>
+          <div>
+            <label htmlFor="selectProject">Choisis un projet</label>
+            <select
+              id="selectProject"
+              className="w-full bg-gray-100 border border-gray-300 rounded-sm p-1 text-xs md:text-sm  text-center text-black"
+              onChange={(e) => handleSelect(e.target.value)}
+              defaultValue={selectProject}
+            >
+              <option value="">--Mon project--</option>
+              {project.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.name}
+                </option>
+              ))}
+              <option value="new">Nouveau projet...</option>
+            </select>
+          </div>
         )}
       </div>
       <BtnLogOut />

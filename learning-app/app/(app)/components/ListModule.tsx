@@ -38,24 +38,26 @@ export default function ListModule({
   return (
     <div className="w-full flex flex-col mt-10">
       <div className="w-full flex justify-center">
-        <button className="w-[20%] flex justify-center items-center">
-          <FaChevronLeft
-            onClick={() => handleSelectModule("-")}
-            className={`hover:scale-105 text-2xl mr-6 hover:text-amber-600 ${numViewModule === 1 ? "hidden" : ""}`}
-          />
+        <button
+          className={`w-[20%] flex justify-center items-center hover:scale-105 text-2xl mr-6 hover:text-amber-600 ${numViewModule === 1 ? "hidden" : ""}`}
+          onClick={() => handleSelectModule("-")}
+          aria-label="Précédent"
+        >
+          <FaChevronLeft />
         </button>
-        <button className="w-[20%] flex justify-center items-center">
-          <FaChevronRight
-            onClick={() => handleSelectModule("+")}
-            className={`hover:scale-105 text-2xl ml-6 hover:text-amber-600 ${numViewModule === module.length ? "hidden" : ""}`}
-          />
+        <button
+          className={`w-[20%] flex justify-center items-center hover:scale-105 text-2xl ml-6 hover:text-amber-600 ${numViewModule === module.length ? "hidden" : ""}`}
+          onClick={() => handleSelectModule("+")}
+          aria-label="Suivant"
+        >
+          <FaChevronRight />
         </button>
       </div>
       {viewModule && (
         <Card className="w-[80%]">
           <div>
             <div className="flex p-4 justify-between">
-              <h3 className="font-bold">Module N°{viewModule.numModule}</h3>
+              <h1 className="font-bold">Module N°{viewModule.numModule}</h1>
               <DivAmber className="text-xs">
                 <p>{viewModule.duration} heures</p>
               </DivAmber>

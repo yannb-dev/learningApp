@@ -72,10 +72,12 @@ export default async function GestionPage({
   return (
     <div className="page md:w-[83%] md:h-screen md:p-12 overflow-y-scroll">
       <div className="w-full">
-        <div className="w-full">
-          <MarkdownForm file={templateRoadmap} />
-          <RoadMapForm idProject={project} />
-        </div>
+        {!projectUpdate.roadmap && (
+          <div className="w-full">
+            <MarkdownForm file={templateRoadmap} />
+            <RoadMapForm idProject={project} />
+          </div>
+        )}
         {projectUpdate.roadmap && (
           <div className="w-full flex flex-col ">
             <h3 className="text-xl font-bold">Ma roadmap</h3>
