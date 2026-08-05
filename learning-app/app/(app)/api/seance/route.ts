@@ -33,7 +33,7 @@ export async function POST(request: Request) {
 
     // ______________ Transaction pour tout ou rien côté BDD _________
     await prisma.$transaction(async (tx) => {
-      tx.roadmap.update({
+      await tx.roadmap.update({
         where: {
           userId: session.user.id,
           projectId: result.data.projectId,
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
         },
       });
 
-      tx.seance.create({
+      await tx.seance.create({
         data: {
           sujet: result.data.seance.sujet,
           accomplished: result.data.seance.accomplished,
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
         },
       });
 
-      tx.practicalproject.update({
+      await tx.practicalproject.update({
         where: {
           moduleId: result.data.seance.practicalProject.moduleId,
         },
