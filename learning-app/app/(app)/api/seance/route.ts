@@ -28,6 +28,12 @@ export async function POST(request: Request) {
       where: { id: result.data.projectId, userId: session.user.id },
     });
 
+    const practicalProjectSearch = await prisma.practicalproject.findUnique({
+      where: {
+        moduleId: result.data.seance.practicalProject.moduleId,
+      },
+    });
+
     if (!project)
       return Response.json({ error: "Project introuvable" }, { status: 404 });
 
@@ -58,15 +64,17 @@ export async function POST(request: Request) {
         },
       });
 
-      await tx.practicalproject.update({
-        where: {
-          moduleId: result.data.seance.practicalProject.moduleId,
-        },
-        data: {
-          state: result.data.seance.practicalProject.statePracticalProject,
-          noteInProgress: result.data.seance.practicalProject.noteInProgress,
-        },
-      });
+      if (practicalProjectSearch) {
+        await tx.practicalproject.update({
+          where: {
+            moduleId: result.data.seance.practicalProject.moduleId,
+          },
+          data: {
+            state: result.data.seance.practicalProject.statePracticalProject,
+            noteInProgress: result.data.seance.practicalProject.noteInProgress,
+          },
+        });
+      }
 
       await Promise.all(
         result.data.seance.objectives.map((liste) => {
