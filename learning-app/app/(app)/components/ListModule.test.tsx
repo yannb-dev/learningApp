@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 
 import ListModule from "./ListModule";
 
-const module = [
+const moduleTest = [
   {
     numModule: 1,
     objectives: [
@@ -87,7 +87,7 @@ const module = [
 
 describe("ListModule - test chevron", () => {
   it("Chevron caché au montage", () => {
-    render(<ListModule module={module} />);
+    render(<ListModule modules={moduleTest} />);
 
     const chevronLeft = screen.getByRole("button", { name: "Précédent" });
 

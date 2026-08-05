@@ -33,7 +33,7 @@ describe("bouton navigation Menu", () => {
   ];
 
   it.each(routes)(
-    "appel btn navigation '$routes'.}",
+    "appel btn navigation /$routes au clic sur '$label'",
     async ({ label, route }) => {
       const user = userEvent.setup();
 

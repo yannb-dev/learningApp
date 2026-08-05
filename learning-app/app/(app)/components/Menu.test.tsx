@@ -5,7 +5,6 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Menu from "./Menu";
-import { usePathname } from "next/navigation";
 
 const pushMock = vi.fn();
 
@@ -39,18 +38,18 @@ vi.mock("next/navigation", () => ({
 }));
 
 describe("selection d'un projet par le select", () => {
+  beforeEach(() => {
+    pushMock.mockClear();
+  });
   const projectList = [
     { label: "test1", id: "123+" },
     { label: "test2", id: "456+" },
   ];
 
   it.each(projectList)(
-    "appel correspondant au project vers URL:/accueil",
-    async ({ label, id }) => {
-      beforeEach(() => {
-        pushMock.mockClear();
-      });
+    "appel correspondant au project vers URL:/accueil '$label'",
 
+    async ({ label, id }) => {
       const user = userEvent.setup();
 
       render(<Menu project={projectTest} />);

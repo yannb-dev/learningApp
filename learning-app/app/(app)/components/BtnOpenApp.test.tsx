@@ -6,7 +6,6 @@ import userEvent from "@testing-library/user-event";
 
 //_______________ Import des BTN navigation à tester____________
 import BtnOpenApp from "./BtnOpenApp";
-import BtnLogOut from "./BtnLogOut";
 
 //_______________ Function factice _____________________________
 const pushMock = vi.fn();
